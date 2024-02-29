@@ -11,28 +11,33 @@ import {
 } from "@/components/ui/carousel"
 import img from "@/public/img.jpeg"
 import Image from "next/image"
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
 export const Slider = () => {
     return (
         <Carousel
             opts={{
                 align: "start",
-                loop:true
+                loop: true
             }}
             plugins={[
                 Autoplay({
-                    delay:2000,
+                    delay: 4000,
                 }),
             ]}
             className="w-full "
         >
             <CarouselContent>
-                {Array.from({ length: 5 }).map((_, index) => (
+                {Array.from({length: 5}).map((_, index) => (
                     <CarouselItem key={index} className="md:basis-full lg:basis-full w-full flex justify-center">
-                           <Image src={img} alt={"Image"} className={"h-[80%] w-full object-cover"}/>
+                        <Image src={img} alt={"Image"} className={"h-[70%] w-full object-cover"}/>
                     </CarouselItem>
                 ))}
+
             </CarouselContent>
+
         </Carousel>
+
     )
 }
