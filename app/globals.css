@@ -90,6 +90,14 @@
 .nav-btns>a:hover {
   opacity: 1;
 }
+h2.splitting .char {
+  transition: transform 0.3s cubic-bezier(0.3, 0, 0.3, 1), opacity 0.3s linear;
+  transition-delay: calc( 50ms * var(--char-index) );
+}
+h2.splitting[data-scroll="out"] .char {
+  opacity: 0.1;
+  transform: translateY(0.25em);
+}
 
 .nav-link::before {
   content: '';

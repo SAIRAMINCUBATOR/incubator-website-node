@@ -31,7 +31,7 @@ export const Slider = () => {
             <CarouselContent>
                 {Array.from({length: 5}).map((_, index) => (
                     <CarouselItem key={index} className="md:basis-full lg:basis-full w-full flex justify-center">
-                        <Image src={img} alt={"Image"} className={"h-[70%] w-full object-cover"}/>
+                        <Image src={img} alt={"Image"} className={"h-[600px] w-full object-cover"}/>
                     </CarouselItem>
                 ))}
 
