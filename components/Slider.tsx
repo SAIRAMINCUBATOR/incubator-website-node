@@ -6,15 +6,14 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
 } from "@/components/ui/carousel"
-import img from "@/public/img.jpeg"
-import Image from "next/image"
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
+import Image, {StaticImageData} from "next/image"
 
-export const Slider = () => {
+interface Props{
+    images:StaticImageData[]
+}
+
+export const Slider = ({images}:Props) => {
     return (
         <Carousel
             opts={{
@@ -29,9 +28,9 @@ export const Slider = () => {
             className="w-full "
         >
             <CarouselContent>
-                {Array.from({length: 5}).map((_, index) => (
+                {images && images.map((img, index) => (
                     <CarouselItem key={index} className="md:basis-full lg:basis-full w-full flex justify-center">
-                        <Image src={img} alt={"Image"} className={"h-[70%] w-full object-cover"}/>
+                        <Image src={img} alt={"Image"} className={"md:h-[600px] w-full object-cover"}/>
                     </CarouselItem>
                 ))}
 

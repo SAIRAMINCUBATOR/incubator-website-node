@@ -1,16 +1,32 @@
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 import {Slider} from "@/components/Slider"
 import Link from "next/link";
 import {Button, buttonVariants} from "@/components/ui/button";
 import * as React from "react";
 import {Navbar} from "@/components/Navbar";
-
+import {Projects} from "@/components/Projects";
+import img from "@/public/projects/p1-1.jpg";
+import img1 from "@/public/projects/p2-1.jpg";
+import img2 from "@/public/projects/p3-1.png";
+import img3 from "@/public/projects/p4-1.png";
+import img4 from "@/public/projects/p5-1.png";
+import img5 from "@/public/projects/p6-1.jpg";
+import {Project} from "@/schema";
 export default function Home() {
+    const projects:Project[] = [
+        {title: "Title", description: "description", image: img1, url: "url"},
+        {title: "Title", description: "description", image: img2, url: "url"},
+        {title: "Title", description: "description", image: img3, url: "url"},
+        {title: "Title", description: "description", image: img4, url: "url"},
+        {title: "Title", description: "description", image: img5, url: "url"},
+    ]
+    const images:StaticImageData[] = [img, img1, img2];
+
     return (
         <div className={"flex justify-center items-center align-middle justify-items-center flex-col"}>
             <Navbar/>
-            <div className={"flex justify-center"}>
-                <Slider/>
+            <div className={"flex justify-center"} id={"home"}>
+                <Slider images={images}/>
                 <Link href={"/form"} className={"absolute top-[80%]"}>
                     <Button className={buttonVariants({variant: "secondary"})}>
                         Apply Now
@@ -34,6 +50,7 @@ export default function Home() {
                     </p>
                 </div>
             </div>
+            <Projects projects={projects}/>
         </div>
     );
 }
