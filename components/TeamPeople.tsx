@@ -35,10 +35,10 @@ export const TeamPeople = ({
             )}
             {linkedin && (
               <Linkedin className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24  delay-75 opacity-0 group-hover:opacity-100" />
-            )}{" "}
+            )}
             {instagram && (
               <Instagram className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 delay-100 opacity-0 group-hover:opacity-100" />
-            )}{" "}
+            )}
             {twitter && (
               <Twitter className="rounded-full bg-white bg-opacity-90 group-hover:z-20 p-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 delay-150 opacity-0 group-hover:opacity-100" />
             )}
