@@ -154,6 +154,9 @@ export default function Home() {
 
     </section>
             <Projects projects={projects}/>
+            <Startup tags1={tags} tags2={tags}/>
+            <Company images={companyImages}/>
+            
         </div>
     );
 }

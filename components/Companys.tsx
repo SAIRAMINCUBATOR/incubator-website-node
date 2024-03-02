@@ -23,7 +23,7 @@ export const Company = ({ images }: Props) => {
       }}
       plugins={[
         AutoScroll({
-          speed: 4,
+          speed: 2,
           startDelay: 0,
           stopOnInteraction: false,
         }),
