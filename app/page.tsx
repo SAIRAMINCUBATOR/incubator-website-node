@@ -1,200 +1,89 @@
-import Image, { StaticImageData } from "next/image";
-import { Slider } from "@/components/Slider";
+import Image, {StaticImageData} from "next/image";
+import {Slider} from "@/components/Slider"
 import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import {Button, buttonVariants} from "@/components/ui/button";
 import * as React from "react";
-import { Navbar } from "@/components/Navbar";
-import { Projects } from "@/components/Projects";
+import {Navbar} from "@/components/Navbar";
+import {Projects} from "@/components/Projects";
 import img from "@/public/projects/p1-1.jpg";
 import img1 from "@/public/projects/p2-1.jpg";
 import img2 from "@/public/projects/p3-1.png";
 import img3 from "@/public/projects/p4-1.png";
 import img4 from "@/public/projects/p5-1.png";
 import img5 from "@/public/projects/p6-1.jpg";
-
-import cimg from "@/public/logo/1.png";
-import cimg1 from "@/public/logo/2.png";
-import cimg2 from "@/public/logo/3.png";
-import cimg3 from "@/public/logo/4.png";
-import cimg4 from "@/public/logo/5.png";
-import cimg5 from "@/public/logo/6.png";
-import cimg6 from "@/public/logo/7.png";
-import cimg7 from "@/public/logo/8.png";
-import cimg8 from "@/public/logo/9.png";
-import cimg9 from "@/public/logo/10.png";
-import cimg10 from "@/public/logo/15.png";
-import cimg11 from "@/public/logo/16.png";
-
-import sai from "@/public/teams/Sai Prakash Leo Muthu.jpg"
-
-import { Project, TeamInt } from "@/schema";
-import { Startup } from "@/components/Startup";
-import { Company } from "@/components/Companys";
-
-import { Team } from "@/components/Team";
+import {Project} from "@/schema";
+import { useEffect } from "react";
+import CountUp from 'countup.js';
 export default function Home() {
-  const projects: Project[] = [
-    { title: "Title", description: "description", image: img1, url: "url" },
-    { title: "Title", description: "description", image: img2, url: "url" },
-    { title: "Title", description: "description", image: img3, url: "url" },
-    { title: "Title", description: "description", image: img4, url: "url" },
-    { title: "Title", description: "description", image: img5, url: "url" },
-  ];
-  const images: StaticImageData[] = [img, img1, img2];
-  const companyImages: StaticImageData[] = [
-    cimg,
-    cimg1,
-    cimg2,
-    cimg3,
-    cimg4,
-    cimg5,
-    cimg6,
-    cimg7,
-    cimg8,
-    cimg9,
-    cimg10,
-    cimg11,
-  ];
-  const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-  );
-  const teams: TeamInt[] = [
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
 
-    },
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
+    const projects:Project[] = [
+        {title: "Title", description: "description", image: img1, url: "url"},
+        {title: "Title", description: "description", image: img2, url: "url"},
+        {title: "Title", description: "description", image: img3, url: "url"},
+        {title: "Title", description: "description", image: img4, url: "url"},
+        {title: "Title", description: "description", image: img5, url: "url"},
+    ]
+    const images:StaticImageData[] = [img, img1, img2];
 
-    },
-  ];
-  const teams1: TeamInt[] = [
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
+    return (
+        <div className={"flex justify-center items-center align-middle justify-items-center flex-col"}>
+            <Navbar/>
+            <div className={"flex justify-center"} id={"home"}>
+                <Slider images={images}/>
+                <Link href={"/form"} className={"absolute top-[80%]"}>
+                    <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">
+                        Apply Now
+                    </Button>
+                </Link>
+            </div>
+            <div id="about-us"  className="flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-[700px]"
+  style={{
+    width: "100%",
+    transition: "background-position 0.3s ease",
+    backgroundPosition: "0% 0%",
+  }}>
 
-    },
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
+                <img loading="lazy" src="illustration1.png" alt="ill1"
+                     className="absolute w-[30%] h-[60%] max-w-3/10 z-[-1] rotate-0 bottom-0 top-[500px] right-0 left-[84%] filter"
+                     style={{
+                       filter: "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
+                     }}
+                     />
 
-    },
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
+                <img loading="lazy" src="illustration1.png" alt="ill1"
+                     className="absolute w-[30%] h-[60%] max-w-3/10 z-[-1] rotate-0 bottom-0 top-[1070px] right-0 left-[-20%] filter"
+                     style={{
+                       filter: "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
+                     }}
+                     />
 
-    },
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
+                <img loading="lazy" src="incubator-logo.png" alt="Sairam Incubator Foundation Logo"
+                     className="w-[30%] h-[80%] mr-[12%]"/>
 
-    },
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
-
-    },
-    {
-      name: "Dr. Saiprakesh Leo Muthu",
-      designation: "CEO",
-      image: sai,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en"
-
-    },
-  ];
-  return (
-    <div
-      className={
-        "flex justify-center items-center align-middle justify-items-center flex-col"
-      }
+                <div className="flex flex-col w-[40%]">
+                    <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 text-7xl">
+                         WHY INCUBATION<br/>IN SAIRAM?</h2>
+                    <hr className="underline border-b-8 mt-[5%] w-[30%] border-blue-500 rounded-full mb-[5%]"/>
+                    <p className="font-montserrat font-normal text-[1.2rem] md:text-[clamp(1.2rem, 0.23rem + 1.14vw, 1.6rem)] leading-[32px] text-454545">
+                        The incubation process allows entrepreneurs to preserve capital and gain
+                        external support to accelerate their business growth.
+                        <br/>Through business incubation, the enterprise center captures each
+                        entrepreneur’s uniqueness and offers support and customized services to
+                        maximize business potential.
+                    </p>
+                </div>
+            </div>
+            
+            <section
+      className="w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden z-1"
     >
-      <Navbar />
-      <div className={"flex justify-center"} id={"home"}>
-        <Slider images={images} />
-        <Link href={"/form"} className={"absolute top-[80%]"}>
-          <Button className={buttonVariants({ variant: "secondary" })}>
-            Apply Now
-          </Button>
-        </Link>
-      </div>
-      <div id="about-us" className=" flex">
-        <img
-          loading="lazy"
-          src="incubator-logo.png"
-          alt="Sairam Incubator Foundation Logo"
-          className="incubation-main"
-        />
-
-        <div className="flex flex-col w-[40%]">
-          <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 text-7xl">
-            WHY INCUBATION
-            <br />
-            IN SAIRAM?
-          </h2>
-          <hr className="underline border-b-8 mt-[5%] w-[30%] border-blue-500 rounded-full mb-[5%]" />
-          <p className="font-montserrat font-normal text-[1.2rem] md:text-[clamp(1.2rem, 0.23rem + 1.14vw, 1.6rem)] leading-[32px] text-454545">
-            The incubation process allows entrepreneurs to preserve capital and
-            gain external support to accelerate their business growth.
-            <br />
-            Through business incubation, the enterprise center captures each
-            entrepreneur’s uniqueness and offers support and customized services
-            to maximize business potential.
-          </p>
-        </div>
-      </div>
-
-      <section className="w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden z-20">
-        {/* Images */}
-        <img
-          loading="lazy"
-          src="illustration9.png"
-          alt="ill1"
-          className="absolute w-[50%] h-[100%] max-w-3/10 z-10 rotate-0 bottom-0 right-0 left-[84%]"
-          style={{
-            filter:
-              "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
-          }}
-        />
+      {/* Images */}
+      <img loading="lazy" src="illustration9.png" alt="ill1"
+                     className="absolute w-[50%] h-[100%] max-w-3/10 z-0 rotate-0 bottom-0 right-0 left-[84%]"
+                     style={{
+                       filter: "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
+                     }}
+                     />
 
 <img loading="lazy" src="illustration9.png" alt="ill1"
                      className="absolute w-[50%] h-[100%] max-w-3/10 z-0 rotate-0 bottom-0 right-[84%] filter"
