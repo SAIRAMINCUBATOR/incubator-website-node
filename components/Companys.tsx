@@ -1,43 +1,42 @@
 "use client";
-import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
-
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image, { StaticImageData } from "next/image";
+import AutoScroll from "embla-carousel-auto-scroll";
 
 interface Props {
   images: StaticImageData[];
 }
 
-export const Slider = ({ images }: Props) => {
+export const Company = ({ images }: Props) => {
   return (
     <Carousel
+      className="md:w-[90%] m-5 carousel"
       opts={{
         align: "start",
         loop: true,
       }}
       plugins={[
-        Autoplay({
-          delay: 4000,
+        AutoScroll({
+          speed: 2,
+          startDelay: 0,
+          stopOnInteraction: false,
         }),
       ]}
-      className="w-full "
     >
       <CarouselContent>
         {images &&
           images.map((img, index) => (
-            <CarouselItem
-              key={index}
-              className="md:basis-full lg:basis-full w-full flex justify-center"
-            >
+            <CarouselItem className=" md:basis-1/6 basis-1/4 max-w-fit md:pl-10 flex items-center">
               <Image
                 src={img}
-                alt={"Image"}
-                className={"md:h-[600px] w-full object-cover"}
+                alt={`images ${index}`}
+                className="object-contain h-32  p-4 w-fit"
               />
             </CarouselItem>
           ))}

@@ -7,4 +7,13 @@ export interface Project{
     url: String
 }
 
+export interface TeamInt {
+    image: StaticImageData;
+    name: string;
+    designation: string;
+    facebook?: string;
+    twitter?: string;
+    linkedin?: string;
+    instagram?: string;
+  }
 
