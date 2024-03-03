@@ -82,8 +82,8 @@ export const Projects = ({ projects }: Props) => {
                       src={project.image}
                       alt="Image"
                       className={cn(
-                        "z-0 rounded-xl w-[700px] aspect-1 transition-all duration-300 ease-in",
-                        current === index ? "h-[400px]" : "h-[320px]"
+                        "z-0 rounded-xl w-[700px] aspect-1 h-[250px] transition-all duration-300 ease-in",
+                        current === index ? "md:h-[400px]" : "md:h-[320px]"
                       )}
                     />
                     <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
