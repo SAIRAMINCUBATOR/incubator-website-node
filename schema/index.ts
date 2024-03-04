@@ -17,3 +17,8 @@ export interface TeamInt {
     instagram?: string;
   }
 
+
+export interface ImageData{
+    image:StaticImageData,
+    name:string
+}

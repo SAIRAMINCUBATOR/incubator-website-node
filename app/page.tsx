@@ -24,12 +24,13 @@ import logo9 from "@/public/logo/8.png";
 import logo10 from "@/public/logo/10.png";
 import logo15 from "@/public/logo/15.png";
 
-import { Project, TeamInt } from "@/schema";
+import { ImageData, Project, TeamInt } from "@/schema";
 import { Startup } from "@/components/Startup";
 
 import ceo from "@/public/teams/Sai Prakash Leo Muthu.jpg";
 import { Team } from "@/components/Team";
 import { Company } from "@/components/Companys";
+import Gallery from "@/components/Gallery";
 
 export default function Home() {
   const projects: Project[] = [
@@ -44,7 +45,19 @@ export default function Home() {
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
   );
 
-  const companies:StaticImageData[] = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10, logo15] 
+  const companies: StaticImageData[] = [
+    logo1,
+    logo2,
+    logo3,
+    logo4,
+    logo5,
+    logo6,
+    logo7,
+    logo8,
+    logo9,
+    logo10,
+    logo15,
+  ];
 
   const teams1: TeamInt[] = [
     {
@@ -53,8 +66,7 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
     },
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -62,8 +74,8 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
     },
   ];
 
@@ -74,8 +86,8 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
     },
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -83,8 +95,8 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
     },
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -92,8 +104,8 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
     },
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -101,8 +113,8 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
     },
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -110,8 +122,8 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
     },
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -119,8 +131,43 @@ export default function Home() {
       image: ceo,
       facebook: "https://www.facebook.com/saileomuthu/",
       twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram:"https://www.instagram.com/sairamceo/?hl=en",
-      linkedin:"https://in.linkedin.com/in/sairamceo",
+      instagram: "https://www.instagram.com/sairamceo/?hl=en",
+      linkedin: "https://in.linkedin.com/in/sairamceo",
+    },
+  ];
+
+  const galleryImages: ImageData[] = [
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
+    },
+    {
+      image: img1,
+      name: "Event",
     },
   ];
 
@@ -133,7 +180,7 @@ export default function Home() {
       <Navbar />
       <div className={"flex justify-center"} id={"home"}>
         <Slider images={images} />
-        <Link href={"/form"} className={"absolute top-[80%]"}>
+        <Link href={"/form"} className={"absolute md:top-[80%] top-[50%]"}>
           <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">
             Apply Now
           </Button>
@@ -219,7 +266,7 @@ export default function Home() {
           }}
         />
         <div
-          className="w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
+          className="max-w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
           style={{ fontFamily: "Montserrat, sans-serif" }}
           data-aos="zoom-out"
           data-aos-delay={100}
@@ -235,7 +282,7 @@ export default function Home() {
         </div>
 
         <div
-          className="w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
+          className="max-w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
           style={{ fontFamily: "Montserrat, sans-serif" }}
           data-aos="zoom-out"
           data-aos-delay={200}
@@ -251,7 +298,7 @@ export default function Home() {
         </div>
 
         <div
-          className="w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
+          className="max-w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
           style={{ fontFamily: "Montserrat, sans-serif" }}
           data-aos="zoom-out"
           data-aos-delay={100}
@@ -267,7 +314,7 @@ export default function Home() {
         </div>
 
         <div
-          className="w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
+          className="max-w-45% min-h-290px h-[300px] flex flex-col m-3 p-4 bg-white shadow-lg border-4 border-blue-400 rounded-2xl"
           style={{ fontFamily: "Montserrat, sans-serif" }}
           data-aos="zoom-out"
           data-aos-delay={200}
@@ -283,9 +330,8 @@ export default function Home() {
         </div>
       </section>
       <Projects projects={projects} />
-      <Company images={companies}/>
-      <Startup tags1={tags} tags2={tags}/>
-      <Team row0={teams1} rowN={teams2}/>
+      <Company images={companies} />
+      <Startup tags1={tags} tags2={tags} />
 
       <section
         id="fund"
@@ -383,6 +429,16 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Team row0={teams1} rowN={teams2} />
+      <div className="min-h-[100px] bg-white flex text-center items-center justify-center gap-10">
+        <span className=" text-2xl font-semibold ">Have A Project Ready? </span>
+        <Link href={"/form"}>
+          <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">
+            Apply Now
+          </Button>
+        </Link>
+      </div>
+      <Gallery images={galleryImages} />
     </div>
   );
 }
