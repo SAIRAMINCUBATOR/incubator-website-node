@@ -10,6 +10,10 @@ interface Props {
 
 export const Team = ({ row0, rowN }: Props) => {
   return (
+    <div id="team" className="w-full text-center">
+       <h2 data-splitting="" className="our-projects">
+        OUR TEAM
+      </h2>
     <div className="w-full flex flex-col items-center">
       <ScrollArea className="md:w-[80%] w-full p-5">
         <div className="flex flex-row justify-center p-6">
@@ -30,6 +34,7 @@ export const Team = ({ row0, rowN }: Props) => {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
+    </div>
     </div>
   );
 };

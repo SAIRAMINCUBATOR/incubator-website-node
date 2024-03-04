@@ -13,7 +13,7 @@ import { Menu } from "lucide-react";
 
 export const Navbar = () => {
   return (
-    <div className="w-full max-h-[5%] sticky top-0 left-0 z-[10] flex  bg-background shadow-2xl justify-between">
+    <div className="nav-main w-full max-h-[5%] sticky top-0 left-0 z-[10] flex  bg-background shadow-2xl justify-between">
       <Image
         src={logo}
         alt={"Logo"}

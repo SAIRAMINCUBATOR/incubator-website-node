@@ -1047,11 +1047,11 @@ swiper-container .swiper-notification {
 }
 
 .carousel {
-  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  mask: linear-gradient(90deg, transparent, white 15%, white 80%, transparent);
   -webkit-mask: linear-gradient(
     90deg,
     transparent,
-    white 20%,
+    red 10%,
     white 80%,
     transparent
   );
