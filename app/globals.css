@@ -168,7 +168,12 @@ h2.splitting[data-scroll="out"] .char {
   font-weight: 700;
   font-size: 2.8rem;
   color: rgba(69, 69, 69, 0.8);
+  scroll-snap-align: start;
+  transition: transform 0.5s ease-in-out;
 }
+.our-projects:hover {
+    transform: scale(1.1);
+  }
 
 .projects-swiper {
   width: 95%;
@@ -280,6 +285,56 @@ h2.splitting[data-scroll="out"] .char {
 
 .gradient-overlay {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.802) 10%, transparent);
+}
+@media screen and (max-width: 800px) {
+.footer{
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  padding: 8% 5%;
+}
+}
+.sairam-footer{
+  width: 50%;
+  object-fit: cover;
+  margin-left: auto;
+}
+
+.incub-footer{
+  object-fit: cover;
+  width: 80%;
+}
+
+.footillus{
+  position: absolute;
+  height: auto;
+  width: auto;
+  width: 68%;
+  left: 50%;
+  bottom: -140%;
+  transform: translateX(-50%);
+  z-index: -10;
+}
+
+.footer > div{
+  flex: 0 1 33%;
+  /* outline: 1px solid red; */
+}
+
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: row wrap;
+  width: 100%;
+  /* background: linear-gradient(90deg, rgba(173, 204, 233, 0.5) 0%, rgba(255, 255, 255, 0) 100%); */
+  background: linear-gradient(180deg, rgba(173, 204, 233, 0.5) 0%, rgba(255, 255, 255, 0) 51.04%, rgba(236, 243, 250, 0.117021) 62.5%, rgba(173, 204, 233, 0.5) 100%);
+  box-shadow: inset 0px 0px 30px #ADCCE9;
+  padding: 5% 8%;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
 }
 
 .gradient-overlay2 {
