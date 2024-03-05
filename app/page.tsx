@@ -4,7 +4,6 @@ import { Slider } from "@/components/Slider";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Button, buttonVariants } from "@/components/ui/button";
 import * as React from "react";
 import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
@@ -36,7 +35,6 @@ import { Company } from "@/components/Companys";
 import Gallery from "@/components/Gallery";
 
 import { useEffect } from "react";
-import CountUp from "countup.js";
 import CountUp from "countup.js";
 import { Instagram, Mail, Phone } from "lucide-react";
 import { Footer } from "@/components/Footer";
@@ -90,6 +88,32 @@ export default function Home() {
     },
   ];
 
+  const testimonycontent:Testimonial[]=[
+    {
+      image:img1,
+      description:"description",
+      name:"Genik",
+      designation:"CEO"
+    },
+    {
+      image:img2,
+      description:"description",
+      name:"Genik",
+      designation:"CEO"
+    },
+    {
+      image:img3,
+      description:"description",
+      name:"Genik",
+      designation:"CEO"
+    },
+    {
+      image:img4,
+      description:"description",
+      name:"Genik",
+      designation:"CEO"
+    }
+  ]
   const teams2: TeamInt[] = [
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -202,7 +226,7 @@ export default function Home() {
 
       <Projects projects={projects} />
       <Funds />
-
+      <Gallery images={galleryImages}/>
       <TestimonialSlider testimonycontent={testimonycontent} />
       <Footer />
     </div>
