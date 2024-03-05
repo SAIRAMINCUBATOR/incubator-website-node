@@ -5,7 +5,6 @@ import { TestimonialSlider } from "@/components/TestimonialSlider";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import * as React from "react";
-import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
 import img from "@/public/projects/p1-1.jpg";
 import img1 from "@/public/projects/p2-1.jpg";
@@ -34,10 +33,6 @@ import { Team } from "@/components/Team";
 import { Company } from "@/components/Companys";
 import Gallery from "@/components/Gallery";
 
-import { useEffect } from "react";
-import CountUp from "countup.js";
-import { Instagram, Mail, Phone } from "lucide-react";
-import { Footer } from "@/components/Footer";
 import { Funds } from "@/components/Funds";
 import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
@@ -93,7 +88,7 @@ export default function Home() {
     },
   ];
 
-  const testimonycontent:Testimonial[]=[
+  const testimonycontent: Testimonial[] = [
     {
       image:img1,
       description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
@@ -230,11 +225,14 @@ export default function Home() {
       <Establishment />
 
       <Projects projects={projects} />
+      <Startup tags1={tags} tags2={tags} />
+      <Company images={companies} />
       <Funds />
+      
+      <Team row0={teams1} rowN={teams2} />
       <HaveAProject/>
-      <Gallery images={galleryImages}/>
+      <Gallery images={galleryImages} />
       <TestimonialSlider testimonycontent={testimonycontent} />
-      <Footer />
     </div>
   );
 }
