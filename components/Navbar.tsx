@@ -10,10 +10,38 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 export const Navbar = () => {
+  const ref = useRef(null);
+  const [Navbar, setNavbar] = useState(false);
+  var lastScrollTop = 0;
+  const handleScroll = () => {
+    var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+    if (ref.current) {
+      if (st > lastScrollTop) {
+        // ref.current.classList.add("nav-main-hide");
+        setNavbar(true);
+      } else if (st < lastScrollTop) {
+        // ref.current.classList.remove("nav-main-hide");
+        setNavbar(false);
+      } // else was horizontal scroll
+      lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="w-full max-h-[5%] sticky top-0 left-0 z-[10] flex  bg-background shadow-2xl justify-between">
+    <div
+      ref={ref}
+      className={`nav-main ${
+        Navbar && "nav-main-hide"
+      } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-[10] flex  bg-background shadow-2xl justify-between`}
+    >
       <Image
         src={logo}
         alt={"Logo"}
@@ -32,7 +60,7 @@ export const Navbar = () => {
         <a className="nav-link font-semibold" href="#startups">
           STARTUPS
         </a>
-        <a className="nav-link font-semibold" href="gallery.html">
+        <a className="nav-link font-semibold" href="#gallery">
           GALLERY
         </a>
         <a className="nav-link font-semibold" href="sdg.html">

@@ -16,12 +16,12 @@ interface Props {
 export const TeamPeople = ({ team }: Props) => {
   return (
     <div className="group m-4 shadow-lg mt-[50px] w-fit">
-      <div className=" relative md:h-[400px] md:w-[300px] h-[300px] w-full border-8 border-spacing-2 border-white transition-all duration-200 ease-in-out group-hover:drop-shadow-xl group-hover:shadow-xl">
-        <div className="rounded-md object-cover md:h-[385px] md:w-[284px] h-[285px] w-full top-0 transition-all duration-200 ease-in-out group-hover:-translate-y-[85px] group-hover:drop-shadow-xl absolute">
+      <div className=" relative md:h-[400px] md:w-[300px] h-[300px] w-full border-8 border-spacing-2 border-purple-200 transition-all duration-200 ease-in-out group-hover:drop-shadow-xl group-hover:shadow-xl">
+        <div className="rounded-md md:h-[385px] md:w-[284px] h-[285px] w-full top-0 transition-all duration-300 ease-in-out group-hover:-translate-y-[85px] group-hover:drop-shadow-xl absolute">
           <Image
             src={team.image}
             alt={team.name}
-            className=" group-hover:rounded-md object-cover h-full w-full transition-all duration-200 ease-in-out"
+            className=" group-hover:rounded-t-md object-cover h-full w-full transition-all duration-200 ease-in-out"
           />
           <div className="absolute top-0 rounded-md w-full h-full opacity-0 bg-black transition-opacity duration-200 ease-in-out group-hover:opacity-40"></div>
         </div>
