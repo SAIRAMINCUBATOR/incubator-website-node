@@ -71,7 +71,6 @@ export const Slider = ({ images }: Props) => {
             </CarouselItem>
           ))}
       </CarouselContent>
-      <Pagination total={count} current={current} />
     </Carousel>
   );
 };
