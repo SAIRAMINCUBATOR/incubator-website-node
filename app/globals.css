@@ -164,9 +164,9 @@ h2.splitting[data-scroll="out"] .char {
 }
 
 .our-projects {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", "sans-serif";
   font-weight: 700;
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   color: rgba(69, 69, 69, 0.8);
   scroll-snap-align: start;
   transition: transform 0.5s ease-in-out;

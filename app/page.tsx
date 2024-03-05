@@ -41,6 +41,7 @@ import { Footer } from "@/components/Footer";
 import { Funds } from "@/components/Funds";
 import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
+import { HaveAProject } from "@/components/HaveAProject";
 export default function Home() {
   const projects: Project[] = [
     { title: "Title", description: "description", image: img1, url: "url" },
@@ -91,26 +92,26 @@ export default function Home() {
   const testimonycontent:Testimonial[]=[
     {
       image:img1,
-      description:"description",
+      description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
       name:"Genik",
       designation:"CEO"
     },
     {
       image:img2,
-      description:"description",
-      name:"Genik",
-      designation:"CEO"
+      description:"Toofan Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Toofan",
+      designation:"Founder"
     },
     {
       image:img3,
-      description:"description",
-      name:"Genik",
+      description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Genik2",
       designation:"CEO"
     },
     {
       image:img4,
-      description:"description",
-      name:"Genik",
+      description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Toofan2",
       designation:"CEO"
     }
   ]
@@ -226,6 +227,7 @@ export default function Home() {
 
       <Projects projects={projects} />
       <Funds />
+      <HaveAProject/>
       <Gallery images={galleryImages}/>
       <TestimonialSlider testimonycontent={testimonycontent} />
       <Footer />
