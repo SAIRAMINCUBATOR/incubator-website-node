@@ -22,3 +22,9 @@ export interface ImageData{
     image:StaticImageData,
     name:string
 }
+
+
+export interface TableData{
+    key: String,
+    value: String
+}

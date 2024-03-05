@@ -37,13 +37,17 @@ import CountUp from "countup.js";
 import { Instagram, Mail, Phone } from "lucide-react";
 export default function Home() {
   const projects: Project[] = [
-    { title: "Title", description: "description", image: img1, url: "url" },
-    { title: "Title", description: "description", image: img2, url: "url" },
-    { title: "Title", description: "description", image: img3, url: "url" },
-    { title: "Title", description: "description", image: img4, url: "url" },
-    { title: "Title", description: "description", image: img5, url: "url" },
+    { title: "Title", description: "description", image: img1, url: "1" },
+    { title: "Title", description: "description", image: img2, url: "2" },
+    { title: "Title", description: "description", image: img3, url: "3" },
+    { title: "Title", description: "description", image: img4, url: "4" },
+    { title: "Title", description: "description", image: img5, url: "5" },
   ];
-  const images: StaticImageData[] = [img, img1, img2];
+  const images: ImageData[] = [
+    { image: img1, name: "Imag1" },
+    { image: img2, name: "Image2" },
+    { image: img3, name: "Image3" },
+  ];
   const tags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
   );
@@ -180,7 +184,7 @@ export default function Home() {
         "flex justify-center items-center align-middle justify-items-center flex-col"
       }
     >
-      <Navbar />
+      {/* <Navbar /> */}
       <div className={"flex justify-center"} id={"home"}>
         <Slider images={images} />
         <Link href={"/form"} className={"absolute top-[80%]"}>
@@ -432,7 +436,7 @@ export default function Home() {
         </div>
       </section>
       <Team row0={teams1} rowN={teams2} />
-      <div className="min-h-[100px] bg-white flex text-center items-center justify-center gap-10">
+      <div className="min-h-[150px] bg-white flex text-center items-center justify-center gap-10">
         <span className=" text-2xl font-semibold ">Have A Project Ready? </span>
         <Link href={"/form"}>
           <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">

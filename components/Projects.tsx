@@ -92,7 +92,7 @@ export const Projects = ({ projects }: Props) => {
                           {project.title}
                         </h3>
                         <p className="project-desc">{project.description}</p>
-                        <Link href={`${project.url}`} className="apply-now">
+                        <Link href={`/projects/${project.url}`} className="apply-now">
                           <Button>DETAILS</Button>
                         </Link>
                       </div>
