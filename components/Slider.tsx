@@ -54,14 +54,14 @@ export const Slider = ({ images }: Props) => {
           delay: 4000,
         }),
       ]}
-      className="w-screen "
+      className="w-screen bg-blue-500 bg-opacity-5"
     >
       <CarouselContent>
         {images &&
           images.map((img, index) => (
             <CarouselItem
               key={index}
-              className="md:basis-full lg:basis-full w-full flex justify-center bg-gray-400"
+              className="md:basis-full lg:basis-full w-full flex justify-center  bg-gray-400"
             >
               <Image
                 src={img.image}

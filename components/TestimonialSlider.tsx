@@ -6,18 +6,46 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselApi
 } from "@/components/ui/carousel";
 import Image, { StaticImageData } from "next/image";
 interface Props {
   testimonycontent: Testimonial[];
 }
+import { useEffect } from "react";
+import { Pagination } from "./Pagination";
 
 
 export const TestimonialSlider = ({ testimonycontent }: Props) => {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(-1);
+  const [count, setCount] = React.useState(-1);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+    setCount(api.scrollSnapList().length);
+    setCurrent(
+      api.selectedScrollSnap() === api.scrollSnapList().length
+        ? 0
+        : api.selectedScrollSnap()
+    );
+
+    api.on("select", () => {
+      setCurrent(
+        api.selectedScrollSnap() === api.scrollSnapList().length
+          ? 0
+          : api.selectedScrollSnap()
+      );
+    });
+    console.log(current);
+  }, [api]);
   return (
     <div className="h-[700px] w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-b from-blue-50 via-blue-90">
        <h2 className="our-projects" data-splitting>TESTIMONIAL</h2>
     <Carousel
+    setApi={setApi}
       opts={{
         align: "start",
         loop: true,
@@ -48,6 +76,7 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
             </CarouselItem>
           ))}
       </CarouselContent>
+      <Pagination total={count} current={current}/>
     </Carousel>
     </div>
   );
