@@ -5,7 +5,6 @@ import { TestimonialSlider } from "@/components/TestimonialSlider";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import * as React from "react";
-import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
 import img from "@/public/projects/p1-1.jpg";
 import img1 from "@/public/projects/p2-1.jpg";
@@ -34,10 +33,6 @@ import { Team } from "@/components/Team";
 import { Company } from "@/components/Companys";
 import Gallery from "@/components/Gallery";
 
-import { useEffect } from "react";
-import CountUp from "countup.js";
-import { Instagram, Mail, Phone } from "lucide-react";
-import { Footer } from "@/components/Footer";
 import { Funds } from "@/components/Funds";
 import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
@@ -92,32 +87,32 @@ export default function Home() {
     },
   ];
 
-  const testimonycontent:Testimonial[]=[
+  const testimonycontent: Testimonial[] = [
     {
-      image:img1,
-      description:"description",
-      name:"Genik",
-      designation:"CEO"
+      image: img1,
+      description: "description",
+      name: "Genik",
+      designation: "CEO",
     },
     {
-      image:img2,
-      description:"description",
-      name:"Genik",
-      designation:"CEO"
+      image: img2,
+      description: "description",
+      name: "Genik",
+      designation: "CEO",
     },
     {
-      image:img3,
-      description:"description",
-      name:"Genik",
-      designation:"CEO"
+      image: img3,
+      description: "description",
+      name: "Genik",
+      designation: "CEO",
     },
     {
-      image:img4,
-      description:"description",
-      name:"Genik",
-      designation:"CEO"
-    }
-  ]
+      image: img4,
+      description: "description",
+      name: "Genik",
+      designation: "CEO",
+    },
+  ];
   const teams2: TeamInt[] = [
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -229,10 +224,12 @@ export default function Home() {
       <Establishment />
 
       <Projects projects={projects} />
+      <Startup tags1={tags} tags2={tags} />
+      <Company images={companies} />
       <Funds />
-      <Gallery images={galleryImages}/>
+      <Team row0={teams1} rowN={teams2} />
+      <Gallery images={galleryImages} />
       <TestimonialSlider testimonycontent={testimonycontent} />
-      <Footer />
     </div>
   );
 }

@@ -29,14 +29,17 @@ const Project = async (req: any, res: any) => {
     { key: "Key1", value: "value1" },
     { key: "Key2", value: "value2" },
   ];
+  const content: string = `Deep well handpump cause discomfort and fatigue to the user after long hours of operation. To overcome this problem a pendulum incorporated hand pump design was made and fabricated. The prototype built was far more effective and easier to use than the normal pump.
+  <br/><br/>
+  The long-pivoted shaft is replaced by a pendulum which provides exact torque needed to rise the piston up. The pendulum oscillates with minimum force applied. This design uses the energy stored in the pendulum as an advantage. In this design six strokes can be achieved with an initial force.`;
 
   const name = "Pendulam Project";
   return (
     <div className="w-full flex flex-col items-center  bg-sky-200/50">
       <Slider images={images} />
-      <div className="md:w-[90%] w-full flex justify-center gap-5 ">
+      <div className="md:w-[90%] w-full flex justify-center gap-5 mb-10">
         <div className="p-4 m-4 flex justify-start w-full">
-          <Image src={img1} alt="Main" height={350} />
+          <Image src={img1} alt="Main" height={350} className="h-fit" />
         </div>
         <div className="w-full flex flex-col gap-10">
           <div className="relative w-full">
@@ -63,6 +66,10 @@ const Project = async (req: any, res: any) => {
               </TableBody>
             </Table>
           )}
+          <p
+            className=" text-xl font-montserrat text-balance mb-10 text-gray-600 font"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
       </div>
     </div>
