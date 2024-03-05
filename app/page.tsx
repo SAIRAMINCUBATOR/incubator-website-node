@@ -44,13 +44,17 @@ import { AboutUs } from "@/components/AboutUs";
 import { HaveAProject } from "@/components/HaveAProject";
 export default function Home() {
   const projects: Project[] = [
-    { title: "Title", description: "description", image: img1, url: "url" },
-    { title: "Title", description: "description", image: img2, url: "url" },
-    { title: "Title", description: "description", image: img3, url: "url" },
-    { title: "Title", description: "description", image: img4, url: "url" },
-    { title: "Title", description: "description", image: img5, url: "url" },
+    { title: "Title", description: "description", image: img1, url: "1" },
+    { title: "Title", description: "description", image: img2, url: "2" },
+    { title: "Title", description: "description", image: img3, url: "3" },
+    { title: "Title", description: "description", image: img4, url: "4" },
+    { title: "Title", description: "description", image: img5, url: "5" },
   ];
-  const images: StaticImageData[] = [img, img1, img2];
+  const images: ImageData[] = [
+    { image: img1, name: "Imag1" },
+    { image: img2, name: "Image2" },
+    { image: img3, name: "Image3" },
+  ];
   const tags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
   );
@@ -213,7 +217,7 @@ export default function Home() {
         "flex justify-center items-center align-middle justify-items-center flex-col"
       }
     >
-      <Navbar />
+      {/* <Navbar /> */}
       <div className={"flex justify-center"} id={"home"}>
         <Slider images={images} />
         <Link href={"/form"} className={"absolute top-[80%]"}>

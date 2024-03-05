@@ -22,9 +22,19 @@ export interface ImageData{
     image:StaticImageData,
     name:string
 }
+export interface TableData{
+    key: String,
+    value: String
+}
 export interface Testimonial{
     image:StaticImageData;
     description:string;
     name:string;
     designation:string;
 } 
+
+
+export interface TableData{
+    key: String,
+    value: String
+}
