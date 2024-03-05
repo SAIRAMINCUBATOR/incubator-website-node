@@ -36,6 +36,7 @@ import Gallery from "@/components/Gallery";
 import { Funds } from "@/components/Funds";
 import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
+import { HaveAProject } from "@/components/HaveAProject";
 export default function Home() {
   const projects: Project[] = [
     { title: "Title", description: "description", image: img1, url: "1" },
@@ -89,30 +90,30 @@ export default function Home() {
 
   const testimonycontent: Testimonial[] = [
     {
-      image: img1,
-      description: "description",
-      name: "Genik",
-      designation: "CEO",
+      image:img1,
+      description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Genik",
+      designation:"CEO"
     },
     {
-      image: img2,
-      description: "description",
-      name: "Genik",
-      designation: "CEO",
+      image:img2,
+      description:"Toofan Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Toofan",
+      designation:"Founder"
     },
     {
-      image: img3,
-      description: "description",
-      name: "Genik",
-      designation: "CEO",
+      image:img3,
+      description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Genik2",
+      designation:"CEO"
     },
     {
-      image: img4,
-      description: "description",
-      name: "Genik",
-      designation: "CEO",
-    },
-  ];
+      image:img4,
+      description:"Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
+      name:"Toofan2",
+      designation:"CEO"
+    }
+  ]
   const teams2: TeamInt[] = [
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -227,7 +228,9 @@ export default function Home() {
       <Startup tags1={tags} tags2={tags} />
       <Company images={companies} />
       <Funds />
+      
       <Team row0={teams1} rowN={teams2} />
+      <HaveAProject/>
       <Gallery images={galleryImages} />
       <TestimonialSlider testimonycontent={testimonycontent} />
     </div>
