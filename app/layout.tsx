@@ -18,10 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+      <head><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap"/>
+</head>
+    <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased overflow-x-hidden",
-          inter.className
+            "min-h-screen bg-background font-sans antialiased overflow-x-hidden",
+            inter.className
         )}
       >
         <Navbar />
