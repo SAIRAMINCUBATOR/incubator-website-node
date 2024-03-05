@@ -17,3 +17,9 @@ export interface TeamInt {
     instagram?: string;
   }
 
+export interface Testimonial{
+    image:StaticImageData;
+    description:string;
+    name:string;
+    designation:string;
+} 
