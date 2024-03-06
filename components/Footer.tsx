@@ -3,6 +3,11 @@ import { Instagram, Mail, Phone } from "lucide-react";
 import * as React from "react";
 import { Button } from "./ui/button";
 //hellllllo
+import logo from "@/public/Illustration9.png";
+import logo1 from "@/public/logo.png";
+import clg from "@/public/clg.png";
+import Image from "next/image";
+
 export const Footer = () => {
   return (
     <section id="footer" className="footer md:flex lg:flex-row flex-col">
@@ -83,6 +88,12 @@ export const Footer = () => {
           />
         </div>
         <div className="flex flex-col">
+          <label className="font-semibold m-2">Message</label>
+          <textarea
+            placeholder="Enter your message"
+            className="border p-2 ml-2 mr-2"
+            rows={5}
+          ></textarea>
           <label className="font-semibold m-2">Message</label>
           <textarea
             placeholder="Enter your message"
