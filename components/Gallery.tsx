@@ -53,13 +53,17 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
   return (
     <div
       className={cn(
-        "w-full p-4 bg-blue-100/50 flex flex-col text-center",
+        "w-full p-4 bg-blue-100/50 flex flex-col text-center gap-5",
         viewMore && "pb-10"
       )}
       id="gallery"
     >
-      <h2 data-splitting="" className="our-projects uppercase p-4">
-        Gallery
+      <h2
+        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+        style={{ fontFamily: "Montserrat, sans-serif" }}
+        data-splitting
+      >
+        GALLERY
       </h2>
       <div className="md:block hidden w-full ">
         <div className="relative justify-center items-center flex">
@@ -86,7 +90,7 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
             >
               <div
                 className={cn(
-                  "h-fit w-fit z-10  flex justify-center items-center gap-4",
+                  "h-fit w-fit z-10  flex justify-center items-center gap-5",
                   viewMore && "group group-hover:text-blue-400"
                 )}
                 onClick={() => setviewMore(!viewMore)}

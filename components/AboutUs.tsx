@@ -5,7 +5,7 @@ export const AboutUs = () => {
   return (
     <div
       id="about-us"
-      className="flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-[700px] overflow-hidden"
+      className="flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-full pb-5 overflow-hidden lg:flex-row flex-col"
       style={{
         width: "100%",
         transition: "background-position 0.3s ease",
@@ -16,33 +16,33 @@ export const AboutUs = () => {
         loading="lazy"
         src="illustration1.png"
         alt="ill1"
-        className="absolute w-[30%] h-[60%] max-w-3/10 rotate-0 bottom-0 top-[500px] right-0 left-[84%] -z-20"
+        className="absolute lg:w-[30%] lg:h-[60%] md:w-[65%] md:h-[50%] w-[70%] h-[40%] max-w-3/10 rotate-0 bottom-0 top-[500px] right-0 lg:left-[84%] md:left-[60%] left-[74%] -z-20"
         style={{
           filter:
             "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
         }}
       />
 
-      <img
+      {/* <img
         loading="lazy"
         src="illustration1.png"
         alt="ill1"
-        className="absolute w-[30%] h-[60%] max-w-3/10 rotate-0 bottom-0 top-[1070px] right-0 left-[-20%] filter -z-10"
+        className="absolute lg:w-[30%] lg:h-[60%] md:w-[65%] md:h-[50%] w-[70%] h-[40%] max-w-3/10 rotate-0 bottom-0 top-[1070px] right-0 lg:left-[-20%] md:left-[-40%] left-[-50%] filter -z-10"
         style={{
           filter:
             "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
         }}
-      />
+      /> */}
 
       <img
         loading="lazy"
         src="incubator-logo.png"
         alt="Sairam Incubator Foundation Logo"
-        className="w-[30%] h-[80%] mr-[12%] filter transition-transform duration-500 ease-in-out hover:scale-110"
+        className="w-[35%] lg:h-[60%] h-[80%] mr-[12%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
       />
 
-      <div className="flex flex-col w-[40%]">
-        <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 text-7xl">
+      <div className="flex flex-col w-[70%] ">
+        <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 lg:text-7xl md:text-4xl text-2xl">
           WHY INCUBATION
           <br />
           IN SAIRAM?
