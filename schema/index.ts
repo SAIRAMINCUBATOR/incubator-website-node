@@ -1,3 +1,4 @@
+import { Gender } from "@prisma/client";
 import {StaticImageData} from "next/image";
 
 export interface Project{
@@ -37,4 +38,10 @@ export interface Testimonial{
 export interface TableData{
     key: String,
     value: String
+}
+
+export interface UserData{
+    name: string,
+    email: string,
+    gender: Gender
 }

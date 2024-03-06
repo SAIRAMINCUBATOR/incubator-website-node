@@ -44,7 +44,6 @@ export const Projects = ({ projects }: Props) => {
           : api.selectedScrollSnap()
       );
     });
-    console.log(current);
   }, [api]);
 
   return (

@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberRole {
+  ADMIN
+  USER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model User {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  email             String
+  password          String
+  isPasswordDefault Boolean
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  role              MemberRole     @default(USER)
+  gender            Gender
+  MainCarousel      MainCarousel[]
+}
+
+model MainCarousel {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         Bytes
+  name          String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model StartUp {
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  list String[]
+}

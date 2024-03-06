@@ -32,7 +32,7 @@ export const Company = ({ images }: Props) => {
       <CarouselContent>
         {images &&
           images.map((img, index) => (
-            <CarouselItem className=" md:basis-1/6 basis-1/4 max-w-fit md:pl-10 flex items-center">
+            <CarouselItem className=" md:basis-1/6 basis-1/4 max-w-fit md:pl-10 flex items-center" key={index}>
               <Image
                 src={img}
                 alt={`images ${index}`}

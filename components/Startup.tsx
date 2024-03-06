@@ -52,9 +52,9 @@ export const Startup = ({
               <CarouselContent className="max-h-[200px] items-center md:items-start">
                 {tags1 &&
                   tags1.map((tag, index) => (
-                    <CarouselItem className="basis-1/6">
+                    <CarouselItem className="basis-1/6" key={index}>
                       <div
-                        key={index}
+                        
                         className=" group hover:ml-8 transition-all duration-200 font-semibold w-fit ease-in-out cursor-default"
                       >
                         <span className="group-hover:text-blue-500">
@@ -110,9 +110,8 @@ export const Startup = ({
               <CarouselContent className="max-h-[200px] items-center md:items-start">
                 {tags2 &&
                   tags2.map((tag, index) => (
-                    <CarouselItem className="basis-1/6">
+                    <CarouselItem className="basis-1/6" key={index}>
                       <div
-                        key={index}
                         className=" group hover:ml-8 transition-all duration-200 font-semibold w-fit ease-in-out cursor-default"
                       >
                         <span className="group-hover:text-blue-500">

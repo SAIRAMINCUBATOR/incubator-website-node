@@ -11,10 +11,13 @@ import {
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import UserButton from "./UserButton";
 
 export const Navbar = () => {
   const ref = useRef(null);
   const [Navbar, setNavbar] = useState(false);
+  const [open, setOpen] = useState(false);
   var lastScrollTop = 0;
   const handleScroll = () => {
     var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
@@ -48,71 +51,75 @@ export const Navbar = () => {
         className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
       />
       <div className={"lg:flex items-center nav-btns gap-5 m-5 hidden"}>
-        <a className="nav-link font-semibold" href="#home">
+        <Link className="nav-link font-semibold" href="/#home">
           HOME
-        </a>
-        <a className="nav-link font-semibold" href="#about-us">
+        </Link>
+        <Link className="nav-link font-semibold" href="/#about-us">
           ABOUT US
-        </a>
-        <a className="nav-link font-semibold" href="#projects">
+        </Link>
+        <Link className="nav-link font-semibold" href="/#projects">
           PRODUCTS
-        </a>
-        <a className="nav-link font-semibold" href="#startups">
+        </Link>
+        <Link className="nav-link font-semibold" href="/#startups">
           STARTUPS
-        </a>
-        <a className="nav-link font-semibold" href="#gallery">
+        </Link>
+        <Link className="nav-link font-semibold" href="/#gallery">
           GALLERY
-        </a>
-        <a className="nav-link font-semibold" href="sdg.html">
+        </Link>
+        {/* <Link className="nav-link font-semibold" href="sdg.html">
           S.D.G.
-        </a>
-        <a className="nav-link font-semibold" href="#team">
+        </Link> */}
+        <Link className="nav-link font-semibold" href="/#team">
           TEAM
-        </a>
-        <a className="nav-link font-semibold" href="mgmt.html">
+        </Link>
+        {/* <Link className="nav-link font-semibold" href="mgmt.html">
           MANAGEMENT
-        </a>
-        <a className="nav-link font-semibold" href="#footer">
+        </Link> */}
+        <Link className="nav-link font-semibold" href="/#footer">
           CONTACT
-        </a>
+        </Link>
+        <UserButton setClose={() => setOpen(false)} />
       </div>
 
-      <Sheet>
-        <SheetTrigger className={"lg:hidden block"}>
+      <Sheet open={open} onOpenChange={() => setOpen(!open)}>
+        <SheetTrigger className={"lg:hidden block mx-5"}>
           <Menu />
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Sairam Techno Incubator</SheetTitle>
+            <div className="w-full flex justify-center">
+              <UserButton setClose={() => setOpen(false)} />
+            </div>
           </SheetHeader>
           <div className={"flex flex-col space-y-3 mt-10 items-center"}>
-            <a className="nav-link font-semibold" href="#home">
+            <Link className="nav-link font-semibold" href="/#home">
               HOME
-            </a>
-            <a className="nav-link font-semibold" href="#about-us">
+            </Link>
+            <Link className="nav-link font-semibold" href="/#about-us">
               ABOUT US
-            </a>
-            <a className="nav-link font-semibold" href="#projects">
+            </Link>
+            <Link className="nav-link font-semibold" href="/#projects">
               PRODUCTS
-            </a>
-            <a className="nav-link font-semibold" href="#startups">
+            </Link>
+            <Link className="nav-link font-semibold" href="/#startups">
               STARTUPS
-            </a>
-            <a className="nav-link font-semibold" href="gallery.html">
+            </Link>
+            <Link className="nav-link font-semibold" href="/#gallery">
               GALLERY
-            </a>
-            <a className="nav-link font-semibold" href="sdg.html">
+            </Link>
+            {/* <Link className="nav-link font-semibold" href="sdg.html">
               S.D.G.
-            </a>
-            <a className="nav-link font-semibold" href="#team">
+            </Link> */}
+            <Link className="nav-link font-semibold" href="/#team">
               TEAM
-            </a>
-            <a className="nav-link font-semibold" href="mgmt.html">
+            </Link>
+            {/* <Link className="nav-link font-semibold" href="mgmt.html">
               MANAGEMENT
-            </a>
-            <a className="nav-link font-semibold" href="#footer">
+            </Link> */}
+            <Link className="nav-link font-semibold" href="/#footer">
               CONTACT
-            </a>
+            </Link>
           </div>
         </SheetContent>
       </Sheet>

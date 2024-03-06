@@ -40,7 +40,6 @@ export const Slider = ({ images }: Props) => {
           : api.selectedScrollSnap()
       );
     });
-    console.log(current);
   }, [api]);
   return (
     <Carousel

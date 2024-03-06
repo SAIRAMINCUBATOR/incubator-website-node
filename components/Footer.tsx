@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export const Footer = () => {
   return (
-    <section id="footer" className="footer">
+    <section id="footer" className="footer max-w-screen">
       <Image
         src={logo}
         alt=""
@@ -98,11 +98,11 @@ export const Footer = () => {
       <div className="w-[300px] h-[300px]">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d486.0197408349034!2d80.05689372236708!3d12.961744373583866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f53e694f0465%3A0x9fe2a8ace29ebc1c!2sSri%20Sairam%20Techno%20Incubator%20Foundation!5e0!3m2!1sen!2sin!4v1679409054276!5m2!1sen!2sin"
-          width="450"
-          height="420"
+         
           style={{ border: 0 }}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          className="h-[140%] w-[120%]"
         ></iframe>
       </div>
     </section>

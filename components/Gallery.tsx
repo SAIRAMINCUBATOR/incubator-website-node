@@ -115,12 +115,12 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
         {images &&
           Array.from({ length: Math.ceil(images.length / 5) }).map(
             (_, index) => (
-              <ScrollArea className="w-[90%] py-3">
+              <ScrollArea className="w-[90%] py-3" key={index}>
                 <div className="flex justify-center items-center gap-2">
                   {images
                     .slice(index * 5, index * 5 + 5)
                     .map((image, index1) => (
-                      <ImageC image={image.image} name={image.name} />
+                      <ImageC image={image.image} name={image.name} key={index1}/>
                     ))}
                 </div>
                 <ScrollBar orientation="horizontal" />

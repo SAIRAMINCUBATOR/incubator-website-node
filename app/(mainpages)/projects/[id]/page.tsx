@@ -20,6 +20,7 @@ import {
 
 const Project = async (req: any, res: any) => {
   const { id } = req?.params;
+
   const images: ImageData[] = [
     { image: img1, name: "Imag1" },
     { image: img2, name: "Image2" },
@@ -58,7 +59,10 @@ const Project = async (req: any, res: any) => {
               </TableHeader>
               <TableBody>
                 {datas.map((data, index) => (
-                  <TableRow className=" bg-sky-200 text-lg font-semibold">
+                  <TableRow
+                    className=" bg-sky-200 text-lg font-semibold"
+                    key={index}
+                  >
                     <TableCell>{data.key}</TableCell>
                     <TableCell>{data.value}</TableCell>
                   </TableRow>

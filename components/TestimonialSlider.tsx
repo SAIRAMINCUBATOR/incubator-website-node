@@ -39,7 +39,6 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
           : api.selectedScrollSnap()
       );
     });
-    console.log(current);
   }, [api]);
   return (
     <div className="h-[700px] w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-b from-blue-50 via-blue-90">
