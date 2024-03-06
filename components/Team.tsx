@@ -10,19 +10,22 @@ interface Props {
 
 export const Team = ({ row0, rowN }: Props) => {
   return (
-    <div id="team" className="w-full text-center bg-blue-100/50">
-      <h2 data-splitting="" className="our-projects">
-        OUR TEAM
+    <div id="team" className="w-full text-center bg-blue-100/50 p-5">
+      <h2
+        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+        style={{ fontFamily: "Montserrat, sans-serif" }}
+        data-splitting
+      >
+        OUT TEAM
       </h2>
       <div className="w-full flex flex-col items-center">
-        <ScrollArea className="md:w-[80%] w-full ">
-          <div className="flex justify-center ">
+        <ScrollArea className="md:w-[80%] w-full gap-y-6">
+          <div className="flex justify-center pt-10">
             {row0 &&
               row0.map((team, index) => <TeamPeople team={team} key={index} />)}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
-
         <div className="hidden lg:flex flex-wrap items-center w-[85%] justify-center gap-y-6">
           {rowN &&
             rowN.map((team, index) => <TeamPeople team={team} key={index} />)}

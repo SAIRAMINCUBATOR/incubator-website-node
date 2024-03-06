@@ -48,8 +48,12 @@ export const Projects = ({ projects }: Props) => {
   }, [api]);
 
   return (
-    <div id="projects" className="projects  ">
-      <h2 data-splitting="" className="our-projects">
+    <div id="projects" className="projects">
+      <h2
+        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+        style={{ fontFamily: "Montserrat, sans-serif" }}
+        data-splitting
+      >
         OUR STUDENTS WORK
       </h2>
       <div
@@ -92,7 +96,10 @@ export const Projects = ({ projects }: Props) => {
                           {project.title}
                         </h3>
                         <p className="project-desc">{project.description}</p>
-                        <Link href={`/projects/${project.url}`} className="apply-now">
+                        <Link
+                          href={`/projects/${project.url}`}
+                          className="apply-now"
+                        >
                           <Button>DETAILS</Button>
                         </Link>
                       </div>

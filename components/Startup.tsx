@@ -18,7 +18,11 @@ export const Startup = ({
 }) => {
   return (
     <div id="startups" className="projects  ">
-      <h2 data-splitting="" className="our-projects">
+      <h2
+        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+        style={{ fontFamily: "Montserrat, sans-serif" }}
+        data-splitting
+      >
         STARTUPS
       </h2>
       <div
