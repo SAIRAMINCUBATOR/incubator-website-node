@@ -6,6 +6,7 @@ import { SessionContext } from "./context/SessionContext";
 export function Providers({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+  const [isPasswordDefault, setIsPasswordDefault] = useState<boolean | null>(null);
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
@@ -16,13 +17,17 @@ export function Providers({ children }: { children: React.ReactNode }) {
     if (storedRole) {
       setRole(storedRole);
     }
+    
   }, []);
 
   const setSession = (newToken: string, newRole: string) => {
+    const exp = JSON.parse(atob(newToken.split(".")[1]));
     sessionStorage.setItem("token", newToken);
     sessionStorage.setItem("role", newRole);
     setToken(newToken);
     setRole(newRole);
+    setIsPasswordDefault(exp.isPasswordDefault);
+    console.log(exp.isPasswordDefault)
   };
 
   const clearSession = () => {
@@ -30,7 +35,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
     sessionStorage.removeItem("role");
     setToken(null);
     setRole(null);
+    setIsPasswordDefault(null);
   };
+   
+  const changePasswordNotDefault = ()=>{
+    setIsPasswordDefault(false);
+  }
 
   const isTokenExpired = () => {
     if (token) {
@@ -52,7 +62,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   };
   return (
     <SessionContext.Provider
-      value={{ token, role, isTokenExpired, clearSession, setSession }}
+      value={{ token, role, isPasswordDefault, changePasswordNotDefault, isTokenExpired, clearSession, setSession }}
     >
       {children}
     </SessionContext.Provider>

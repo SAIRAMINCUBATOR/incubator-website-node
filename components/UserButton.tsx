@@ -12,14 +12,16 @@ import {
 } from "@/components/ui/popover";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AlertCircle, Loader2, PlusCircle } from "lucide-react";
+import { AlertCircle, Loader2, Pencil, PlusCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { useRouter } from "next/navigation";
 import { UserData } from "@/schema";
 
 const UserButton = ({ setClose }: { setClose: () => void }) => {
-  const { token, clearSession, isTokenExpired, role } = useSession();
+  const [isMounted, setIsMounted] = useState(false);
+  const { token, clearSession, isTokenExpired, role } =
+    useSession();
   //@ts-ignore
   const [response, setResponse] = useState<UserData>();
   const [image, setImage] = useState<string>("");
@@ -56,7 +58,7 @@ const UserButton = ({ setClose }: { setClose: () => void }) => {
   const handleLogout = () => {
     setOpen(false);
     setClose();
-    router.push("/");
+    router.replace("/");
     clearSession();
   };
 
@@ -67,6 +69,15 @@ const UserButton = ({ setClose }: { setClose: () => void }) => {
       setImage("/female.png");
     }
   }, [response]);
+
+
+  useEffect(() => {
+      setIsMounted(true);
+  }, [])
+  
+  if (!isMounted) {
+      return null;
+  }
 
   return (
     <>
@@ -111,6 +122,38 @@ const UserButton = ({ setClose }: { setClose: () => void }) => {
                   </Button>
                 </Link>
               )}
+              <Link
+                href={"/edit"}
+                className="w-full"
+                onClick={() => {
+                  setClose();
+                  setOpen(false);
+                }}
+              >
+                <Button
+                  variant={"secondary"}
+                  className="w-full flex gap-2 bg-gray-200"
+                >
+                  <Pencil className="h-5 w-5 text-secondary-foreground" />
+                  Edit
+                </Button>
+              </Link>
+
+              <Link
+                href={"/auth/resetPassword"}
+                className="w-full"
+                onClick={() => {
+                  setClose();
+                  setOpen(false);
+                }}
+              >
+                <Button
+                  variant={"secondary"}
+                  className="w-full flex gap-2 bg-gray-200"
+                >
+                  Reset Password
+                </Button>
+              </Link>
               <Button className="w-full" onClick={handleLogout}>
                 Log out
               </Button>

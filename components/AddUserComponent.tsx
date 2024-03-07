@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -30,11 +31,14 @@ import axios from "axios";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { useEffect } from "react";
+import { Checkbox } from "./ui/checkbox";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is Required" }),
   email: z.string().email(),
   gender: z.string().min(1, "Gender Is required"),
+  password: z.string().optional(),
+  setDefaultPassword: z.boolean().optional(),
 });
 
 const AddUserComponent = () => {
@@ -48,6 +52,8 @@ const AddUserComponent = () => {
       name: "",
       gender: "",
       email: "",
+      password: "",
+      setDefaultPassword: false,
     },
   });
   const isLoading = form.formState.isSubmitting;
@@ -61,13 +67,13 @@ const AddUserComponent = () => {
       });
       toast(
         <>
-        <CheckCircle2/>
-        <span>{response.data}</span>
+          <CheckCircle2 />
+          <span>{response.data}</span>
         </>
-      )
+      );
       form.reset();
 
-      router.push("/");
+      router.replace("/");
     } catch (error) {
       if (error && error.response && error.response.data) {
         toast(
@@ -83,7 +89,7 @@ const AddUserComponent = () => {
   };
   useEffect(() => {
     if (!token || !role || role !== "ADMIN") {
-      router.push("/");
+      router.replace("/");
     }
   }, [token, role]);
   return (
@@ -158,6 +164,55 @@ const AddUserComponent = () => {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                disabled={isLoading}
+                name={"setDefaultPassword"}
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md ">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        Set Default Password <strong>Welcome@123</strong>
+                      </FormLabel>
+
+                      <FormDescription>
+                        User will be asked to reset their password at first time
+                        login
+                      </FormDescription>
+                    </div>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {!form.getValues("setDefaultPassword") &&
+              <FormField
+                disabled={isLoading}
+                name={"password"}
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="********"
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+                }
             </div>
 
             <div className="flex flex-col space-y-1.5 pt-2">
