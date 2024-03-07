@@ -52,6 +52,7 @@ export const Slider = ({ images }: Props) => {
       plugins={[
         Autoplay({
           delay: 4000,
+          stopOnInteraction:false
         }),
       ]}
       className="w-screen bg-blue-500 bg-opacity-5"

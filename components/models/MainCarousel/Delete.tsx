@@ -23,7 +23,7 @@ const DeleteMainCarousel = () => {
   const { isOpen, type, data, onClose } = useModal();
   const { token, isTokenExpired } = useSession();
   const isModalOpen = isOpen && type === "deleteMainCarousel";
-  const {mainCarousel} = data;
+  const { mainCarousel } = data;
   const onSubmit = async () => {
     try {
       if (!token && isTokenExpired()) {
@@ -33,18 +33,19 @@ const DeleteMainCarousel = () => {
       const url = qs.stringifyUrl({
         url: "/api/components/mainCarousel",
         query: {
-          id:mainCarousel?.id,
-          
+          id: mainCarousel?.id,
         },
       });
 
-      await axios.delete(url, {
+      const response = await axios.delete(url, {
         headers: {
           Authorization: "Bearer " + token,
         },
       });
-      router.refresh();
-      onClose();
+      if (response) {
+        // router.refresh();
+        onClose();
+      }
     } catch (error) {
       console.log(error);
     }
