@@ -10,7 +10,7 @@ interface Props {
 export const Pagination = ({ total, current }: Props) => {
   return (
     <div className="w-full flex justify-center gap-3 p-2 bg-inherit">
-      {Array.from({ length: total }).map((_, index) => (
+      {Array.from({ length: 5 }, (v, i) => i).map((_, index) => (
         <div
           key={index}
           className={cn(
