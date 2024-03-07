@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SessionContext } from "./context/SessionContext";
+import { SessionContext } from "@/components/providers/context/SessionContext";
+import { ModalProvider } from "@/components/providers/model-provider";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
@@ -9,8 +10,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [isPasswordDefault, setIsPasswordDefault] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const storedToken = sessionStorage.getItem("token");
-    const storedRole = sessionStorage.getItem("role");
+    const storedToken = localStorage.getItem("token");
+    const storedRole = localStorage.getItem("role");
     if (storedToken) {
       setToken(storedToken);
     }
@@ -22,8 +23,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const setSession = (newToken: string, newRole: string) => {
     const exp = JSON.parse(atob(newToken.split(".")[1]));
-    sessionStorage.setItem("token", newToken);
-    sessionStorage.setItem("role", newRole);
+    localStorage.setItem("token", newToken);
+    localStorage.setItem("role", newRole);
     setToken(newToken);
     setRole(newRole);
     setIsPasswordDefault(exp.isPasswordDefault);
@@ -31,8 +32,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
   };
 
   const clearSession = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("role");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setToken(null);
     setRole(null);
     setIsPasswordDefault(null);
@@ -64,6 +65,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <SessionContext.Provider
       value={{ token, role, isPasswordDefault, changePasswordNotDefault, isTokenExpired, clearSession, setSession }}
     >
+      <ModalProvider />
       {children}
     </SessionContext.Provider>
   );

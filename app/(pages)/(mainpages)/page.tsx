@@ -219,7 +219,7 @@ export default function Home() {
       {/* <Navbar /> */}
       <div className={"flex justify-center max-h-fit relative"} id={"home"}>
         <Slider images={images} />
-        <Link href={"/form"} className={"absolute bottom-20"}>
+        <Link href={"/apply"} className={"absolute bottom-20"}>
           <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">
             Apply Now
           </Button>
