@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers/Provider";
+import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export default function RootLayout({
@@ -26,6 +27,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
+          <Toaster/>
           {children}
         </Providers>
       </body>

@@ -11,7 +11,7 @@ export const HaveAProject = () => {
         Have a project ready?
       </h1>
       <Link href={"/apply"}>
-      <Button className="bg-blue-500 w-[150px] h-[50px]">APPLY NOW</Button>
+        <Button className="bg-blue-500 w-[150px] h-[50px]">APPLY NOW</Button>
       </Link>
     </section>
   );

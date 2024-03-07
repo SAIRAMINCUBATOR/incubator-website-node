@@ -1,3 +1,4 @@
+"use client"
 import Image, { StaticImageData } from "next/image";
 import { Testimonial } from "@/schema";
 import { Slider } from "@/components/Slider";
@@ -37,7 +38,24 @@ import { Funds } from "@/components/Funds";
 import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
 import { HaveAProject } from "@/components/HaveAProject";
+import { useEffect, useState } from "react";
+import { MainCarousel } from "@prisma/client";
+import axios from "axios";
 export default function Home() {
+
+  const [MainCarousel, setMainCarousel] = useState<MainCarousel[]>([]);
+  const getMainCarouselData = async () => {
+    try{
+    const response = await axios.get("/api/components/mainCarousel");
+    setMainCarousel(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
+  useEffect(() => {
+    getMainCarouselData();
+  }, []);
+
   const projects: Project[] = [
     { title: "Title", description: "description", image: img1, url: "1" },
     { title: "Title", description: "description", image: img2, url: "2" },
@@ -45,11 +63,7 @@ export default function Home() {
     { title: "Title", description: "description", image: img4, url: "4" },
     { title: "Title", description: "description", image: img5, url: "5" },
   ];
-  const images: ImageData[] = [
-    { image: img1, name: "Imag1" },
-    { image: img2, name: "Image2" },
-    { image: img3, name: "Image3" },
-  ];
+  
   const tags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
   );
@@ -218,7 +232,7 @@ export default function Home() {
     >
       {/* <Navbar /> */}
       <div className={"flex justify-center max-h-fit relative"} id={"home"}>
-        <Slider images={images} />
+        <Slider images={MainCarousel} />
         <Link href={"/apply"} className={"absolute bottom-20"}>
           <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">
             Apply Now
