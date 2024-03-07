@@ -18,9 +18,9 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import axios from "axios";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, XOctagon } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -31,6 +31,7 @@ const SignInComponent = () => {
   const router = useRouter();
 
   const { setSession, token, isTokenExpired } = useSession();
+  const [signed, setSigned] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,29 +45,33 @@ const SignInComponent = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const response = await axios.post("/api/auth/signin", values);
+      setSigned(true);
       setSession(response.data.token, response.data.role);
       form.reset();
       if (response.data.isPasswordDefault) {
-        router.replace("/auth/setPassword");
-      } else {
-        router.push("/");
-      }
-    } catch (error) {
-      if (error && error.response && error.response.data) {
         toast(
           <>
-            <AlertCircle />
-            {error.response.data}
+            <AlertCircle className="h-4 w-4 mx-2" />
+            <span>Reset Password To Continue</span>
           </>
         );
+        router.replace("/auth/resetPassword");
+      } else {
+        router.replace("/");
       }
+    } catch (error:any) {
+      const errorMessage:String = error.response.data
+      if (errorMessage.includes("User"))
+        form.setError("email", { message: error.response.data });
+      if (errorMessage.includes("Password"))
+        form.setError("password", { message: error.response.data });
 
       console.error(error);
     }
   };
   useEffect(() => {
-    if (token) {
-      router.push("/");
+    if (token && !signed) {
+      router.replace("/");
     }
   }, [token]);
   return (

@@ -21,7 +21,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return new NextResponse("Incorrect Password", { status: 400 });
     }
     return NextResponse.json({
-      token: generateToken({ email }),
+      token: generateToken({ email, isPasswordDefault: user.isPasswordDefault }),
       role: user.role,
       isPasswordDefault: user.isPasswordDefault,
     });

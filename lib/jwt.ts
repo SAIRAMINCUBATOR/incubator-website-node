@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 export interface Payload{
   email:string
-
+  isPasswordDefault:boolean
 }
 
 const key = process.env.KEY;

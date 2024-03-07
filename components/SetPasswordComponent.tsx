@@ -1,6 +1,22 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,9 +34,9 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import axios from "axios";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, X } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const formSchema = z.object({
   password: z
@@ -29,17 +45,21 @@ const formSchema = z.object({
   confirmPassword: z.string().min(8, {
     message: "Confirm Password is required with minimum of length 8",
   }),
+  oldPassword: z.string().min(1, "Old Password is required"),
 });
 
 const SetPasswordComponent = () => {
-  console.log("set password compo");
+  const { token, isTokenExpired, isPasswordDefault, changePasswordNotDefault } = useSession();
+  const [open, setOpen] = useState(true);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [action, setAction] = useState(false);
 
-  const { token, isTokenExpired } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
       confirmPassword: "",
+      oldPassword: "",
     },
   });
   const isLoading = form.formState.isSubmitting;
@@ -49,7 +69,7 @@ const SetPasswordComponent = () => {
     try {
       if (values.password === values.confirmPassword) {
         const response = await axios.post(
-          "/api/auth/setPassword",
+          "/api/auth/resetPassword",
           { password: values.password },
           {
             headers: {
@@ -58,8 +78,10 @@ const SetPasswordComponent = () => {
           }
         );
         if (response.status) {
+          changePasswordNotDefault();
           form.reset();
-          router.push("/");
+          router.replace("/");
+          setOpen(false);
         }
       } else {
         form.setError("confirmPassword", { message: "Passwords Not Match" });
@@ -83,31 +105,74 @@ const SetPasswordComponent = () => {
       console.error(error);
     }
   };
-  // useEffect(() => {
-  //   if (!token) {
-  //     router.push("/");
-  //   }
-  // }, [token]);
+  useEffect(() => {
+    if (action) {
+      setOpen(false);
+      router.push("/");
+    }
+  }, [action]);
+  const handleClose = () => {
+    if (Object.keys(form.formState.dirtyFields).length > 0) {
+      setAlertOpen(true);
+    } else {
+      setOpen(false);
+      router.push("/");
+    }
+  };
+  useEffect(() => {
+    if (!token) {
+      router.replace("/");
+    }
+  }, [token]);
   return (
-    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white rounded-2xl">
-      <CardHeader>
-        <CardTitle>Set Password</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <Dialog open={open}>
+      <DialogContent className="w-1/3">
+        {!isPasswordDefault && (
+          <div
+            onClick={handleClose}
+            className="cursor-pointer absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
+          >
+            <X className="h-4 w-4" />
+            <span className="sr-only">Close</span>
+          </div>
+        )}
+        <DialogHeader>
+          <DialogTitle>Reset Password</DialogTitle>
+        </DialogHeader>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid w-full items-center gap-10 ">
+              <FormField
+                disabled={isLoading}
+                name={"oldPassword"}
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Old Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="********"
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 disabled={isLoading}
                 name={"password"}
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Pasword</FormLabel>
+                    <FormLabel>New Pasword</FormLabel>
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        placeholder="*************"
+                        placeholder="********"
                         type="password"
                         {...field}
                       />
@@ -127,7 +192,7 @@ const SetPasswordComponent = () => {
                       <Input
                         disabled={isLoading}
                         type={"password"}
-                        placeholder="*************"
+                        placeholder="********"
                         {...field}
                       />
                     </FormControl>
@@ -139,14 +204,29 @@ const SetPasswordComponent = () => {
 
             <div className="flex flex-col space-y-1.5 pt-2">
               <Button type="submit" disabled={isLoading}>
-                <Loader2 className="animete-spin mx-3 h-5 w-5" />
                 Set Password
               </Button>
             </div>
           </form>
         </Form>
-      </CardContent>
-    </Card>
+      </DialogContent>
+      <AlertDialog
+        open={alertOpen}
+        onOpenChange={() => setAlertOpen(!alertOpen)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={() => setAction(true)}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Dialog>
   );
 };
 

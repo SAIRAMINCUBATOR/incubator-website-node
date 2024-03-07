@@ -92,12 +92,7 @@ export const Footer = () => {
             className="border p-2 ml-2 mr-2"
             rows={5}
           ></textarea>
-          <label className="font-semibold m-2">Message</label>
-          <textarea
-            placeholder="Enter your message"
-            className="border p-2 ml-2 mr-2"
-            rows={5}
-          ></textarea>
+         
         </div>
         <Button className="bg-blue-500 w-[100%] h-[40px] font-semibold">
           SUBMIT
@@ -111,7 +106,6 @@ export const Footer = () => {
           style={{ border: 0 }}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="h-[140%] w-[120%]"
         ></iframe>
       </div>
     </section>

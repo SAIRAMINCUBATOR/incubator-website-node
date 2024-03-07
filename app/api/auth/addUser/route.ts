@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { compareStrings, getDefaultPassword } from "@/lib/encryption-server";
+import { compareStrings, getDefaultPassword, hashString } from "@/lib/encryption-server";
 import { getUser } from "@/lib/get-user";
 import { generateToken } from "@/lib/jwt";
 import { Gender } from "@prisma/client";
@@ -7,11 +7,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const { email, gender, name } = await req.json();
+    const { email, gender, name, password, setDefaultPassword } = await req.json();
     const headers = req.headers;
     const token = headers.get("Authorization");
-    if (!email || !name || !gender) {
+    if (!email || !name || !gender ) {
       return new NextResponse("Email or Name or Gender is missing", {
+        status: 400,
+      });
+    }
+    if (!password && !setDefaultPassword){
+      return new NextResponse("Either Password or CheckBox is needed", {
         status: 400,
       });
     }
@@ -29,13 +34,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
         status: 400,
       });
     }
+    let hashedPassword;
+    if (!setDefaultPassword){
+      hashedPassword = await hashString(password)
+    }else{
+      hashedPassword = await getDefaultPassword();
+    }
     await db.user.create({
       data: {
         name,
         email,
         gender,
-        isPasswordDefault: true,
-        password: await getDefaultPassword(),
+        isPasswordDefault: setDefaultPassword,
+        password: hashedPassword,
       },
     });
     return NextResponse.json("User created");

@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    console.log("set Password Backedn")
     const { password } = await req.json();
     if (!password) {
       return new NextResponse("Password is missing", { status: 400 });
