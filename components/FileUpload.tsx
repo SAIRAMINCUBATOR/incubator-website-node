@@ -17,8 +17,8 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
 
   if (value) {
     return (
-      <div className="relative h-20 w-full flex justify-center">
-        <Image src={value} alt="Upload" fill/>
+      <div className="relative h-fit w-full flex justify-center">
+        <Image src={value} alt="Upload" width={200} height={100} />
         <button
           onClick={() => onChange("")}
           className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
