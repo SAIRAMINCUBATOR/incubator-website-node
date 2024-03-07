@@ -38,7 +38,6 @@ const Project = async (req: any, res: any) => {
   const name = "Pendulam Project";
   return (
     <div className="w-full flex flex-col items-center  bg-sky-200/50">
-      <Slider images={images} />
       <div className="md:w-[90%] w-full flex justify-center gap-5 mb-10">
         <div className="p-4 m-4 flex justify-start w-full">
           <Image src={img1} alt="Main" height={350} className="h-fit" />
