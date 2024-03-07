@@ -1,8 +1,10 @@
+import { MainCarousel } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "createServer" ;
+export type ModalType = "addMainCarousel" | "editMainCarousel" | "deleteMainCarousel";
 
 interface ModalData {
+  mainCarousel?: MainCarousel
 }
 
 interface ModalStore {

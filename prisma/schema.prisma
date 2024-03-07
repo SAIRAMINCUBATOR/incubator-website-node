@@ -38,7 +38,7 @@ model User {
 
 model MainCarousel {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
-  image         Bytes
+  image         String
   name          String
   addedByUserId String @db.ObjectId
   addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)

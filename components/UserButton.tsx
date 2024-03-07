@@ -18,7 +18,7 @@ import { useSession } from "@/components/providers/context/SessionContext";
 import { useRouter } from "next/navigation";
 import { UserData } from "@/schema";
 
-const UserButton = ({ setClose }: { setClose: () => void }) => {
+const UserButton = ({ setClose }: { setClose?: () => void }) => {
   const [isMounted, setIsMounted] = useState(false);
   const { token, clearSession, isTokenExpired, role } =
     useSession();

@@ -9,19 +9,20 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import { ImageData } from "@/schema";
-import { Pagination } from "@/components/Pagination";
 import { useEffect } from "react";
+import { MainCarousel } from "@prisma/client";
 
 interface Props {
-  images: ImageData[];
+  images: MainCarousel[];
 }
 
 export const Slider = ({ images }: Props) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(-1);
   const [count, setCount] = React.useState(-1);
-
+  useEffect(() => {
+    console.log(images);
+  });
   useEffect(() => {
     if (!api) {
       return;
@@ -66,6 +67,8 @@ export const Slider = ({ images }: Props) => {
                 src={img.image}
                 alt={`${img.name}`}
                 className={"md:h-[600px] w-full object-contain"}
+                height={200}
+                width={400}
               />
             </CarouselItem>
           ))}
