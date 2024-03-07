@@ -5,7 +5,7 @@ export const AboutUs = () => {
   return (
     <div
       id="about-us"
-      className="flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-full pb-5 overflow-hidden lg:flex-row flex-col"
+      className="flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-full py-10 overflow-hidden lg:flex-row flex-col gap-10"
       style={{
         width: "100%",
         transition: "background-position 0.3s ease",
@@ -38,10 +38,10 @@ export const AboutUs = () => {
         loading="lazy"
         src="incubator-logo.png"
         alt="Sairam Incubator Foundation Logo"
-        className="w-[35%] lg:h-[60%] h-[80%] mr-[12%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
+        className="w-[35%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
       />
 
-      <div className="flex flex-col w-[70%] ">
+      <div className="flex flex-col w-[60%] ">
         <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 lg:text-7xl md:text-4xl text-2xl">
           WHY INCUBATION
           <br />
