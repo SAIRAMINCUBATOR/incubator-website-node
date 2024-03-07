@@ -1,14 +1,16 @@
 "use client";
 
 import * as React from "react";
+import img from "@/public/Illustration9.png"
+import Image from "next/image";
 
 export const Establishment = () => {
   return (
     <section className="w-full relative flex gap-10 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden">
       {/* Images */}
-      <img
+      <Image
         loading="lazy"
-        src="illustration9.png"
+        src={img}
         alt="ill1"
         className="absolute lg:w-[50%] lg:h-[100%] w-[45%] h-[30%] max-w-3/10 rotate-0 lg:bottom-0 bottom-[10%] left-[84%] filter"
         style={{
@@ -17,9 +19,9 @@ export const Establishment = () => {
         }}
       />
 
-      <img
+      <Image
         loading="lazy"
-        src="illustration9.png"
+        src={img}
         alt="ill1"
         className="absolute lg:w-[50%] lg:h-[100%] w-[45%] h-[30%] max-w-3/10 rotate-0 lg:bottom-0 bottom-[60%] right-[84%] filter -z-20"
         style={{
