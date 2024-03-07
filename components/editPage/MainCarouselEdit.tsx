@@ -36,42 +36,48 @@ const MainCarouselEdit = () => {
         </Button>
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
-        {!loading && data && data.length > 0 ? (
+        {!loading ? (
           <ScrollArea className="w-full py-4">
-            <div className="flex gap-10">
-              {data.map((datum, index) => (
-                <>
-                  <Image
-                    className="object-contain rounded-xl"
-                    src={datum.image}
-                    alt={`${datum.name}`}
-                    key={index}
-                    width={200}
-                    height={105}
-                  />
-                  <div className="flex gap-5">
-                    <Button
-                      onClick={() =>
-                        onOpen("editMainCarousel", { mainCarousel: datum })
-                      }
-                      variant={"ghost"}
-                      className=" border-dashed border-4 border-blue-400"
-                    >
-                      <Pencil className="h-5 w-5 mr-2" /> Edit
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        onOpen("deleteMainCarousel", { mainCarousel: datum })
-                      }
-                      variant={"ghost"}
-                      className=" border-dashed border-4 border-blue-400"
-                    >
-                      <Trash className="h-5 w-5 mr-2" /> Delete
-                    </Button>
-                  </div>
-                </>
-              ))}
-            </div>
+            {data && data.length > 0 ? (
+              <div className="flex gap-10">
+                {data.map((datum, index) => (
+                  <>
+                    <Image
+                      className="object-contain rounded-xl"
+                      src={datum.image}
+                      alt={`${datum.name}`}
+                      key={index}
+                      width={200}
+                      height={105}
+                    />
+                    <div className="flex gap-5">
+                      <Button
+                        onClick={() =>
+                          onOpen("editMainCarousel", { mainCarousel: datum })
+                        }
+                        variant={"ghost"}
+                        className=" border-dashed border-4 border-blue-400"
+                      >
+                        <Pencil className="h-5 w-5 mr-2" /> Edit
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          onOpen("deleteMainCarousel", { mainCarousel: datum })
+                        }
+                        variant={"ghost"}
+                        className=" border-dashed border-4 border-blue-400"
+                      >
+                        <Trash className="h-5 w-5 mr-2" /> Delete
+                      </Button>
+                    </div>
+                  </>
+                ))}
+              </div>
+            ): (
+              <div className="w-full flex justify-center text-2xl font-bold">
+              No Data Found
+              </div>
+            )}
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         ) : (
