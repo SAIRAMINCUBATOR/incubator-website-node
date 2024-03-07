@@ -38,7 +38,7 @@ export const Establishment = () => {
         </h3>
         <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
         <p
-          className="text-base leading-26 text-gray-600 text-balance text-[20px]"
+          className="text-base leading-26 text-gray-600 text-[20.5px] text-justify"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
           Sri Sairam Techno Incubation Foundation was established on 12th
@@ -57,7 +57,7 @@ export const Establishment = () => {
       >
         <h3 className="font-bold text-lg md:text-2xl text-gray-800">VISION</h3>
         <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
-        <p className="text-base text-balance text-gray-600 text-[20px]">
+        <p className="text-base text-balance text-gray-600 text-[20.5px] text-justify">
           To be a center of excellence that construct a dynamic and sustainable
           ecosystem for enriching Entrepreneurship Skills.
         </p>
@@ -73,7 +73,7 @@ export const Establishment = () => {
           OBJECTIVES
         </h3>
         <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
-        <p className="text-base text-balance text-gray-600 text-[20px]">
+        <p className="text-base text-balance text-gray-600 text-[20.5px] text-justify">
           Enhance the graduate engineers knowledge to suit the industry
           requirements. Ready to adopt industry culture. Make students aware of
           latest technology and understand the processes of developing a true
@@ -89,7 +89,7 @@ export const Establishment = () => {
       >
         <h3 className="font-bold text-lg md:text-2xl text-gray-800">MISSION</h3>
         <hr className="underline border-b-[7px] mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
-        <p className="text-base text-balance text-gray-600 text-[20px]">
+        <p className="text-base text-balance text-gray-600 text-[20.5px] text-justify">
           We are Committed to nurture creativity, innovation and
           entrepreneurship among students, Faculty and aspirants. We strongly
           cultivate industrial culture and standards.We enable process for

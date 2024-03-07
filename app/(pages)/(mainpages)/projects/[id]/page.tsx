@@ -17,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { HaveAProject } from "@/components/HaveAProject";
 
 const Project = async (req: any, res: any) => {
   const { id } = req?.params;
@@ -76,6 +77,7 @@ const Project = async (req: any, res: any) => {
           />
         </div>
       </div>
+      <HaveAProject />
     </div>
   );
 };
