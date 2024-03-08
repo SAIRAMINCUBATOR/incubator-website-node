@@ -20,9 +20,7 @@ export const Slider = ({ images }: Props) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(-1);
   const [count, setCount] = React.useState(-1);
-  useEffect(() => {
-    console.log(images);
-  });
+
   useEffect(() => {
     if (!api) {
       return;

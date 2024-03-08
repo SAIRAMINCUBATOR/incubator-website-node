@@ -36,8 +36,9 @@ const MainCarouselEdit = () => {
         </Button>
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
-        {!loading && data && data.length > 0 ? (
+        {!loading ? (
           <ScrollArea className="w-full py-4">
+            {data && data.length > 0 ? (
             <div className="flex gap-10 mb-4">
               {data.map((datum, index) => (
                 <div className="flex flex-col gap-5">
@@ -72,6 +73,11 @@ const MainCarouselEdit = () => {
                 </div>
               ))}
             </div>
+            ): (
+              <div className="w-full flex justify-center text-2xl font-bold">
+              No Data Found
+              </div>
+            )}
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         ) : (

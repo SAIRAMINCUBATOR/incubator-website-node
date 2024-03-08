@@ -52,7 +52,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       } catch (e) {
         return null;
       }
-      console.log(exp.exp * 1000, Date.now());
       if (exp.exp * 1000 < Date.now()) {
         clearSession();
         return true;
