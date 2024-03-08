@@ -38,24 +38,24 @@ const MainCarouselEdit = () => {
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading && data && data.length > 0 ? (
           <ScrollArea className="w-full py-4">
-            <div className="flex gap-10">
+            <div className="flex gap-10 mb-4">
               {data.map((datum, index) => (
-                <>
+                <div className="flex flex-col gap-5">
                   <Image
-                    className="object-contain rounded-xl"
+                    className="object-cover rounded-xl w-[250px] h-[150px]"
                     src={datum.image}
                     alt={`${datum.name}`}
                     key={index}
                     width={200}
                     height={105}
                   />
-                  <div className="flex gap-5">
+                  <div className="flex gap-5 justify-center">
                     <Button
                       onClick={() =>
                         onOpen("editMainCarousel", { mainCarousel: datum })
                       }
                       variant={"ghost"}
-                      className=" border-dashed border-4 border-blue-400"
+                      className=" border-dashed border-2 border-blue-400"
                     >
                       <Pencil className="h-5 w-5 mr-2" /> Edit
                     </Button>
@@ -64,12 +64,12 @@ const MainCarouselEdit = () => {
                         onOpen("deleteMainCarousel", { mainCarousel: datum })
                       }
                       variant={"ghost"}
-                      className=" border-dashed border-4 border-blue-400"
+                      className=" border-dashed border-2 border-blue-400"
                     >
                       <Trash className="h-5 w-5 mr-2" /> Delete
                     </Button>
                   </div>
-                </>
+                </div>
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
