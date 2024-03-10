@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils";
 
 interface Props {
-  total: Number;
-  current: Number;
+  total: number;
+  current: number;
 }
 
 export const Pagination = ({ total, current }: Props) => {
