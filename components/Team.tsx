@@ -2,13 +2,14 @@
 import { TeamInt } from "@/schema";
 import { TeamPeople } from "./TeamPeople";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Team } from "@prisma/client";
 
 interface Props {
-  row0: TeamInt[];
-  rowN?: TeamInt[];
+  row0: Team[];
+  rowN?: Team[];
 }
 
-export const Team = ({ row0, rowN }: Props) => {
+export const TeamComponent = ({ row0, rowN }: Props) => {
   return (
     <div id="team" className="w-full text-center bg-blue-100/50 p-5">
       <h2

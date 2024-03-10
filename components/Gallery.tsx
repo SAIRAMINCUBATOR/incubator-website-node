@@ -14,21 +14,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Gallery } from "@prisma/client";
 
-const Gallery = ({ images }: { images: ImageData[] }) => {
+const GalleryComponent = ({ images }: { images: Gallery[] }) => {
   const [viewMore, setviewMore] = useState(false);
-  const ImageC = ({ image, name }: ImageData) => {
+  const ImageC = ({ imagedata }: {imagedata: Gallery}) => {
     return (
       <Dialog>
         <DialogTrigger>
           <div className="relative group border-2 border-white shadow-lg drop-shadow-lg  group-hover:scale-110 transition-all ease-in duration-200 cursor-pointer">
             <Image
-              src={image}
-              alt={name}
+              src={imagedata.image}
+              alt={imagedata.name}
+              width={100}
+              height={100}
               className="h-[220px] min-w-[350px] max-w-[350px] group-hover:scale-110 group-hover:shadow-xl group-hover:drop-shadow-xl group-hover:rounded-xl transition-all ease-in duration-200"
             />
             <div className="absolute top-[90%] text-center text-white flex justify-center transition-all ease-in duration-200 group-hover:top-[95%] items-center z-10 w-full h-[10%] gradient-overlay group-hover:scale-110 group-hover:rounded-b-xl">
-              <span className="font-semibold capitalize ">{name}</span>
+              <span className="font-semibold capitalize ">{imagedata.name}</span>
             </div>
           </div>
         </DialogTrigger>
@@ -38,12 +41,14 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
             <span className="sr-only">Close</span>
           </DialogClose>
           <Image
-            src={image}
-            alt={name}
+            src={imagedata.image}
+            alt={imagedata.name}
             className=" min-w-[550px]  max-w-[750px]"
+            width={100}
+            height={100}
           />
           <span className="font-semibold capitalize text-white text-center text-2xl">
-            {name}
+            {imagedata.name}
           </span>
         </DialogContent>
       </Dialog>
@@ -76,7 +81,7 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
           >
             {images &&
               images.map((image, index) => (
-                <ImageC image={image.image} name={image.name} key={index} />
+                <ImageC imagedata={image} />
               ))}
           </div>
           {images.length > 6 && (
@@ -124,7 +129,7 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
                   {images
                     .slice(index * 5, index * 5 + 5)
                     .map((image, index1) => (
-                      <ImageC image={image.image} name={image.name} key={index1}/>
+                      <ImageC imagedata={image} />
                     ))}
                 </div>
                 <ScrollBar orientation="horizontal" />
@@ -136,4 +141,4 @@ const Gallery = ({ images }: { images: ImageData[] }) => {
   );
 };
 
-export default Gallery;
+export default GalleryComponent;

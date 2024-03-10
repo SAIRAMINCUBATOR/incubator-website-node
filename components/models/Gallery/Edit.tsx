@@ -38,25 +38,25 @@ const formSchema = z.object({
   }),
 });
 
-export const EditMainCarousel = () => {
+export const EditGallery = () => {
   const { isOpen, onClose, type, data } = useModal();
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "editMainCarousel";
-  const { mainCarousel } = data;
+  const isModalOpen = isOpen && type === "editGallery";
+  const { gallery } = data;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: mainCarousel?.name,
-      image: mainCarousel?.image,
+      name: gallery?.name,
+      image: gallery?.image,
     },
   });
 
   useEffect(() => {
-    if (mainCarousel?.name) form.setValue("name", mainCarousel.name);
-    if (mainCarousel?.image) form.setValue("image", mainCarousel.image);
-  }, [mainCarousel, form]);
+    if (gallery?.name) form.setValue("name", gallery.name);
+    if (gallery?.image) form.setValue("image", gallery.image);
+  }, [gallery, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -67,7 +67,7 @@ export const EditMainCarousel = () => {
         handleClose();
       }
 
-      await axios.put("/api/components/mainCarousel", {...values, id: mainCarousel?.id}, {
+      await axios.put("/api/components/gallery", {...values, id: gallery?.id}, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -94,7 +94,7 @@ export const EditMainCarousel = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden w-1/2">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Main Slider Image
+            Edit Gallery Image
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -126,14 +126,14 @@ export const EditMainCarousel = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="px-6">
+                <FormItem>
                   <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                     Image Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                      className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                       placeholder="Enter Image Name"
                       {...field}
                     />
@@ -143,8 +143,8 @@ export const EditMainCarousel = () => {
               )}
             />
 
-            <DialogFooter className=" px-6 py-4">
-              <Button variant="primary" disabled={isLoading} className="w-[100px]">
+            <DialogFooter className="bg-gray-100 px-6 py-4">
+              <Button variant="primary" disabled={isLoading}>
                 Edit
               </Button>
             </DialogFooter>

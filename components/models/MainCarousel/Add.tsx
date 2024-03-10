@@ -88,7 +88,7 @@ export const AddMainCarouselModel = () => {
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
             <div className="space-y-8 px-6">
               <FormField
                 control={form.control}
@@ -116,14 +116,14 @@ export const AddMainCarouselModel = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="px-6">
                   <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                     Image Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                      className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
                       placeholder="Enter Image Name"
                       {...field}
                     />
@@ -133,8 +133,8 @@ export const AddMainCarouselModel = () => {
               )}
             />
 
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
+            <DialogFooter className="px-6 py-4 w-full flex items-center justify-center">
+              <Button variant="primary" disabled={isLoading} className="w-[100px]">
                 Add
               </Button>
             </DialogFooter>

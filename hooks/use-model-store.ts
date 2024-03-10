@@ -1,10 +1,15 @@
-import { MainCarousel } from "@prisma/client";
+import { Gallery, Lead, MainCarousel, StartUp, Team, Testimony } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "addMainCarousel" | "editMainCarousel" | "deleteMainCarousel";
+export type ModalType = "addMainCarousel" | "editMainCarousel" | "deleteMainCarousel" | "addTestimony" | "editTestimony" | "deleteTestimony" | "editTeam" | "addTeam" | "deleteTeam" | "addLead" | "editLead" | "deleteLead" | "editGallery" | "deleteGallery" | "addGallery" | "addStartUp" | "editStartUp" | "deleteStartUp";
 
 interface ModalData {
   mainCarousel?: MainCarousel
+  testimony?:Testimony
+  team?:Team
+  lead?:Lead
+  gallery?:Gallery
+  startup?:StartUp
 }
 
 interface ModalStore {

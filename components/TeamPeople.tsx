@@ -1,4 +1,5 @@
 import { TeamInt } from "@/schema";
+import { Team } from "@prisma/client";
 import {
   ChevronUp,
   Facebook,
@@ -10,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
-  team: TeamInt;
+  team: Team;
 }
 
 export const TeamPeople = ({ team }: Props) => {
@@ -21,6 +22,8 @@ export const TeamPeople = ({ team }: Props) => {
           <Image
             src={team.image}
             alt={team.name}
+            width={1000}
+            height={1000}
             className=" group-hover:rounded-t-md object-cover h-full w-full transition-all duration-200 ease-in-out"
           />
           <div className="absolute top-0 rounded-md w-full h-full opacity-0 bg-black transition-opacity duration-200 ease-in-out group-hover:opacity-40"></div>

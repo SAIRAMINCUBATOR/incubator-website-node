@@ -40,12 +40,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
     } catch (error) {
       //@ts-ignore
       if (error && error.response && error.response.data) {
-        toast(
-          <>
-            <AlertCircle />
-            {error.response.data}
-          </>
-        );
+        clearSession();
       }
 
       console.error(error);

@@ -4,19 +4,19 @@ import { Button } from "../ui/button";
 import { Loader2, Pencil, PlusCircle, Trash } from "lucide-react";
 import { useModal } from "@/hooks/use-model-store";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { MainCarousel } from "@prisma/client";
+import { Gallery } from "@prisma/client";
 import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const MainCarouselEdit = () => {
-  const [data, setData] = useState<MainCarousel[]>();
+const GalleryEdit = () => {
+  const [data, setData] = useState<Gallery[]>();
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen } = useModal();
 
   const getData = async () => {
     setLoading(true);
-    const response = await axios.get("/api/components/mainCarousel");
+    const response = await axios.get("/api/components/gallery");
     setData(response.data.response);
     setLoading(false);
   };
@@ -26,9 +26,9 @@ const MainCarouselEdit = () => {
   return (
     <div className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
       <div className="flex items-center justify-between gap-5 w-full">
-        <span className=" font-montserrat font-bold text-xl">Main Slider</span>
+        <span className=" font-montserrat font-bold text-xl">Gallery</span>
         <Button
-          onClick={() => onOpen("addMainCarousel")}
+          onClick={() => onOpen("addGallery")}
           variant={"ghost"}
           className=" border-dashed bg-blue-500 text-white shadow-lg hover:scale-105"
         >
@@ -41,7 +41,7 @@ const MainCarouselEdit = () => {
             {data && data.length > 0 ? (
             <div className="flex gap-20 mb-4">
               {data.map((datum, index) => (
-                <div className="flex flex-col justify-around gap-5">
+                <div className="flex flex-col gap-5">
                   <Image
                     className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
                     src={datum.image}
@@ -50,10 +50,10 @@ const MainCarouselEdit = () => {
                     width={200}
                     height={105}
                   />
-                  <div className="flex justify-around">
+                  <div className="flex gap-5 justify-center">
                     <Button
                       onClick={() =>
-                        onOpen("editMainCarousel", { mainCarousel: datum })
+                        onOpen("editGallery", { gallery: datum })
                       }
                       variant={"ghost"}
                       className="bg-green-400 w-[100px] text-white shadow-md"
@@ -62,7 +62,7 @@ const MainCarouselEdit = () => {
                     </Button>
                     <Button
                       onClick={() =>
-                        onOpen("deleteMainCarousel", { mainCarousel: datum })
+                        onOpen("deleteGallery", { gallery: datum })
                       }
                       variant={"ghost"}
                       className="bg-red-400 w-[100px] text-white shadow-md"
@@ -82,28 +82,28 @@ const MainCarouselEdit = () => {
           </ScrollArea>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full">
-          <div className="flex  flex-col gap-5  ">
-            <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-            <div className="flex items-start h-full gap-2 justify-start">
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+            <div className="flex  flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
+              <div className="flex items-start h-full gap-2 justify-start">
+                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-5 ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
+              <div className="flex items-start h-full gap-2 justify-start">
+                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+              </div>
+            </div>
+            <div className="flex  flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
+              <div className="flex items-start h-full gap-2 justify-start">
+                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-5 ">
-            <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-            <div className="flex items-start h-full gap-2 justify-start">
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-            </div>
-          </div>
-          <div className="flex  flex-col gap-5  ">
-            <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-            <div className="flex items-start h-full gap-2 justify-start">
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-            </div>
-          </div>
-        </div>
           // <Loader2 className="h-10 w-10 animate-spin" />
         )}
       </div>
@@ -111,4 +111,4 @@ const MainCarouselEdit = () => {
   );
 };
 
-export default MainCarouselEdit;
+export default GalleryEdit;

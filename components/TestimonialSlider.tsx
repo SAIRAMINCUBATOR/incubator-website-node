@@ -10,10 +10,11 @@ import {
 } from "@/components/ui/carousel";
 import Image, { StaticImageData } from "next/image";
 interface Props {
-  testimonycontent: Testimonial[];
+  testimonycontent: Testimony[];
 }
 import { useEffect } from "react";
 import { Pagination } from "./Pagination";
+import { Testimony } from "@prisma/client";
 
 export const TestimonialSlider = ({ testimonycontent }: Props) => {
   const [api, setApi] = React.useState<CarouselApi>();
@@ -73,16 +74,18 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
                   src={item.image}
                   alt={"Image"}
                   className={"md:h-[220px] w-[220px] mb-[2%] object-contain"}
+                  width={100}
+                  height={100}
                 />
                 <p className="text-base text-justify text-gray-600 text-[20px] w-[300px] lg:w-[700px] mb-[1%]">
                   {item.description}
                 </p>
-                <h1 className="text-bold text-[1.6rem]">{item.name}</h1>
-                <h2 className="text-bold">{item.designation}</h2>
+                <h1 className="text-bold text-[1.6rem]">{item.companyName}</h1>
+                <h2 className="text-bold">{item.Designation}</h2>
               </CarouselItem>
             ))}
         </CarouselContent>
-        <Pagination total={count} current={current} />
+        <Pagination total={testimonycontent.length} current={current} />
       </Carousel>
     </div>
   );

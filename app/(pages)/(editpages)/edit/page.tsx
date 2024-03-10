@@ -1,5 +1,10 @@
 import UserButton from "@/components/UserButton";
+import GalleryEdit from "@/components/editPage/GalleryEdit";
+import LeadEdit from "@/components/editPage/LeadEdit";
 import MainCarouselEdit from "@/components/editPage/MainCarouselEdit";
+import StartUpEdit from "@/components/editPage/StartUpEdit";
+import TeamEdit from "@/components/editPage/TeamEdit";
+import TestimonyEdit from "@/components/editPage/Testimonyedit";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
@@ -22,6 +27,11 @@ const EditPage = () => {
       </div>
       <div className="w-full flex flex-col">
         <MainCarouselEdit />
+        <TestimonyEdit/>
+        <LeadEdit/>
+        <TeamEdit/>
+        <GalleryEdit/>
+        <StartUpEdit/>
       </div>
     </div>
   );

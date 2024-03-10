@@ -30,20 +30,33 @@ import { ImageData, Project, TeamInt } from "@/schema";
 import { Startup } from "@/components/Startup";
 
 import ceo from "@/public/teams/Sai Prakash Leo Muthu.jpg";
-import { Team } from "@/components/Team";
+import { TeamComponent } from "@/components/Team";
 import { Company } from "@/components/Companys";
-import Gallery from "@/components/Gallery";
+import GalleryComponent from "@/components/Gallery";
 
 import { Funds } from "@/components/Funds";
 import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
 import { HaveAProject } from "@/components/HaveAProject";
 import { useEffect, useState } from "react";
-import { MainCarousel } from "@prisma/client";
+import { Gallery, Lead, MainCarousel, StartUp, Team, Testimony } from "@prisma/client";
 import axios from "axios";
 export default function Home() {
 
   const [MainCarousel, setMainCarousel] = useState<MainCarousel[]>([]);
+  const [Testimony, setTestimony]=useState<Testimony[]>([]);
+  const [TeamMembers, setTeamMembers]=useState<Team[]>([]);
+  const [LeadMembers, setLeadMembers]=useState<Lead[]>([]);
+  const [GalleryImages, setGalleryImages] = useState<Gallery[]>([]);
+  const [StrtUpData,setStrtUpData]=useState<StartUp[]>([]);
+  const getTestimonyData = async () => {
+    try{
+    const response = await axios.get("/api/components/testimony");
+    setTestimony(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
   const getMainCarouselData = async () => {
     try{
     const response = await axios.get("/api/components/mainCarousel");
@@ -52,8 +65,50 @@ export default function Home() {
       console.log(e)
     }
   }
+
+  const getGallery = async () => {
+    try{
+    const response = await axios.get("/api/components/gallery");
+    setGalleryImages(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const getTeamData = async () => {
+    try{
+    const response = await axios.get("/api/components/team");
+    setTeamMembers(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const getLeadData = async () => {
+    try{
+    const response = await axios.get("/api/components/lead");
+    setLeadMembers(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  const getStartUpData = async () => {
+    try{
+    const response = await axios.get("/api/components/startup");
+    setStrtUpData(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     getMainCarouselData();
+    getTestimonyData();
+    getTeamData();
+    getLeadData();
+    getGallery();
+    getStartUpData();
   }, []);
 
   const projects: Project[] = [
@@ -102,36 +157,6 @@ export default function Home() {
     },
   ];
 
-  const testimonycontent: Testimonial[] = [
-    {
-      image: logo1,
-      description:
-        "Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
-      name: "Genik",
-      designation: "CEO",
-    },
-    {
-      image: logo2,
-      description:
-        "Toofan Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
-      name: "Toofan",
-      designation: "Founder",
-    },
-    {
-      image: logo3,
-      description:
-        "Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
-      name: "Genik2",
-      designation: "CEO",
-    },
-    {
-      image: logo4,
-      description:
-        "Genik Tech Pvt. Ltd. owes its success to the unwavering support of Sri Sai Ram Techno Incubator Foundation (SSTIF). Their provision of workspace, crucial seed funding, valuable connections, and expert mentorship has been transformative for our journey. For startups, SSTIF proves to be an indispensable resource. We wholeheartedly recommend SSTIF to those seeking a solid foundation and strategic growth. We extend our best wishes to SSTIF as they continue their pursuit of global recognition and excellence",
-      name: "Toofan2",
-      designation: "CEO",
-    },
-  ];
   const teams2: TeamInt[] = [
     {
       name: "Dr. Sai Prakash Leo Muthu",
@@ -243,14 +268,14 @@ export default function Home() {
       <Establishment />
 
       <Projects projects={projects} />
-      <Startup tags1={tags} tags2={tags} />
+      <Startup tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list?StrtUpData[0].list:tags} tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list?StrtUpData[1].list:tags} />
       <Company images={companies} />
       <Funds />
 
-      <Team row0={teams1} rowN={teams2} />
+      <TeamComponent row0={LeadMembers} rowN={TeamMembers} />
       <HaveAProject />
-      <Gallery images={galleryImages} />
-      <TestimonialSlider testimonycontent={testimonycontent} />
+      <GalleryComponent images={GalleryImages} />
+      <TestimonialSlider testimonycontent={Testimony} />
     </div>
   );
 }

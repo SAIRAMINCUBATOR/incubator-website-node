@@ -24,10 +24,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-model-store";
-import { useSession } from "@/components/providers/context/SessionContext";
+import { useState } from "react";
+import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
-import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -38,25 +38,19 @@ const formSchema = z.object({
   }),
 });
 
-export const EditMainCarousel = () => {
-  const { isOpen, onClose, type, data } = useModal();
+export const AddGalleryModel = () => {
+  const { isOpen, onClose, type } = useModal();
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
+  const isModalOpen = isOpen && type === "addGallery";
 
-  const isModalOpen = isOpen && type === "editMainCarousel";
-  const { mainCarousel } = data;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: mainCarousel?.name,
-      image: mainCarousel?.image,
+      name: "",
+      image: "",
     },
   });
-
-  useEffect(() => {
-    if (mainCarousel?.name) form.setValue("name", mainCarousel.name);
-    if (mainCarousel?.image) form.setValue("image", mainCarousel.image);
-  }, [mainCarousel, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -67,7 +61,7 @@ export const EditMainCarousel = () => {
         handleClose();
       }
 
-      await axios.put("/api/components/mainCarousel", {...values, id: mainCarousel?.id}, {
+      await axios.post("/api/components/gallery", values, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -85,16 +79,12 @@ export const EditMainCarousel = () => {
     onClose();
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden w-1/2">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Main Slider Image
+            Add Gallery Image
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -126,14 +116,14 @@ export const EditMainCarousel = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem className="px-6">
+                <FormItem>
                   <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                     Image Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                      className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                       placeholder="Enter Image Name"
                       {...field}
                     />
@@ -143,9 +133,9 @@ export const EditMainCarousel = () => {
               )}
             />
 
-            <DialogFooter className=" px-6 py-4">
-              <Button variant="primary" disabled={isLoading} className="w-[100px]">
-                Edit
+            <DialogFooter className="bg-gray-100 px-6 py-4">
+              <Button variant="primary" disabled={isLoading}>
+                Add
               </Button>
             </DialogFooter>
           </form>

@@ -34,9 +34,59 @@ model User {
   role              MemberRole     @default(USER)
   gender            Gender
   MainCarousel      MainCarousel[]
+  Testimony         Testimony[]
+  Team              Team[]
+  Lead              Lead[]
+  Gallery           Gallery[]
+  StartUp           StartUp[]
 }
 
 model MainCarousel {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Testimony {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  companyName   String
+  Designation   String
+  description   String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Team {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  designation   String
+  facebook      String
+  twitter       String
+  instagram     String
+  linkedin      String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Lead {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  designation   String
+  facebook      String
+  twitter       String
+  instagram     String
+  linkedin      String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Gallery {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   image         String
   name          String
@@ -48,4 +98,6 @@ model StartUp {
   id   String   @id @default(auto()) @map("_id") @db.ObjectId
   name String
   list String[]
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
