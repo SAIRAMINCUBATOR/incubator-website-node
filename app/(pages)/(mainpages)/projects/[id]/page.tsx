@@ -43,23 +43,23 @@ const ProjectPage = (req: any, res: any) => {
           })}
         />
       )}
-      <div className="md:w-[90%] w-full flex justify-center gap-5 mb-10">
-        <div className="p-4 m-4 flex justify-start w-full">
-          {(!loading && ProjectContent && ProjectContent.image) ? (
+      <div className="w-[90%] flex justify-center gap-5 mb-10 lg:flex-row flex-col items-center lg:items-start">
+        <div className="p-4 m-4 flex lg:justify-start w-full ">
+          {!loading && ProjectContent && ProjectContent.image ? (
             <Image
               src={ProjectContent.image[0]}
               alt="Main"
-              height={350}
-              width={300}
-              className="h-fit"
+              height={500}
+              width={500}
+              className="h-1/3"
             />
-          ): (
-            <Skeleton className="h-fit"/>
+          ) : (
+            <Skeleton className="h-fit" />
           )}
         </div>
         <div className="w-full flex flex-col gap-10">
           <div className="relative w-full">
-            <span className="text-black font-bold text-[70px] w-1/2">
+            <span className="text-black font-bold lg:text-[70px] md:text-[50px] text-[36px] w-1/2">
               {ProjectContent && ProjectContent.name}
             </span>
             <div className="absolute left-3 -bottom-4 w-[300px] h-2 bg-blue-500 rounded-2xl" />
