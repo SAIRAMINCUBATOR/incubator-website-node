@@ -92,7 +92,7 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
   }
 
   return (
-    <div className="bg-slate-200 p-4 flex justify-center border-slate-400 border-2 border-dashed">
+    <div className="bg-slate-200 p-4 flex justify-center border-slate-400 border-2 border-dashed w-full">
       {!file ? (
         <Dropzone
           onDrop={onDrop}

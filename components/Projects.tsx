@@ -14,8 +14,8 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Project } from "@/schema";
 import { Pagination } from "@/components/Pagination";
+import { Project } from "@prisma/client";
 
 interface Props {
   projects: Project[];
@@ -57,7 +57,7 @@ export const Projects = ({ projects }: Props) => {
       </h2>
       <div
         className={
-          "flex flex-col justify-center min-h-[400px] max-h-[400px] items-center"
+          "flex flex-col justify-center min-h-[400px] items-center"
         }
       >
         <Carousel
@@ -82,7 +82,9 @@ export const Projects = ({ projects }: Props) => {
                 >
                   <div className="relative">
                     <Image
-                      src={project.image}
+                    width={1000}
+                    height={1000}
+                      src={project.image[0]}
                       alt="Image"
                       className={cn(
                         "z-0 rounded-xl w-[700px] aspect-1 h-[250px] transition-all duration-300 ease-in",
@@ -92,11 +94,11 @@ export const Projects = ({ projects }: Props) => {
                     <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
                       <div className="project-info text-left  bg-gradient-to-t from-black via-gray-900 to-transparent text-white rounded-xl">
                         <h3 className="project-title font-semibold">
-                          {project.title}
+                          {project.name}
                         </h3>
                         <p className="project-desc">{project.description}</p>
                         <Link
-                          href={`/projects/${project.url}`}
+                          href={`/projects/${project.id}`}
                           className="apply-now"
                         >
                           <Button>DETAILS</Button>

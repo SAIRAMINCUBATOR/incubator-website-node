@@ -26,7 +26,7 @@ import logo9 from "@/public/logo/8.png";
 import logo10 from "@/public/logo/10.png";
 import logo15 from "@/public/logo/15.png";
 
-import { ImageData, Project, TeamInt } from "@/schema";
+import { ImageData, TeamInt } from "@/schema";
 import { Startup } from "@/components/Startup";
 
 import ceo from "@/public/teams/Sai Prakash Leo Muthu.jpg";
@@ -39,7 +39,7 @@ import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
 import { HaveAProject } from "@/components/HaveAProject";
 import { useEffect, useState } from "react";
-import { Gallery, Lead, MainCarousel, StartUp, Team, Testimony } from "@prisma/client";
+import { Gallery, Lead, MainCarousel, StartUp, Team, Testimony,Project } from "@prisma/client";
 import axios from "axios";
 export default function Home() {
 
@@ -49,6 +49,7 @@ export default function Home() {
   const [LeadMembers, setLeadMembers]=useState<Lead[]>([]);
   const [GalleryImages, setGalleryImages] = useState<Gallery[]>([]);
   const [StrtUpData,setStrtUpData]=useState<StartUp[]>([]);
+  const [ProjectContent,setProjectContent]=useState<Project[]>([]);
   const getTestimonyData = async () => {
     try{
     const response = await axios.get("/api/components/testimony");
@@ -102,6 +103,15 @@ export default function Home() {
     }
   }
 
+  const getProjectData = async () => {
+    try{
+    const response = await axios.get("/api/components/project");
+    setProjectContent(response.data.response);
+    }catch(e){
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     getMainCarouselData();
     getTestimonyData();
@@ -109,15 +119,9 @@ export default function Home() {
     getLeadData();
     getGallery();
     getStartUpData();
+    getProjectData();
   }, []);
 
-  const projects: Project[] = [
-    { title: "Title", description: "description", image: img1, url: "1" },
-    { title: "Title", description: "description", image: img2, url: "2" },
-    { title: "Title", description: "description", image: img3, url: "3" },
-    { title: "Title", description: "description", image: img4, url: "4" },
-    { title: "Title", description: "description", image: img5, url: "5" },
-  ];
   
   const tags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
@@ -266,8 +270,7 @@ export default function Home() {
       </div>
       <AboutUs />
       <Establishment />
-
-      <Projects projects={projects} />
+      <Projects projects={ProjectContent} />
       <Startup tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list?StrtUpData[0].list:tags} tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list?StrtUpData[1].list:tags} />
       <Company images={companies} />
       <Funds />

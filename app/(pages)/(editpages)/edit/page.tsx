@@ -2,6 +2,7 @@ import UserButton from "@/components/UserButton";
 import GalleryEdit from "@/components/editPage/GalleryEdit";
 import LeadEdit from "@/components/editPage/LeadEdit";
 import MainCarouselEdit from "@/components/editPage/MainCarouselEdit";
+import ProjectEdit from "@/components/editPage/ProjectEdit";
 import StartUpEdit from "@/components/editPage/StartUpEdit";
 import TeamEdit from "@/components/editPage/TeamEdit";
 import TestimonyEdit from "@/components/editPage/Testimonyedit";
@@ -32,6 +33,7 @@ const EditPage = () => {
         <TeamEdit/>
         <GalleryEdit/>
         <StartUpEdit/>
+        <ProjectEdit/>
       </div>
     </div>
   );

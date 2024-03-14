@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-
+import Image from "next/image";
 export const AboutUs = () => {
   return (
     <div
@@ -34,10 +34,11 @@ export const AboutUs = () => {
         }}
       /> */}
 
-      <img
-        loading="lazy"
-        src="incubator-logo.png"
-        alt="Sairam Incubator Foundation Logo"
+      <Image
+      width={3000}
+      height={3000}
+        src={"/incubator-logo.png"}
+        alt={"Sairam Incubator Foundation Logo"}
         className="w-[35%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
       />
 
