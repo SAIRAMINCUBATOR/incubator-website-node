@@ -66,8 +66,8 @@ export const Slider = ({ images }: Props) => {
                 src={img.image}
                 alt={img.name}
                 className={"md:h-[600px] w-full object-contain"}
-                height={200}
-                width={400}
+                height={500}
+                width={500}
               />
             </CarouselItem>
           ))}
