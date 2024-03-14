@@ -29,26 +29,28 @@ export const Navbar = () => {
 
   useEffect(function onFirstMount() {
     function onScroll() {
-      var st = (typeof globalThis.window !== 'undefined' && globalThis.window?.pageYOffset) || document.documentElement.scrollTop;
+      var st =
+        (typeof globalThis.window !== "undefined" &&
+          globalThis.window?.pageYOffset) ||
+        document.documentElement.scrollTop;
       if (ref.current) {
         if (st > lastScrollTop) {
           setNavbar(true);
         } else if (st < lastScrollTop) {
           setNavbar(false);
         }
-        lastScrollTop = st <= 0 ? 0 : st; 
+        lastScrollTop = st <= 0 ? 0 : st;
       }
     }
-    
-    if (typeof globalThis.window !== 'undefined') {
+
+    if (typeof globalThis.window !== "undefined") {
       globalThis.window?.addEventListener("scroll", onScroll);
-  
+
       return () => {
         globalThis.window?.removeEventListener("scroll", onScroll);
       };
     }
   }, []);
-  
 
   return (
     <div
@@ -100,22 +102,25 @@ export const Navbar = () => {
             </PopoverTrigger>
             <PopoverContent>
               <div className="flex flex-col justify-center items-center nav-btns gap-3">
-                <Link className=" font-semibold" href="sdg.html">
+                <Link className=" font-semibold" href="/sdg">
                   S.D.G.
                 </Link>
-                <Link className=" font-semibold" href="mgmt.html">
+                <Link className=" font-semibold" href="/management">
                   MANAGEMENT
                 </Link>
-                <Link className=" font-semibold" href="sdg.html">
+                <Link className=" font-semibold" href="/ipr">
                   I.P.R
                 </Link>
-                <Link className=" font-semibold" href="mgmt.html">
+                <Link className=" font-semibold" href="/collaborations">
                   COLLABORATIONS
                 </Link>
-                <Link className=" font-semibold" href="sdg.html">
+                <Link className=" font-semibold" href="/fundings">
                   FUNDINGS
                 </Link>
-                <Link className=" font-semibold" href="mgmt.html">
+                <Link className=" font-semibold" href="/main-gallery">
+                  MAIN-GALLERY
+                </Link>
+                <Link className=" font-semibold" href="/apply">
                   APPLY
                 </Link>
               </div>
@@ -157,22 +162,25 @@ export const Navbar = () => {
             <Link className="nav-link font-semibold" href="/#footer">
               CONTACT
             </Link>
-            <Link className=" font-semibold" href="sdg.html">
+            <Link className=" font-semibold" href="/sdg">
               S.D.G.
             </Link>
-            <Link className=" font-semibold" href="mgmt.html">
+            <Link className=" font-semibold" href="/management">
               MANAGEMENT
             </Link>
-            <Link className=" font-semibold" href="sdg.html">
+            <Link className=" font-semibold" href="/ipr">
               I.P.R
             </Link>
-            <Link className=" font-semibold" href="mgmt.html">
+            <Link className=" font-semibold" href="/collaborations">
               COLLABORATIONS
             </Link>
-            <Link className=" font-semibold" href="sdg.html">
+            <Link className=" font-semibold" href="/fundings">
               FUNDINGS
             </Link>
-            <Link className=" font-semibold" href="mgmt.html">
+            <Link className=" font-semibold" href="/main-gallery">
+              MAIN-GALLERY
+            </Link>
+            <Link className=" font-semibold" href="/apply">
               APPLY
             </Link>
           </div>

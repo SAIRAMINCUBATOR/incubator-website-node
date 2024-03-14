@@ -16,7 +16,7 @@ interface Props {
 export const Company = ({ images }: Props) => {
   return (
     <Carousel
-      className="md:w-[90%] m-5 carousel"
+      className="w-[90%] m-5 carousel"
       opts={{
         align: "start",
         loop: true,
@@ -32,7 +32,10 @@ export const Company = ({ images }: Props) => {
       <CarouselContent>
         {images &&
           images.map((img, index) => (
-            <CarouselItem className=" md:basis-1/6 basis-1/4 max-w-fit md:pl-10 flex items-center" key={index}>
+            <CarouselItem
+              className=" md:basis-1/6 basis-1/2 max-w-fit md:pl-10 flex items-center"
+              key={index}
+            >
               <Image
                 src={img}
                 alt={`images ${index}`}

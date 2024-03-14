@@ -20,7 +20,9 @@ export const Footer = () => {
         loading="lazy"
       />
       <div className="flex flex-col gap-[55px] self-center lg:self-start w-full">
-      <Image src={logo1} alt=""
+        <Image
+          src={logo1}
+          alt=""
           className="w-[70%] h-[30%] md:w-[50%] md:h-[20%] self-center lg:self-start"
           loading="lazy"
         />
@@ -55,8 +57,8 @@ export const Footer = () => {
         </div>
         <div className="self-center lg:self-start">
           <a href="https://sairam.edu.in/">
-          <Image
-            src={clg}
+            <Image
+              src={clg}
               alt="Sri Sairam Institutions"
               className="w-[220px] lg:block hidden"
               loading="lazy"
@@ -65,7 +67,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="flex flex-col self-center lg:self-start lg:w-[30%] w-[70%]">
+      <div className="flex flex-col self-center lg:self-start lg:w-[30%] w-[70%] gap-2">
         <h1 className="font-semibold text-2xl text-gray-600 mb-[10px] self-center lg:self-start">
           Contact Us
         </h1>
@@ -82,7 +84,7 @@ export const Footer = () => {
           <input
             type="text"
             placeholder="Enter your Name"
-            className="p-2 ml-2 mr-2 bg-inherit border-b-2 border-black placeholder-gray-600"
+            className="p-2 ml-2 mr-2 bg-inherit border-b-2  border-black placeholder-gray-600"
           />
         </div>
         <div className="flex flex-col">
@@ -90,11 +92,10 @@ export const Footer = () => {
           <textarea
             placeholder="Enter your message"
             className="border p-2 ml-2 mr-2"
-            rows={5}
+            rows={3}
           ></textarea>
-          
         </div>
-        <Button className="bg-blue-500 w-[100%] h-[40px] font-semibold">
+        <Button className="w-full font-semibold" variant="primary">
           SUBMIT
         </Button>
       </div>
