@@ -24,7 +24,10 @@ const CompanyEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div id="companies" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div
+      id="companies"
+      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
+    >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Companies</span>
         <Button
@@ -43,7 +46,7 @@ const CompanyEdit = () => {
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image
-                      className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
+                      className="object-contain rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
                       src={datum.image}
                       alt={`${datum.name}`}
                       key={index}
