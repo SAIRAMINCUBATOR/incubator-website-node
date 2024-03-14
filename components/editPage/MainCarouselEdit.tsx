@@ -24,7 +24,10 @@ const MainCarouselEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div id="carousel" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div
+      id="carousel"
+      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
+    >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Main Slider</span>
         <Button
@@ -37,9 +40,9 @@ const MainCarouselEdit = () => {
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
-          <ScrollArea className="w-full py-4">
+          <div className="w-full py-4">
             {data && data.length > 0 ? (
-              <div className="flex gap-20 mb-4">
+              <div className="flex flex-wrap gap-20 mb-4">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image
@@ -86,8 +89,7 @@ const MainCarouselEdit = () => {
                 No Data Found
               </div>
             )}
-            <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
-          </ScrollArea>
+          </div>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden">
             <div className="flex flex-col gap-5  ">

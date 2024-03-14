@@ -30,19 +30,13 @@ const StartUpEdit = () => {
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">StartUp</span>
-        {/* <Button
-          onClick={() => onOpen("addStartUp")}
-          variant={"ghost"}
-          className=" border-dashed bg-blue-500 text-white shadow-lg hover:scale-105"
-        >
-          <PlusCircle className="h-5 w-5 mr-2" /> Add
-        </Button> */}
+       
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
-          <ScrollArea className="w-full py-4">
+          <div className="w-full py-4">
             {data && data.length > 0 ? (
-              <div className="flex gap-20 justify-evenly">
+              <div className="flex gap-20 justify-evenly flex-wrap">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <div className="h-full w-full border-2 ">
@@ -64,7 +58,7 @@ const StartUpEdit = () => {
                         />{" "}
                         Edit
                       </Button>
-                      <Button
+                      {/* <Button
                         onClick={() =>
                           onOpen("deleteStartUp", { startup: datum })
                         }
@@ -76,7 +70,7 @@ const StartUpEdit = () => {
                           stroke="false"
                         />{" "}
                         Delete
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 ))}
@@ -86,8 +80,7 @@ const StartUpEdit = () => {
                 No Data Found
               </div>
             )}
-            <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
-          </ScrollArea>
+          </div>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden justify-evenly">
             <div className="flex  flex-col gap-5  ">

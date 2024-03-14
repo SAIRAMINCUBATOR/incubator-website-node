@@ -18,6 +18,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "./ui/button";
+import { useSession } from "./providers/context/SessionContext";
 
 export const Navbar = () => {
   const ref = useRef(null);
@@ -26,12 +28,32 @@ export const Navbar = () => {
 
   const [open, setOpen] = useState(false);
   var lastScrollTop = 0;
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id);
+    section.scrollIntoView({ behavior: "smooth" });
+  };
+  function SmoothScrollLink({ href, children }) {
+    return (
+      <Link href={href} className="w-fit">
+        <Button
+          variant="ghost"
+          className="nav-link font-semibold"
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default link behavior
+            const sectionId = href.split("#")[1]; // Extract section ID from href
+            scrollToSection(sectionId); // Scroll to the section
+          }}
+        >
+          {children}
+        </Button>
+      </Link>
+    );
+  }
 
-  useEffect(function onFirstMount() {
+  useEffect(() => {
     function onScroll() {
       var st =
-        (typeof globalThis.window !== "undefined" &&
-          globalThis.window?.pageYOffset) ||
+        (typeof window !== "undefined" && window.pageYOffset) ||
         document.documentElement.scrollTop;
       if (ref.current) {
         if (st > lastScrollTop) {
@@ -43,14 +65,13 @@ export const Navbar = () => {
       }
     }
 
-    if (typeof globalThis.window !== "undefined") {
-      globalThis.window?.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll);
 
-      return () => {
-        globalThis.window?.removeEventListener("scroll", onScroll);
-      };
-    }
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
+  const { token, isTokenExpired } = useSession();
 
   return (
     <div
@@ -65,30 +86,14 @@ export const Navbar = () => {
         className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
       />
       <div className={"lg:flex items-center gap-5 m-5 hidden"}>
-        <div className="nav-btns gap-5 flex items-center">
-          <Link className="nav-link font-semibold" href="/#home">
-            HOME
-          </Link>
-          <Link className="nav-link font-semibold" href="/#about-us">
-            ABOUT US
-          </Link>
-          <Link className="nav-link font-semibold" href="/#projects">
-            PRODUCTS
-          </Link>
-          <Link className="nav-link font-semibold" href="/#startups">
-            STARTUPS
-          </Link>
-          <Link className="nav-link font-semibold" href="/#gallery">
-            GALLERY
-          </Link>
-
-          <Link className="nav-link font-semibold" href="/#team">
-            TEAM
-          </Link>
-
-          <Link className="nav-link font-semibold" href="/#footer">
-            CONTACT
-          </Link>
+        <div className="nav-btns flex items-center">
+          <SmoothScrollLink href={"/#home"}>HOME</SmoothScrollLink>
+          <SmoothScrollLink href={"/#about-us"}>ABOUT US</SmoothScrollLink>
+          <SmoothScrollLink href={"/#projects"}>PROJECTS</SmoothScrollLink>
+          <SmoothScrollLink href={"/#startups"}> START UPS</SmoothScrollLink>
+          <SmoothScrollLink href={"/#gallery"}> GALLERY</SmoothScrollLink>
+          <SmoothScrollLink href={"/#team"}> TEAM</SmoothScrollLink>
+          <SmoothScrollLink href={"/#footer"}> CONTACT</SmoothScrollLink>
         </div>
         <div className="flex items-center gap-2">
           <Popover open={popOverOpen} onOpenChange={setPopOverOpen}>
@@ -102,32 +107,69 @@ export const Navbar = () => {
             </PopoverTrigger>
             <PopoverContent>
               <div className="flex flex-col justify-center items-center nav-btns gap-3">
-                <Link className=" font-semibold" href="/sdg">
+                <Link
+                  className=" font-semibold"
+                  href="/sdg"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   S.D.G.
                 </Link>
-                <Link className=" font-semibold" href="/management">
+                <Link
+                  className=" font-semibold"
+                  href="/management"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   MANAGEMENT
                 </Link>
-                <Link className=" font-semibold" href="/ipr">
+                <Link
+                  className=" font-semibold"
+                  href="/ipr"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   I.P.R
                 </Link>
-                <Link className=" font-semibold" href="/collaborations">
+                <Link
+                  className=" font-semibold"
+                  href="/collaborations"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   COLLABORATIONS
                 </Link>
-                <Link className=" font-semibold" href="/fundings">
+                <Link
+                  className=" font-semibold"
+                  href="/fundings"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   FUNDINGS
                 </Link>
-                <Link className=" font-semibold" href="/main-gallery">
+                <Link
+                  className=" font-semibold"
+                  href="/main-gallery"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   MAIN-GALLERY
                 </Link>
-                <Link className=" font-semibold" href="/apply">
+                <Link
+                  className=" font-semibold"
+                  href="/apply"
+                  onClick={() => setPopOverOpen(false)}
+                >
                   APPLY
                 </Link>
+                {(!token || isTokenExpired()) && (
+                  <Link
+                    className=" font-semibold"
+                    href="/auth/signin"
+                    onClick={() => setPopOverOpen(false)}
+                  >
+                    SIGN IN
+                  </Link>
+                )}
               </div>
             </PopoverContent>
           </Popover>
-          <UserButton setClose={() => setOpen(false)} />
         </div>
+        <UserButton setClose={() => setPopOverOpen(false)} />
       </div>
 
       <Sheet open={open} onOpenChange={setOpen}>
@@ -141,27 +183,14 @@ export const Navbar = () => {
             </SheetTitle>
           </SheetHeader>
           <div className={"flex flex-col space-y-3 mt-10 items-center"}>
-            <Link className="nav-link font-semibold" href="/#home">
-              HOME
-            </Link>
-            <Link className="nav-link font-semibold" href="/#about-us">
-              ABOUT US
-            </Link>
-            <Link className="nav-link font-semibold" href="/#projects">
-              PRODUCTS
-            </Link>
-            <Link className="nav-link font-semibold" href="/#startups">
-              STARTUPS
-            </Link>
-            <Link className="nav-link font-semibold" href="/#gallery">
-              GALLERY
-            </Link>
-            <Link className="nav-link font-semibold" href="/#team">
-              TEAM
-            </Link>
-            <Link className="nav-link font-semibold" href="/#footer">
-              CONTACT
-            </Link>
+            <SmoothScrollLink href={"/#home"}>HOME</SmoothScrollLink>
+            <SmoothScrollLink href={"/#about-us"}>ABOUT US</SmoothScrollLink>
+            <SmoothScrollLink href={"/#projects"}>PROJECTS</SmoothScrollLink>
+            <SmoothScrollLink href={"/#startups"}> START UPS</SmoothScrollLink>
+            <SmoothScrollLink href={"/#gallery"}> GALLERY</SmoothScrollLink>
+            <SmoothScrollLink href={"/#team"}> TEAM</SmoothScrollLink>
+            <SmoothScrollLink href={"/#footer"}> CONTACT</SmoothScrollLink>
+
             <Link className=" font-semibold" href="/sdg">
               S.D.G.
             </Link>

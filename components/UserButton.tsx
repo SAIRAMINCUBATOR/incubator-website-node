@@ -77,7 +77,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
 
   return (
     <>
-      {token ? (
+      {token && (
         <Popover
           open={open}
           onOpenChange={() => {
@@ -159,10 +159,6 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
             </div>
           </PopoverContent>
         </Popover>
-      ) : (
-        <Link href={"/auth/signin"} onClick={() => setClose()}>
-          <Button>Sign In</Button>
-        </Link>
       )}
     </>
   );

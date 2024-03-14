@@ -7,6 +7,7 @@ import logo from "@/public/Illustration9.png";
 import logo1 from "@/public/logo.png";
 import clg from "@/public/clg.png";
 import Image from "next/image";
+import ContactUs from "@/components/ContactUs";
 
 export const Footer = () => {
   return (
@@ -71,33 +72,7 @@ export const Footer = () => {
         <h1 className="font-semibold text-2xl text-gray-600 mb-[10px] self-center lg:self-start">
           Contact Us
         </h1>
-        <div className="flex flex-col">
-          <label className="font-semibold m-2">Email</label>
-          <input
-            type="text"
-            placeholder="Enter a valid email address"
-            className="p-2 ml-2 mr-2 bg-inherit border-b-2 border-black placeholder-gray-600"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label className="font-semibold m-2">Name</label>
-          <input
-            type="text"
-            placeholder="Enter your Name"
-            className="p-2 ml-2 mr-2 bg-inherit border-b-2  border-black placeholder-gray-600"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label className="font-semibold m-2">Message</label>
-          <textarea
-            placeholder="Enter your message"
-            className="border p-2 ml-2 mr-2"
-            rows={3}
-          ></textarea>
-        </div>
-        <Button className="w-full font-semibold" variant="primary">
-          SUBMIT
-        </Button>
+        <ContactUs/>
       </div>
 
       <div className="self-center lg:self-start ">

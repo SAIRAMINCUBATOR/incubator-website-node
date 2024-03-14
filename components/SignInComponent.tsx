@@ -69,13 +69,9 @@ const SignInComponent = () => {
       console.error(error);
     }
   };
-  useEffect(() => {
-    if (token && !signed) {
-      router.replace("/");
-    }
-  }, [token]);
+
   return (
-    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white/85 rounded-2xl">
+    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white/100 rounded-2xl">
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
       </CardHeader>

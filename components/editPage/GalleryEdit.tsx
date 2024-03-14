@@ -37,9 +37,9 @@ const GalleryEdit = () => {
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
-          <ScrollArea className="w-full py-4">
+          <div className="w-full py-4">
             {data && data.length > 0 ? (
-              <div className="flex gap-20 mb-4">
+              <div className="flex flex-wrap gap-20 mb-4">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image
@@ -86,8 +86,7 @@ const GalleryEdit = () => {
                 No Data Found
               </div>
             )}
-            <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
-          </ScrollArea>
+          </div>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden">
             <div className="flex flex-col gap-5  ">

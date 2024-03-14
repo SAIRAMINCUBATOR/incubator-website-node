@@ -50,7 +50,7 @@ export const Slider = ({ images }: Props) => {
       plugins={[
         Autoplay({
           delay: 4000,
-          stopOnInteraction:false
+          stopOnInteraction: false,
         }),
       ]}
       className="w-screen bg-blue-500 bg-opacity-5"
@@ -66,8 +66,8 @@ export const Slider = ({ images }: Props) => {
                 src={img.image}
                 alt={img.name}
                 className={"md:h-[600px] w-full object-contain"}
-                height={500}
-                width={500}
+                height={800}
+                width={800}
               />
             </CarouselItem>
           ))}
