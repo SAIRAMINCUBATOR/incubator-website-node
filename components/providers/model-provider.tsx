@@ -19,6 +19,9 @@ import DeleteGallery from "../models/Gallery/Delete";
 import { AddStartUp } from "../models/StartUp/Add";
 import { EditStartUp } from "../models/StartUp/Edit";
 import DeleteStartUp from "../models/StartUp/Delete";
+import { AddProject } from "../models/Project/Add";
+import { EditProject } from "../models/Project/Edit";
+import DeleteProject from "../models/Project/Delete";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -50,6 +53,9 @@ export const ModalProvider = () => {
       <AddStartUp/>
       <EditStartUp/>
       <DeleteStartUp/>
+      <AddProject/>
+      <EditProject/>
+      <DeleteProject/>
     </>
   );
 };

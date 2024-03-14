@@ -26,8 +26,8 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
             <Image
               src={imagedata.image}
               alt={imagedata.name}
-              width={100}
-              height={100}
+              width={800}
+              height={800}
               className="h-[220px] min-w-[350px] max-w-[350px] group-hover:scale-110 group-hover:shadow-xl group-hover:drop-shadow-xl group-hover:rounded-xl transition-all ease-in duration-200"
             />
             <div className="absolute top-[90%] text-center text-white flex justify-center transition-all ease-in duration-200 group-hover:top-[95%] items-center z-10 w-full h-[10%] gradient-overlay group-hover:scale-110 group-hover:rounded-b-xl">
@@ -46,8 +46,8 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
             src={imagedata.image}
             alt={imagedata.name}
             className=" min-w-[550px]  max-w-[750px]"
-            width={100}
-            height={100}
+            width={1000}
+            height={1000}
           />
           <span className="font-semibold capitalize text-white text-center text-2xl">
             {imagedata.name}

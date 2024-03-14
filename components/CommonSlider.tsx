@@ -13,10 +13,10 @@ import { useEffect } from "react";
 import { MainCarousel } from "@prisma/client";
 
 interface Props {
-  images: MainCarousel[];
+  images: String[];
 }
 
-export const Slider = ({ images }: Props) => {
+export const CommonSlider = ({ images }: Props) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(-1);
   const [count, setCount] = React.useState(-1);
@@ -63,7 +63,7 @@ export const Slider = ({ images }: Props) => {
               className="md:basis-full lg:basis-full w-full flex justify-center  bg-gray-400"
             >
               <Image
-                src={img.image}
+                src={img as string}
                 alt=""
                 className={"md:h-[600px] w-full object-contain"}
                 height={200}

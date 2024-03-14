@@ -74,8 +74,8 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
                   src={item.image}
                   alt={"Image"}
                   className={"md:h-[220px] w-[220px] mb-[2%] object-contain"}
-                  width={100}
-                  height={100}
+                  width={1000}
+                  height={1000}
                 />
                 <p className="text-base text-justify text-gray-600 text-[20px] w-[300px] lg:w-[700px] mb-[1%]">
                   {item.description}

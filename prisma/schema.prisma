@@ -39,6 +39,7 @@ model User {
   Lead              Lead[]
   Gallery           Gallery[]
   StartUp           StartUp[]
+  Project           Project[]
 }
 
 model MainCarousel {
@@ -100,4 +101,14 @@ model StartUp {
   list          String[]
   addedByUserId String   @db.ObjectId
   addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  image         String[]
+  description   String
+  content       String?
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
