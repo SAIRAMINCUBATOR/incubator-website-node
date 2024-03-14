@@ -49,7 +49,9 @@ const formSchema = z.object({
 });
 
 const SetPasswordComponent = () => {
-  const { token, isTokenExpired, isPasswordDefault, changePasswordNotDefault } = useSession();
+  const [isMounted, setIsMounted] = useState(false);
+  const { token, isTokenExpired, isPasswordDefault, changePasswordNotDefault } =
+    useSession();
   const [open, setOpen] = useState(true);
   const [alertOpen, setAlertOpen] = useState(false);
   const [action, setAction] = useState(false);
@@ -120,13 +122,16 @@ const SetPasswordComponent = () => {
     }
   };
   useEffect(() => {
-    if (!token) {
-      router.replace("/");
-    }
-  }, [token]);
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <Dialog open={open}>
-      <DialogContent className="w-1/3">
+      <DialogContent className="lg:w-1/3 md:w-1/2 w-full">
         {!isPasswordDefault && (
           <div
             onClick={handleClose}

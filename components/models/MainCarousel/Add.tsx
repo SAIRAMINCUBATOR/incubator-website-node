@@ -81,14 +81,17 @@ export const AddMainCarouselModel = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden w-1/2">
+      <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Add Main Slider Image
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 w-full"
+          >
             <div className="space-y-8 px-6">
               <FormField
                 control={form.control}
@@ -133,8 +136,12 @@ export const AddMainCarouselModel = () => {
               )}
             />
 
-            <DialogFooter className="px-6 py-4 w-full flex items-center justify-center">
-              <Button variant="primary" disabled={isLoading} className="w-[100px]">
+            <DialogFooter className="px-6 py-4 w-full flex items-center justify-center bg-gray-100">
+              <Button
+                variant="primary"
+                disabled={isLoading}
+                className="w-[100px]"
+              >
                 Add
               </Button>
             </DialogFooter>

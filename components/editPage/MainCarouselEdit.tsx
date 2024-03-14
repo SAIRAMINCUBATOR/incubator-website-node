@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const MainCarouselEdit = () => {
   const [data, setData] = useState<MainCarousel[]>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { onOpen, isOpen } = useModal();
 
   const getData = async () => {
@@ -39,71 +39,79 @@ const MainCarouselEdit = () => {
         {!loading ? (
           <ScrollArea className="w-full py-4">
             {data && data.length > 0 ? (
-            <div className="flex gap-20 mb-4">
-              {data.map((datum, index) => (
-                <div className="flex flex-col justify-around gap-5">
-                  <Image
-                    className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
-                    src={datum.image}
-                    alt={`${datum.name}`}
-                    key={index}
-                    width={200}
-                    height={105}
-                  />
-                  <div className="flex justify-around">
-                    <Button
-                      onClick={() =>
-                        onOpen("editMainCarousel", { mainCarousel: datum })
-                      }
-                      variant={"ghost"}
-                      className="bg-green-400 w-[100px] text-white shadow-md"
-                    >
-                      <Pencil className="h-4 w-4 mr-2 fill-green-800" stroke="false"/> Edit
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        onOpen("deleteMainCarousel", { mainCarousel: datum })
-                      }
-                      variant={"ghost"}
-                      className="bg-red-400 w-[100px] text-white shadow-md"
-                    >
-                      <Trash className="h-5 w-5 mr-2 text-white fill-red-800" stroke="false"/> Delete
-                    </Button>
+              <div className="flex gap-20 mb-4">
+                {data.map((datum, index) => (
+                  <div className="flex flex-col gap-5">
+                    <Image
+                      className="object-contain rounded-xl w-[250px] h-[150px] shadow-md bg-slate-50"
+                      src={datum.image}
+                      alt={`${datum.name}`}
+                      key={index}
+                      width={200}
+                      height={105}
+                    />
+                    <div className="flex gap-5 justify-center">
+                      <Button
+                        onClick={() =>
+                          onOpen("editMainCarousel", { mainCarousel: datum })
+                        }
+                        variant={"ghost"}
+                        className="bg-green-400 w-[100px] text-white shadow-md"
+                      >
+                        <Pencil
+                          className="h-4 w-4 fill-green-800 mr-2"
+                          stroke="false"
+                        />
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          onOpen("deleteMainCarousel", { mainCarousel: datum })
+                        }
+                        variant={"ghost"}
+                        className="bg-red-400 w-[100px] text-white shadow-md"
+                      >
+                        <Trash
+                          className="h-5 w-5 text-white fill-red-800 mr-2"
+                          stroke="false"
+                        />
+                        Delete
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            ): (
+                ))}
+              </div>
+            ) : (
               <div className="w-full flex justify-center text-2xl font-bold">
-              No Data Found
+                No Data Found
               </div>
             )}
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         ) : (
-          <div className="flex gap-10 py-4 items-start w-full">
-          <div className="flex  flex-col gap-5  ">
-            <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-            <div className="flex items-start h-full gap-2 justify-start">
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+          <div className="flex gap-10 py-4 items-start w-full overflow-hidden">
+            <div className="flex flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-5 ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-5 ">
-            <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-            <div className="flex items-start h-full gap-2 justify-start">
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-            </div>
-          </div>
-          <div className="flex  flex-col gap-5  ">
-            <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-            <div className="flex items-start h-full gap-2 justify-start">
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-              <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-            </div>
-          </div>
-        </div>
           // <Loader2 className="h-10 w-10 animate-spin" />
         )}
       </div>

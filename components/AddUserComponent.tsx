@@ -87,13 +87,9 @@ const AddUserComponent = () => {
       console.error(error);
     }
   };
-  useEffect(() => {
-    if (!token || !role || role !== "ADMIN") {
-      router.replace("/");
-    }
-  }, [token, role]);
+
   return (
-    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white rounded-2xl">
+    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white/85 rounded-2xl">
       <CardHeader>
         <CardTitle>Add User</CardTitle>
       </CardHeader>
@@ -110,6 +106,7 @@ const AddUserComponent = () => {
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
+                        className=" bg-slate-300 shadow-inner"
                         disabled={isLoading}
                         placeholder="John Doe"
                         type="text"
@@ -129,6 +126,7 @@ const AddUserComponent = () => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
+                        className=" bg-slate-300 shadow-inner"
                         disabled={isLoading}
                         placeholder="john.doe@email.com"
                         type="email"
@@ -148,7 +146,7 @@ const AddUserComponent = () => {
                     <FormLabel>Gender</FormLabel>
                     <Select disabled={isLoading} onValueChange={field.onChange}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className=" bg-slate-300 shadow-inner">
                           <SelectValue placeholder="Select a Gender" />
                         </SelectTrigger>
                       </FormControl>
@@ -173,11 +171,12 @@ const AddUserComponent = () => {
                   <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md ">
                     <FormControl>
                       <Checkbox
+                        className=" bg-slate-300 shadow-inner"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
                     </FormControl>
-                    <div className="space-y-1 leading-none">
+                    <div className="space-y-1 leading-none ">
                       <FormLabel>
                         Set Default Password <strong>Welcome@123</strong>
                       </FormLabel>
@@ -192,32 +191,33 @@ const AddUserComponent = () => {
                   </FormItem>
                 )}
               />
-              {!form.getValues("setDefaultPassword") &&
-              <FormField
-                disabled={isLoading}
-                name={"password"}
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        placeholder="********"
-                        type="password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-                }
+              {!form.getValues("setDefaultPassword") && (
+                <FormField
+                  disabled={isLoading}
+                  name={"password"}
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          className=" bg-slate-300 shadow-inner"
+                          disabled={isLoading}
+                          placeholder="********"
+                          type="password"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
 
             <div className="flex flex-col space-y-1.5 pt-2">
-              <Button type="submit" disabled={isLoading}>
-                Sign In
+              <Button type="submit" disabled={isLoading} variant="primary">
+                Add User
               </Button>
             </div>
           </form>

@@ -67,11 +67,15 @@ export const EditMainCarousel = () => {
         handleClose();
       }
 
-      await axios.put("/api/components/mainCarousel", {...values, id: mainCarousel?.id}, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      await axios.put(
+        "/api/components/mainCarousel",
+        { ...values, id: mainCarousel?.id },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       form.reset();
       router.refresh();
       onClose();
@@ -91,7 +95,7 @@ export const EditMainCarousel = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden w-1/2">
+      <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Edit Main Slider Image
@@ -120,31 +124,34 @@ export const EditMainCarousel = () => {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      Image Name
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                        placeholder="Enter Image Name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem className="px-6">
-                  <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                    Image Name
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
-                      placeholder="Enter Image Name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <DialogFooter className=" px-6 py-4">
-              <Button variant="primary" disabled={isLoading} className="w-[100px]">
+            <DialogFooter className="bg-gray-100 px-6 py-4">
+              <Button
+                variant="primary"
+                disabled={isLoading}
+                className="w-[100px]"
+              >
                 Edit
               </Button>
             </DialogFooter>

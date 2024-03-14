@@ -28,8 +28,8 @@ export const TeamPeople = ({ team }: Props) => {
           />
           <div className="absolute top-0 rounded-md w-full h-full opacity-0 bg-black transition-opacity duration-200 ease-in-out group-hover:opacity-40"></div>
         </div>
-        <div className="bg-blue-500 w-full h-full p-2 flex flex-col text-center justify-end">
-          <div className="flex justify-center items-center gap-5">
+        <div className="bg-blue-500 w-full h-full p-2 flex flex-col text-center justify-end items-center">
+          <div className="grid md:grid-cols-4 grid-cols-2  gap-5">
             {team.facebook && (
               <Link href={team.facebook} target="_blank">
                 <Facebook className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 delay-0 opacity-0 group-hover:opacity-100" />
@@ -37,17 +37,17 @@ export const TeamPeople = ({ team }: Props) => {
             )}
             {team.linkedin && (
               <Link href={team.linkedin} target="_blank">
-                <Linkedin className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24  delay-75 opacity-0 group-hover:opacity-100" />
+                <Linkedin className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24  md:delay-75 delay-0 opacity-0 group-hover:opacity-100" />
               </Link>
             )}
             {team.instagram && (
               <Link href={team.instagram} target="_blank">
-                <Instagram className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 delay-100 opacity-0 group-hover:opacity-100" />
+                <Instagram className="rounded-full bg-white bg-opacity-90 group-hover:z-20 py-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 md:delay-100 delay-0 opacity-0 group-hover:opacity-100" />
               </Link>
             )}
             {team.twitter && (
               <Link href={team.twitter} target="_blank">
-                <Twitter className="rounded-full bg-white bg-opacity-90 group-hover:z-20 p-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 delay-150 opacity-0 group-hover:opacity-100" />
+                <Twitter className="rounded-full bg-white bg-opacity-90 group-hover:z-20 p-2 text-bold h-12 w-12 transition-all duration-500 ease-in-out group-hover:-translate-y-24 md:delay-150 delay-0 opacity-0 group-hover:opacity-100" />
               </Link>
             )}
           </div>

@@ -30,7 +30,7 @@ const formSchema = z.object({
 const SignInComponent = () => {
   const router = useRouter();
 
-  const { setSession, token, isTokenExpired } = useSession();
+  const { setSession, token } = useSession();
   const [signed, setSigned] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,8 +59,8 @@ const SignInComponent = () => {
       } else {
         router.replace("/");
       }
-    } catch (error:any) {
-      const errorMessage:String = error.response.data
+    } catch (error: any) {
+      const errorMessage: String = error.response.data;
       if (errorMessage.includes("User"))
         form.setError("email", { message: error.response.data });
       if (errorMessage.includes("Password"))
@@ -75,7 +75,7 @@ const SignInComponent = () => {
     }
   }, [token]);
   return (
-    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white rounded-2xl">
+    <Card className="lg:w-1/3 md:w-2/3 w-full shadow-2xl bg-white/85 rounded-2xl">
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
       </CardHeader>
@@ -92,6 +92,7 @@ const SignInComponent = () => {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
+                        className=" bg-slate-300 shadow-inner"
                         disabled={isLoading}
                         placeholder="john.doe@email.com"
                         type="email"
@@ -111,6 +112,7 @@ const SignInComponent = () => {
                     <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input
+                        className=" bg-slate-300 shadow-inner"
                         disabled={isLoading}
                         type={"password"}
                         placeholder="*********"
@@ -124,7 +126,7 @@ const SignInComponent = () => {
             </div>
 
             <div className="flex flex-col space-y-1.5 pt-2">
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} variant="primary">
                 Sign In
               </Button>
             </div>

@@ -3,11 +3,30 @@
 import { useEffect, useState } from "react";
 import { SessionContext } from "@/components/providers/context/SessionContext";
 import { ModalProvider } from "@/components/providers/model-provider";
+import { RedirectType, redirect, usePathname } from "next/navigation";
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const path = usePathname();
   const [token, setToken] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
-  const [isPasswordDefault, setIsPasswordDefault] = useState<boolean | null>(null);
+  const [isPasswordDefault, setIsPasswordDefault] = useState<boolean | null>(
+    null
+  );
+
+  useEffect(() => {
+    console.log(path);
+    // const regex = /^(\/api|\/edit|\/auth(?!\/signin\b)).*$/;
+    // if (regex.test(path)){
+    //   if (!token && isTokenExpired()){
+    //     redirect("/", RedirectType.replace);
+    //   }
+    // }
+    // if (path=="/auth/addUser"){
+    //   if (role!="ADMIN")
+    //   redirect("/", RedirectType.replace);
+
+    // }
+  }, [path]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -18,7 +37,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     if (storedRole) {
       setRole(storedRole);
     }
-    
   }, []);
 
   const setSession = (newToken: string, newRole: string) => {
@@ -28,7 +46,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     setToken(newToken);
     setRole(newRole);
     setIsPasswordDefault(exp.isPasswordDefault);
-    console.log(exp.isPasswordDefault)
+    console.log(exp.isPasswordDefault);
   };
 
   const clearSession = () => {
@@ -38,10 +56,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
     setRole(null);
     setIsPasswordDefault(null);
   };
-   
-  const changePasswordNotDefault = ()=>{
+
+  const changePasswordNotDefault = () => {
     setIsPasswordDefault(false);
-  }
+  };
 
   const isTokenExpired = () => {
     if (token) {
@@ -62,7 +80,15 @@ export function Providers({ children }: { children: React.ReactNode }) {
   };
   return (
     <SessionContext.Provider
-      value={{ token, role, isPasswordDefault, changePasswordNotDefault, isTokenExpired, clearSession, setSession }}
+      value={{
+        token,
+        role,
+        isPasswordDefault,
+        changePasswordNotDefault,
+        isTokenExpired,
+        clearSession,
+        setSession,
+      }}
     >
       <ModalProvider />
       {children}

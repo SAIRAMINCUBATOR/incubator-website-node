@@ -61,29 +61,29 @@ model Testimony {
 }
 
 model Team {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
   image         String
   name          String
   designation   String
-  facebook      String
-  twitter       String
-  instagram     String
-  linkedin      String
-  addedByUserId String @db.ObjectId
-  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  facebook      String?
+  twitter       String?
+  instagram     String?
+  linkedin      String?
+  addedByUserId String  @db.ObjectId
+  addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
 model Lead {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
   image         String
   name          String
   designation   String
-  facebook      String
-  twitter       String
-  instagram     String
-  linkedin      String
-  addedByUserId String @db.ObjectId
-  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  facebook      String?
+  twitter       String?
+  instagram     String?
+  linkedin      String?
+  addedByUserId String  @db.ObjectId
+  addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
 model Gallery {
@@ -95,9 +95,9 @@ model Gallery {
 }
 
 model StartUp {
-  id   String   @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  list String[]
-  addedByUserId String @db.ObjectId
-  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  list          String[]
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }

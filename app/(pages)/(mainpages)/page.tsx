@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image, { StaticImageData } from "next/image";
 import { Testimonial } from "@/schema";
 import { Slider } from "@/components/Slider";
@@ -39,68 +39,74 @@ import { Establishment } from "@/components/Establishment";
 import { AboutUs } from "@/components/AboutUs";
 import { HaveAProject } from "@/components/HaveAProject";
 import { useEffect, useState } from "react";
-import { Gallery, Lead, MainCarousel, StartUp, Team, Testimony } from "@prisma/client";
+import {
+  Gallery,
+  Lead,
+  MainCarousel,
+  StartUp,
+  Team,
+  Testimony,
+} from "@prisma/client";
 import axios from "axios";
 export default function Home() {
-
   const [MainCarousel, setMainCarousel] = useState<MainCarousel[]>([]);
-  const [Testimony, setTestimony]=useState<Testimony[]>([]);
-  const [TeamMembers, setTeamMembers]=useState<Team[]>([]);
-  const [LeadMembers, setLeadMembers]=useState<Lead[]>([]);
+  const [Testimony, setTestimony] = useState<Testimony[]>([]);
+  const [TeamMembers, setTeamMembers] = useState<Team[]>([]);
+  const [LeadMembers, setLeadMembers] = useState<Lead[]>([]);
   const [GalleryImages, setGalleryImages] = useState<Gallery[]>([]);
-  const [StrtUpData,setStrtUpData]=useState<StartUp[]>([]);
+  const [StrtUpData, setStrtUpData] = useState<StartUp[]>([]);
   const getTestimonyData = async () => {
-    try{
-    const response = await axios.get("/api/components/testimony");
-    setTestimony(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/testimony");
+      setTestimony(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
   const getMainCarouselData = async () => {
-    try{
-    const response = await axios.get("/api/components/mainCarousel");
-    setMainCarousel(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/mainCarousel");
+      setMainCarousel(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   const getGallery = async () => {
-    try{
-    const response = await axios.get("/api/components/gallery");
-    setGalleryImages(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/gallery");
+      setGalleryImages(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   const getTeamData = async () => {
-    try{
-    const response = await axios.get("/api/components/team");
-    setTeamMembers(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/team");
+      setTeamMembers(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   const getLeadData = async () => {
-    try{
-    const response = await axios.get("/api/components/lead");
-    setLeadMembers(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/lead");
+      setLeadMembers(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   const getStartUpData = async () => {
-    try{
-    const response = await axios.get("/api/components/startup");
-    setStrtUpData(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/startup");
+      setStrtUpData(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     getMainCarouselData();
@@ -118,10 +124,6 @@ export default function Home() {
     { title: "Title", description: "description", image: img4, url: "4" },
     { title: "Title", description: "description", image: img5, url: "5" },
   ];
-  
-  const tags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`
-  );
 
   const companies: StaticImageData[] = [
     logo1,
@@ -135,118 +137,6 @@ export default function Home() {
     logo9,
     logo10,
     logo15,
-  ];
-
-  const teams1: TeamInt[] = [
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-    },
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-  ];
-
-  const teams2: TeamInt[] = [
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-    {
-      name: "Dr. Sai Prakash Leo Muthu",
-      designation: "CEO",
-      image: ceo,
-      facebook: "https://www.facebook.com/saileomuthu/",
-      twitter: "https://twitter.com/sairamceo?lang=en",
-      instagram: "https://www.instagram.com/sairamceo/?hl=en",
-      linkedin: "https://in.linkedin.com/in/sairamceo",
-    },
-  ];
-
-  const galleryImages: ImageData[] = [
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
-    {
-      image: img1,
-      name: "Event",
-    },
   ];
 
   return (
@@ -268,7 +158,10 @@ export default function Home() {
       <Establishment />
 
       <Projects projects={projects} />
-      <Startup tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list?StrtUpData[0].list:tags} tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list?StrtUpData[1].list:tags} />
+      <Startup
+        tags1={StrtUpData[0] && StrtUpData[0].list}
+        tags2={StrtUpData[1] && StrtUpData[1].list}
+      />
       <Company images={companies} />
       <Funds />
 

@@ -81,26 +81,26 @@ const GalleryEdit = () => {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         ) : (
-          <div className="flex gap-10 py-4 items-start w-full">
-            <div className="flex  flex-col gap-5  ">
-              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-              <div className="flex items-start h-full gap-2 justify-start">
-                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+          <div className="flex gap-10 py-4 items-start w-full overflow-hidden">
+            <div className="flex flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
             <div className="flex flex-col gap-5 ">
-              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-              <div className="flex items-start h-full gap-2 justify-start">
-                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
-            <div className="flex  flex-col gap-5  ">
-              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-200" />
-              <div className="flex items-start h-full gap-2 justify-start">
-                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
-                <Skeleton className="h-[40px] w-[100px] rounded-md bg-gray-200" />
+            <div className="flex flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
           </div>

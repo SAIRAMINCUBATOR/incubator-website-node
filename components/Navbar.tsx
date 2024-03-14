@@ -4,19 +4,26 @@ import logo from "@/public/logo.png";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Squash as Hamburger } from "hamburger-react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import UserButton from "./UserButton";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export const Navbar = () => {
   const ref = useRef(null);
   const [Navbar, setNavbar] = useState(false);
+  const [popOverOpen, setPopOverOpen] = useState(false);
+
   const [open, setOpen] = useState(false);
   var lastScrollTop = 0;
   const handleScroll = () => {
@@ -50,47 +57,78 @@ export const Navbar = () => {
         alt={"Logo"}
         className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
       />
-      <div className={"lg:flex items-center nav-btns gap-5 m-5 hidden"}>
-        <Link className="nav-link font-semibold" href="/#home">
-          HOME
-        </Link>
-        <Link className="nav-link font-semibold" href="/#about-us">
-          ABOUT US
-        </Link>
-        <Link className="nav-link font-semibold" href="/#projects">
-          PRODUCTS
-        </Link>
-        <Link className="nav-link font-semibold" href="/#startups">
-          STARTUPS
-        </Link>
-        <Link className="nav-link font-semibold" href="/#gallery">
-          GALLERY
-        </Link>
-        {/* <Link className="nav-link font-semibold" href="sdg.html">
-          S.D.G.
-        </Link> */}
-        <Link className="nav-link font-semibold" href="/#team">
-          TEAM
-        </Link>
-        {/* <Link className="nav-link font-semibold" href="mgmt.html">
-          MANAGEMENT
-        </Link> */}
-        <Link className="nav-link font-semibold" href="/#footer">
-          CONTACT
-        </Link>
-        <UserButton setClose={() => setOpen(false)} />
+      <div className={"lg:flex items-center gap-5 m-5 hidden"}>
+        <div className="nav-btns gap-5 flex items-center">
+          <Link className="nav-link font-semibold" href="/#home">
+            HOME
+          </Link>
+          <Link className="nav-link font-semibold" href="/#about-us">
+            ABOUT US
+          </Link>
+          <Link className="nav-link font-semibold" href="/#projects">
+            PRODUCTS
+          </Link>
+          <Link className="nav-link font-semibold" href="/#startups">
+            STARTUPS
+          </Link>
+          <Link className="nav-link font-semibold" href="/#gallery">
+            GALLERY
+          </Link>
+
+          <Link className="nav-link font-semibold" href="/#team">
+            TEAM
+          </Link>
+
+          <Link className="nav-link font-semibold" href="/#footer">
+            CONTACT
+          </Link>
+        </div>
+        <div className="flex items-center gap-2">
+          <Popover open={popOverOpen} onOpenChange={setPopOverOpen}>
+            <PopoverTrigger>
+              <Hamburger
+                toggled={popOverOpen}
+                toggle={setPopOverOpen}
+                size={24}
+                duration={0.4}
+              />
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className="flex flex-col justify-center items-center nav-btns gap-3">
+                <Link className=" font-semibold" href="sdg.html">
+                  S.D.G.
+                </Link>
+                <Link className=" font-semibold" href="mgmt.html">
+                  MANAGEMENT
+                </Link>
+                <Link className=" font-semibold" href="sdg.html">
+                  I.P.R
+                </Link>
+                <Link className=" font-semibold" href="mgmt.html">
+                  COLLABORATIONS
+                </Link>
+                <Link className=" font-semibold" href="sdg.html">
+                  FUNDINGS
+                </Link>
+                <Link className=" font-semibold" href="mgmt.html">
+                  APPLY
+                </Link>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <UserButton setClose={() => setOpen(false)} />
+        </div>
       </div>
 
-      <Sheet open={open} onOpenChange={() => setOpen(!open)}>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger className={"lg:hidden block mx-5"}>
-          <Menu />
+          <Hamburger toggled={open} toggle={setOpen} size={24} />
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Sairam Techno Incubator</SheetTitle>
-            <div className="w-full flex justify-center">
-              <UserButton setClose={() => setOpen(false)} />
-            </div>
+            <SheetTitle className="text-center">
+              Sairam Techno Incubator
+            </SheetTitle>
           </SheetHeader>
           <div className={"flex flex-col space-y-3 mt-10 items-center"}>
             <Link className="nav-link font-semibold" href="/#home">
@@ -108,20 +146,39 @@ export const Navbar = () => {
             <Link className="nav-link font-semibold" href="/#gallery">
               GALLERY
             </Link>
-            {/* <Link className="nav-link font-semibold" href="sdg.html">
-              S.D.G.
-            </Link> */}
             <Link className="nav-link font-semibold" href="/#team">
               TEAM
             </Link>
-            {/* <Link className="nav-link font-semibold" href="mgmt.html">
-              MANAGEMENT
-            </Link> */}
             <Link className="nav-link font-semibold" href="/#footer">
               CONTACT
             </Link>
+            <Link className=" font-semibold" href="sdg.html">
+              S.D.G.
+            </Link>
+            <Link className=" font-semibold" href="mgmt.html">
+              MANAGEMENT
+            </Link>
+            <Link className=" font-semibold" href="sdg.html">
+              I.P.R
+            </Link>
+            <Link className=" font-semibold" href="mgmt.html">
+              COLLABORATIONS
+            </Link>
+            <Link className=" font-semibold" href="sdg.html">
+              FUNDINGS
+            </Link>
+            <Link className=" font-semibold" href="mgmt.html">
+              APPLY
+            </Link>
           </div>
+          <SheetFooter className="">
+            <div className="w-full flex justify-center pt-4">
+              <UserButton setClose={() => setOpen(false)} />
+            </div>
+          </SheetFooter>
+         
         </SheetContent>
+        
       </Sheet>
     </div>
   );

@@ -18,7 +18,7 @@ import { Gallery } from "@prisma/client";
 
 const GalleryComponent = ({ images }: { images: Gallery[] }) => {
   const [viewMore, setviewMore] = useState(false);
-  const ImageC = ({ imagedata }: {imagedata: Gallery}) => {
+  const ImageC = ({ imagedata }: { imagedata: Gallery }) => {
     return (
       <Dialog>
         <DialogTrigger>
@@ -31,7 +31,9 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
               className="h-[220px] min-w-[350px] max-w-[350px] group-hover:scale-110 group-hover:shadow-xl group-hover:drop-shadow-xl group-hover:rounded-xl transition-all ease-in duration-200"
             />
             <div className="absolute top-[90%] text-center text-white flex justify-center transition-all ease-in duration-200 group-hover:top-[95%] items-center z-10 w-full h-[10%] gradient-overlay group-hover:scale-110 group-hover:rounded-b-xl">
-              <span className="font-semibold capitalize ">{imagedata.name}</span>
+              <span className="font-semibold capitalize ">
+                {imagedata.name}
+              </span>
             </div>
           </div>
         </DialogTrigger>
@@ -75,14 +77,12 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
           <div
             id="overflow"
             className={cn(
-              "p-4 flex flex-1 flex-wrap justify-center gap-10 w-[80%] overflow-hidden transition-all duration-500 ease-in-out",
+              "p-4 flex flex-1 flex-wrap justify-center gap-10 md:w-[80%] w-full overflow-hidden transition-all duration-500 ease-in-out",
               !viewMore && "max-h-[400px]"
             )}
           >
             {images &&
-              images.map((image, index) => (
-                <ImageC imagedata={image} />
-              ))}
+              images.map((image, index) => <ImageC imagedata={image} />)}
           </div>
           {images.length > 6 && (
             <div

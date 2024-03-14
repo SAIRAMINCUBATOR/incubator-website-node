@@ -52,6 +52,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
 
   const handleLogout = () => {
     setOpen(false);
+    if (setClose)
     setClose();
     router.replace("/");
     clearSession();
@@ -104,6 +105,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
                   href={"/auth/addUser"}
                   className="w-full"
                   onClick={() => {
+                    if (setClose)
                     setClose();
                     setOpen(false);
                   }}
@@ -121,6 +123,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
                 href={"/edit"}
                 className="w-full"
                 onClick={() => {
+                  if (setClose)
                   setClose();
                   setOpen(false);
                 }}
@@ -138,6 +141,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
                 href={"/auth/resetPassword"}
                 className="w-full"
                 onClick={() => {
+                  if (setClose)
                   setClose();
                   setOpen(false);
                 }}

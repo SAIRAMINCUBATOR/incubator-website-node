@@ -9,6 +9,18 @@ import {
   UploadCloud,
   X,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 import Image from "next/image";
 import { useState } from "react";
 const ACCEPTED_IMAGE_MIME_TYPES = {
@@ -32,13 +44,13 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
   const [file, setFile] = useState<Blob>();
   const [uploading, setUploading] = useState(false);
   const { token, isTokenExpired } = useSession();
+  const [alertOpen, setAlertOpen] = useState(false);
 
-  const onDrop = (files:any) => {
+  const onDrop = (files: any) => {
     setFile(files[0]);
-
   };
 
-  const handleUpload = async (e: { preventDefault: () => void; }) => {
+  const handleUpload = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setUploading(true);
     try {
@@ -56,7 +68,7 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
         const response = await axios.post("/api/firebase", formData, {
           headers: { Authorization: "Bearer " + token },
         });
-        onChange(response.data.url)
+        onChange(response.data.url);
         setUploading(false);
       }
     } catch (e) {
@@ -64,32 +76,64 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
     }
   };
 
-  const handleDelete = ()=>{
+  const handleDelete = async () => {
+    console.log(value);
+    const url = value.substring(
+      value.indexOf("files") + 8,
+      value.lastIndexOf("?")
+    );
+    // await axios.delete("/api/firebase?id="+url, {
+    //   headers: { Authorization: "Bearer " + token },
+    // });
     onChange("");
+
     setFile(undefined);
-  }
+  };
 
   if (value) {
     return (
       <div className="relative h-fit w-full flex justify-center">
         <Image src={value} alt="Upload" width={200} height={100} />
-        <button
-          onClick={handleDelete}
-          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
+        <Button
+          onClick={() => setAlertOpen(true)}
+          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm h-fit"
           type="button"
         >
           <X className="h-4 w-4" />
-        </button>
+        </Button>
+        <AlertDialog
+          open={alertOpen}
+          onOpenChange={() => setAlertOpen(!alertOpen)}
+        >
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently remove your
+                data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   }
 
-  const handleError = (e: { errors: { code: string; }[]; }[]) =>{
+  const handleError = (e: { errors: { code: string }[] }[]) => {
     if (e[0].errors[0].code == "file-too-large")
-    toast(<>
-    <AlertCircle/> File Size is larger then 5 MB</>)
-    console.log(e)
-  }
+      toast(
+        <>
+          <AlertCircle /> File Size is larger then 5 MB
+        </>
+      );
+    console.log(e);
+  };
 
   return (
     <div className="bg-slate-200 p-4 flex justify-center border-slate-400 border-2 border-dashed">
@@ -97,7 +141,7 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
         <Dropzone
           onDrop={onDrop}
           maxFiles={1}
-          maxSize={1024*1024*5}
+          maxSize={1024 * 1024 * 5}
           accept={ACCEPTED_IMAGE_MIME_TYPES}
           multiple={false}
           onDropRejected={handleError}
@@ -127,8 +171,8 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
               <Loader2 className="text-white h-5 w-5 animate-spin" />
             ) : (
               <div className="flex gap-3">
-                <Upload className="h-5 w-5 m-0"/>
-                Upload
+                <Upload className="h-5 w-5 m-0" />
+                <span className="hidden lg:block">Upload</span>
               </div>
             )}
           </Button>
