@@ -40,6 +40,7 @@ model User {
   Gallery           Gallery[]
   StartUp           StartUp[]
   Project           Project[]
+  Company           Company[]
 }
 
 model MainCarousel {
@@ -95,6 +96,14 @@ model Gallery {
   addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
+model Company {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
 model StartUp {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   name          String
@@ -104,11 +113,11 @@ model StartUp {
 }
 
 model Project {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   image         String[]
   description   String
   content       String?
-  addedByUserId String @db.ObjectId
-  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }

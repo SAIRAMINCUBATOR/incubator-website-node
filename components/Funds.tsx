@@ -6,7 +6,7 @@ export const Funds = () => {
   return (
     <section
       id="fund"
-      className="w-full relative flex flex-col gap-10 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden z-1"
+      className=" drop-shadow-lg shadow-inner  w-full relative flex flex-col gap-10 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden z-1"
     >
       {/* Illustration Image */}
       <img

@@ -4,19 +4,19 @@ import { Button } from "../ui/button";
 import { Loader2, Pencil, PlusCircle, Trash } from "lucide-react";
 import { useModal } from "@/hooks/use-model-store";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { StartUp } from "@prisma/client";
+import { Gallery } from "@prisma/client";
 import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const StartUpEdit = () => {
-  const [data, setData] = useState<StartUp[]>();
+const CompanyEdit = () => {
+  const [data, setData] = useState<Gallery[]>();
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen } = useModal();
 
   const getData = async () => {
     setLoading(true);
-    const response = await axios.get("/api/components/startup");
+    const response = await axios.get("/api/components/company");
     setData(response.data.response);
     setLoading(false);
   };
@@ -24,34 +24,36 @@ const StartUpEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div
-      id="startup"
-      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
-    >
+    <div id="companies" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
       <div className="flex items-center justify-between gap-5 w-full">
-        <span className=" font-montserrat font-bold text-xl">StartUp</span>
-        {/* <Button
-          onClick={() => onOpen("addStartUp")}
+        <span className=" font-montserrat font-bold text-xl">Companies</span>
+        <Button
+          onClick={() => onOpen("addCompany")}
           variant={"ghost"}
           className=" border-dashed bg-blue-500 text-white shadow-lg hover:scale-105"
         >
           <PlusCircle className="h-5 w-5 mr-2" /> Add
-        </Button> */}
+        </Button>
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
           <ScrollArea className="w-full py-4">
             {data && data.length > 0 ? (
-              <div className="flex gap-20 justify-evenly">
+              <div className="flex gap-20 mb-4">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
-                    <div className="h-full w-full border-2 ">
-                      <p className="text-2xl font-semibold">{datum.name}</p>
-                    </div>
+                    <Image
+                      className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
+                      src={datum.image}
+                      alt={`${datum.name}`}
+                      key={index}
+                      width={200}
+                      height={105}
+                    />
                     <div className="flex gap-5 justify-center">
                       <Button
                         onClick={() =>
-                          onOpen("editStartUp", { startup: datum })
+                          onOpen("editCompany", { company: datum })
                         }
                         variant={"ghost"}
                         className="bg-green-400 w-[100px] text-white shadow-md"
@@ -64,7 +66,7 @@ const StartUpEdit = () => {
                       </Button>
                       <Button
                         onClick={() =>
-                          onOpen("deleteStartUp", { startup: datum })
+                          onOpen("deleteCompany", { company: datum })
                         }
                         variant={"ghost"}
                         className="bg-red-400 w-[100px] text-white shadow-md"
@@ -87,26 +89,34 @@ const StartUpEdit = () => {
             <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
           </ScrollArea>
         ) : (
-          <div className="flex gap-10 py-4 items-start w-full overflow-hidden justify-evenly">
-            <div className="flex  flex-col gap-5  ">
-              <Skeleton className="h-[55px] w-[200px] rounded-xl bg-gray-400" />
+          <div className="flex gap-10 py-4 items-start w-full overflow-hidden">
+            <div className="flex flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
               <div className="flex items-start h-full gap-2 justify-between">
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
             <div className="flex flex-col gap-5 ">
-              <Skeleton className="h-[55px] w-[200px] rounded-xl bg-gray-400" />
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-between">
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+              </div>
+            </div>
+            <div className="flex flex-col gap-5  ">
+              <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
               <div className="flex items-start h-full gap-2 justify-between">
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
           </div>
+          // <Loader2 className="h-10 w-10 animate-spin" />
         )}
       </div>
     </div>
   );
 };
 
-export default StartUpEdit;
+export default CompanyEdit;

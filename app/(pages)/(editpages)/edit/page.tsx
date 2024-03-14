@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import UserButton from "@/components/UserButton";
+import CompanyEdit from "@/components/editPage/CompanyEdit";
 import GalleryEdit from "@/components/editPage/GalleryEdit";
 import LeadEdit from "@/components/editPage/LeadEdit";
 import MainCarouselEdit from "@/components/editPage/MainCarouselEdit";
@@ -15,10 +16,10 @@ import React, { useEffect } from "react";
 
 const EditPage = () => {
   const router = useRouter();
-  const {token, isTokenExpired} = useSession();
+  const { token, isTokenExpired } = useSession();
   useEffect(() => {
-    if (!token && isTokenExpired()){
-      router.replace("/")
+    if (!token && isTokenExpired()) {
+      router.replace("/");
     }
   }, [token]);
   return (
@@ -40,8 +41,9 @@ const EditPage = () => {
         <LeadEdit />
         <TeamEdit />
         <GalleryEdit />
+        <CompanyEdit />
         <StartUpEdit />
-        <ProjectEdit/>
+        <ProjectEdit />
       </div>
     </div>
   );

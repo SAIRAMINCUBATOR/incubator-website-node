@@ -3,20 +3,19 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image, { StaticImageData } from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
+import { ImageData } from "@/schema";
 
 interface Props {
-  images: StaticImageData[];
+  images: ImageData[];
 }
 
-export const Company = ({ images }: Props) => {
+export const CompanyComponent = ({ images }: Props) => {
   return (
     <Carousel
-      className="w-[90%] m-5 carousel"
+      className="w-[90%] m-5 carousel "
       opts={{
         align: "start",
         loop: true,
@@ -37,9 +36,11 @@ export const Company = ({ images }: Props) => {
               key={index}
             >
               <Image
-                src={img}
-                alt={`images ${index}`}
+                src={img.image}
+                alt={img.name}
                 className="object-contain h-32  p-4 w-fit"
+                width={300}
+                height={300}
               />
             </CarouselItem>
           ))}

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export const Establishment = () => {
   return (
-    <section className="w-full relative flex gap-10 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden">
+    <section className="points w-full relative flex gap-10 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-l from-blue-50 via-blue-90 overflow-hidden">
       {/* Images */}
       <Image
         loading="lazy"

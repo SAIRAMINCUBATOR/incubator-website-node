@@ -5,7 +5,7 @@ export const AboutUs = () => {
   return (
     <div
       id="about-us"
-      className="relative flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-full py-10 overflow-hidden lg:flex-row flex-col gap-10 max-w-screen"
+      className="why relative flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-full py-10 overflow-hidden lg:flex-row flex-col gap-10 max-w-screen"
       style={{
         width: "100%",
         transition: "background-position 0.3s ease",

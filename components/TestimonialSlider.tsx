@@ -45,7 +45,7 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
     });
   }, [api]);
   return (
-    <div className="h-[700px] w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-b from-blue-50 via-blue-90 lg:pb-0 md:pb-[830px] pb-[850px]">
+    <div className="why shadow-inner drop-shadow-2xl h-[700px] w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-b from-blue-50 via-blue-90 lg:pb-0 md:pb-[830px] pb-[850px]">
       <div className="flex justify-end items-center w-full py-2">
         <div className="w-full flex justify-center">
           <h2

@@ -1,5 +1,4 @@
 "use client";
-import Image, { StaticImageData } from "next/image";
 import { Slider } from "@/components/Slider";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import Link from "next/link";
@@ -7,23 +6,10 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import * as React from "react";
 import { Projects } from "@/components/Projects";
 
-import logo1 from "@/public/logo/1.png";
-import logo2 from "@/public/logo/2 .png";
-import logo3 from "@/public/logo/3.png";
-import logo4 from "@/public/logo/4.png";
-import logo5 from "@/public/logo/5.png";
-import logo6 from "@/public/logo/6.png";
-import logo7 from "@/public/logo/7.png";
-import logo8 from "@/public/logo/8.png";
-import logo9 from "@/public/logo/8.png";
-import logo10 from "@/public/logo/10.png";
-import logo15 from "@/public/logo/15.png";
-
 import { ImageData } from "@/schema";
 import { Startup } from "@/components/Startup";
 
 import { TeamComponent } from "@/components/Team";
-import { Company } from "@/components/Companys";
 import GalleryComponent from "@/components/Gallery";
 
 import { Funds } from "@/components/Funds";
@@ -37,17 +23,21 @@ import {
   MainCarousel,
   StartUp,
   Team,
-  Testimony,Project,
+  Testimony,
+  Project,
+  Company,
 } from "@prisma/client";
 import axios from "axios";
+import { CompanyComponent } from "@/components/Companys";
 export default function Home() {
   const [MainCarousel, setMainCarousel] = useState<ImageData[]>([]);
   const [Testimony, setTestimony] = useState<Testimony[]>([]);
   const [TeamMembers, setTeamMembers] = useState<Team[]>([]);
   const [LeadMembers, setLeadMembers] = useState<Lead[]>([]);
   const [GalleryImages, setGalleryImages] = useState<Gallery[]>([]);
-  const [StrtUpData,setStrtUpData]=useState<StartUp[]>([]);
-  const [ProjectContent,setProjectContent]=useState<Project[]>([]);
+  const [StrtUpData, setStrtUpData] = useState<StartUp[]>([]);
+  const [ProjectContent, setProjectContent] = useState<Project[]>([]);
+  const [Companies, setCompanies] = useState<ImageData[]>([]);
   const getTestimonyData = async () => {
     try {
       const response = await axios.get("/api/components/testimony");
@@ -59,14 +49,14 @@ export default function Home() {
   const getMainCarouselData = async () => {
     try {
       const response = await axios.get("/api/components/mainCarousel");
-      const responseData : MainCarousel[]  = response.data.response;
-      const formatedResponse: ImageData[] = responseData.map(res=>{
-        const data:ImageData = {
+      const responseData: MainCarousel[] = response.data.response;
+      const formatedResponse: ImageData[] = responseData.map((res) => {
+        const data: ImageData = {
           image: res.image,
-          name: res.name
-        } 
-        return data
-      })
+          name: res.name,
+        };
+        return data;
+      });
       setMainCarousel(formatedResponse);
     } catch (e) {
       console.log(e);
@@ -77,6 +67,23 @@ export default function Home() {
     try {
       const response = await axios.get("/api/components/gallery");
       setGalleryImages(response.data.response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getCompany = async () => {
+    try {
+      const response = await axios.get("/api/components/company");
+      const responseData: Company[] = response.data.response;
+      const formatedResponse: ImageData[] = responseData.map((res) => {
+        const data: ImageData = {
+          image: res.image,
+          name: res.name,
+        };
+        return data;
+      });
+      setCompanies(formatedResponse);
     } catch (e) {
       console.log(e);
     }
@@ -107,16 +114,16 @@ export default function Home() {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const getProjectData = async () => {
-    try{
-    const response = await axios.get("/api/components/project");
-    setProjectContent(response.data.response);
-    }catch(e){
-      console.log(e)
+    try {
+      const response = await axios.get("/api/components/project");
+      setProjectContent(response.data.response);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     getMainCarouselData();
@@ -126,26 +133,12 @@ export default function Home() {
     getGallery();
     getStartUpData();
     getProjectData();
+    getCompany();
   }, []);
 
-  
   const tags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`
   );
-
-  const companies: StaticImageData[] = [
-    logo1,
-    logo2,
-    logo3,
-    logo4,
-    logo5,
-    logo6,
-    logo7,
-    logo8,
-    logo9,
-    logo10,
-    logo15,
-  ];
 
   return (
     <div
@@ -165,8 +158,11 @@ export default function Home() {
       <AboutUs />
       <Establishment />
       <Projects projects={ProjectContent} />
-      <Startup tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list} tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list} />
-      <Company images={companies} />
+      <Startup
+        tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list}
+        tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list}
+      />
+      <CompanyComponent images={Companies} />
       <Funds />
 
       <TeamComponent row0={LeadMembers} rowN={TeamMembers} />
