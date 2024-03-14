@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import * as React from "react";
 
 export const Funds = () => {
@@ -36,7 +37,7 @@ export const Funds = () => {
           <h3 id="fund-countup" className="our-projects">
             1.01 Cr+
           </h3>
-          <p className="ml-2">funds</p>
+          <p className="ml-2">Funds</p>
         </div>
 
         {/* Startup Countup 2 */}
@@ -44,20 +45,20 @@ export const Funds = () => {
           <img
             loading="lazy"
             src="handshake-icon.png"
-            className="h-[200px] filter brightness-75 hue-rotate-180"
+            className="h-[200px] filter brightness-50 hue-rotate-180"
           />
           <h3 id="company-countup" className="our-projects">
             85+
           </h3>
-          <p className="ml-2">startups incubated</p>
+          <p className="ml-2">Startups incubated</p>
         </div>
       </div>
 
       {/* Funds Div Wrapper */}
-      <div className="flex gap-[70px] flex-col lg:flex-row items-center">
+      <div className="flex gap-[70px] flex-col lg:flex-row items-center justify-center">
         {/* Fund Div 1 */}
         <div
-          className="flex flex-col w-[80%] p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
+          className="flex flex-col w-[30%] p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
           data-aos="fade-up"
           data-aos-offset="100"
         >
@@ -70,17 +71,17 @@ export const Funds = () => {
           <p className="mt-5 font-semibold text-[18px] text-center">
             Entrepreneurship Development And Innovation Institute, Tamil Nadu
           </p>
-          <a
-            href="edii.html"
+          <Link
+            href="/edii"
             className="mt-5 border-[3px] w-[80%] rounded-xl border-blue-500 border-opacity-50 font-semibold pt-1 pb-1 text-blue-500 hover:text-white hover:bg-blue-500 text-center"
           >
             DETAILS
-          </a>
+          </Link>
         </div>
 
         {/* Fund Div 2 */}
         <div
-          className="flex flex-col w-[80%] p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
+          className="flex flex-col w-[30%] p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
           data-aos="fade-up"
           data-aos-offset="100"
           data-aos-delay="100"
@@ -94,12 +95,12 @@ export const Funds = () => {
           <p className="mt-5 font-semibold text-[18px] text-center">
             Innovations For Defence Excellence (iDEX)
           </p>
-          <a
-            href="edii.html"
+          <Link
+            href="/idex"
             className="mt-5 border-[3px] w-[80%] rounded-xl border-blue-500 border-opacity-50 font-semibold pt-1 pb-1 text-blue-500 hover:text-white hover:bg-blue-500 text-center"
           >
             DETAILS
-          </a>
+          </Link>
         </div>
       </div>
     </section>
