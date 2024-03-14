@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
 import { useEffect } from "react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -99,6 +100,14 @@ export const EditLead = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -136,6 +145,8 @@ export const EditLead = () => {
                       </FormLabel>
                       <FormControl>
                         <FileUpload
+                                                disabled={isLoading}
+
                           value={field.value}
                           onChange={field.onChange}
                         />

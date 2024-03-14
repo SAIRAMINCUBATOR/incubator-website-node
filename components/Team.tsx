@@ -3,6 +3,9 @@ import { TeamInt } from "@/schema";
 import { TeamPeople } from "./TeamPeople";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Team } from "@prisma/client";
+import { useSession } from "./providers/context/SessionContext";
+import Link from "next/link";
+import { Pencil } from "lucide-react";
 
 interface Props {
   row0: Team[];
@@ -10,15 +13,28 @@ interface Props {
 }
 
 export const TeamComponent = ({ row0, rowN }: Props) => {
+  const { token } = useSession();
   return (
     <div id="team" className="w-full text-center bg-blue-100/50 p-5">
-      <h2
-        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
-        style={{ fontFamily: "Montserrat, sans-serif" }}
-        data-splitting
-      >
-        OUT TEAM
-      </h2>
+      <div className="flex justify-end items-center w-full py-2">
+        <div className="w-full flex justify-center">
+          <h2
+            className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+            data-splitting
+          >
+            OUR TEAM
+          </h2>
+        </div>
+
+        <div className=" justify-end">
+          {token && (
+            <Link href={"/edit#leads"}>
+              <Pencil />
+            </Link>
+          )}
+        </div>
+      </div>
       <div className="w-full flex flex-col items-center">
         <ScrollArea className="md:w-[80%] w-full gap-y-6">
           <div className="flex justify-center pt-10">

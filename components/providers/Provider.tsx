@@ -14,18 +14,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   useEffect(() => {
-    console.log(path);
-    // const regex = /^(\/api|\/edit|\/auth(?!\/signin\b)).*$/;
-    // if (regex.test(path)){
-    //   if (!token && isTokenExpired()){
-    //     redirect("/", RedirectType.replace);
-    //   }
-    // }
-    // if (path=="/auth/addUser"){
-    //   if (role!="ADMIN")
-    //   redirect("/", RedirectType.replace);
+    // console.log(path);
+    const regex = /^(\/api|\/edit|\/auth(?!\/signin\b)).*$/;
+    if (regex.test(path)){
+      if (!token && isTokenExpired()){
+        redirect("/", RedirectType.replace);
+      }
+    }
+    if (path=="/auth/addUser"){
+      if (role!="ADMIN")
+      redirect("/", RedirectType.replace);
 
-    // }
+    }
   }, [path]);
 
   useEffect(() => {

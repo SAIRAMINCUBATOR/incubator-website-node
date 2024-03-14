@@ -29,6 +29,7 @@ import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -84,6 +85,14 @@ export const AddTeam = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -101,7 +110,7 @@ export const AddTeam = () => {
           </DialogTitle>
         </DialogHeader>
         <ScrollArea
-          className="space-y-8self-center"
+          className="space-y-8 self-center"
           style={{ width: "100%", height: 600 }}
         >
           <Form {...form}>
@@ -117,6 +126,8 @@ export const AddTeam = () => {
                       </FormLabel>
                       <FormControl>
                         <FileUpload
+                                                disabled={isLoading}
+
                           value={field.value}
                           onChange={field.onChange}
                         />
@@ -176,7 +187,7 @@ export const AddTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Facebook Profile
+                        Member's Facebook Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -197,7 +208,7 @@ export const AddTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Twitter Profile
+                        Member's Twitter Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -218,7 +229,7 @@ export const AddTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Instagram Profile
+                        Member's Instagram Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -239,7 +250,7 @@ export const AddTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's LinkedIn Profile
+                        Member's LinkedIn Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input

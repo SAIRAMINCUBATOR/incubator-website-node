@@ -29,7 +29,7 @@ import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
 import { useEffect } from "react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { Trash } from "lucide-react";
+import { AlertCircle, Trash } from "lucide-react";
 import Editor from "@/components/RichTextEditor";
 
 const formSchema = z.object({
@@ -60,7 +60,7 @@ export const EditProject = () => {
       name: project?.name,
       image: project?.image,
       description: project?.description,
-      content:project?.content
+      content: project?.content,
     },
   });
 
@@ -94,6 +94,14 @@ export const EditProject = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -116,134 +124,140 @@ export const EditProject = () => {
         </DialogHeader>
         <ScrollArea
           className="space-y-8 self-center"
-          style={{ width: "100%", maxHeight: 600 }}
+          style={{ width: "99%", maxHeight: 600 }}
         >
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 px-6"
-          >
-
-<div className="space-y-8 px-6">
-  <FormField
-    control={form.control}
-    name="image"
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-          Image List
-        </FormLabel>
-        <FormControl>
-          <div className="flex flex-col items-center w-full">
-            {Array.isArray(field.value) &&
-              field.value.map((imageUrl, index) => (
-                <div key={index} className="mb-2 flex items-center w-full">
-                  <FileUpload
-                    value={field.value[index]}
-                    onChange={(file) => {
-                      const updatedList = [...field.value];
-                      updatedList[index] = file; // Assuming FileUpload returns the file object
-                      field.onChange(updatedList);
-                    }}
-                  />
-                  <Trash
-                    className="ml-2 text-red-500 cursor-pointer"
-                    onClick={() => {
-                      const updatedList = [...field.value];
-                      updatedList.splice(index, 1);
-                      field.onChange(updatedList);
-                    }}
-                  />
-                </div>
-              ))}
-            <div className="items-center">
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  field.onChange([...(field.value || []), null]);
-                }}
-                className="hover:underline focus:outline-none w-full px-10 bg-violet-500"
-              >
-                Add Image
-              </Button>
-            </div>
-          </div>
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-</div>
-
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                    Project Title
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
-                      placeholder="Enter Project Title"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                    Project Description
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
-                      placeholder="Enter Project"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <div className="space-y-8 px-6">
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Image List
+                      </FormLabel>
+                      <FormControl>
+                        <div className="flex flex-col items-center w-full">
+                          {Array.isArray(field.value) &&
+                            field.value.map((imageUrl, index) => (
+                              <div
+                                key={index}
+                                className="mb-2 flex items-center w-full"
+                              >
+                                <FileUpload
+                                  disabled={isLoading}
+                                  value={field.value[index]}
+                                  onChange={(file) => {
+                                    const updatedList = [...field.value];
+                                    updatedList[index] = file; // Assuming FileUpload returns the file object
+                                    field.onChange(updatedList);
+                                  }}
+                                />
+                                <Trash
+                                  className="ml-2 text-red-500 cursor-pointer"
+                                  onClick={() => {
+                                    if (!isLoading) {
+                                      const updatedList = [...field.value];
+                                      updatedList.splice(index, 1);
+                                      field.onChange(updatedList);
+                                    }
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          <div className="items-center">
+                            <Button
+                              disabled={isLoading}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                field.onChange([...(field.value || []), null]);
+                              }}
+                              className="hover:underline focus:outline-none w-full px-10 bg-violet-500"
+                            >
+                              Add Image
+                            </Button>
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <FormField
-                control={form.control}
-                name="content"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Project Content
-                    </FormLabel>
-                    <FormControl>
-                      <Editor value={field.value} onChange={field.onChange} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Project Title
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                          placeholder="Enter Project Title"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-            <DialogFooter className=" py-4">
-              <Button
-                variant="primary"
-                disabled={isLoading}
-                className="w-[100px]"
-              >
-                Edit
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Project Description
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                          placeholder="Enter Project"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Project Content
+                      </FormLabel>
+                      <FormControl>
+                        <Editor
+                          value={field.value}
+                          onChange={field.onChange}
+                          disabled={isLoading}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <DialogFooter className=" py-4 px-6 w-[101%] bg-gray-100">
+                <Button
+                  variant="primary"
+                  disabled={isLoading}
+                  className="w-[100px]"
+                >
+                  Edit
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
         </ScrollArea>
       </DialogContent>
     </Dialog>

@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return new NextResponse("User Not Found", { status: 404 });
     }
     const {name , image,designation,facebook,twitter,instagram,linkedin } = await req.json();
-    if (!name || !image || !designation || !facebook || !twitter || !instagram || !linkedin) {
+    if (!name || !image || !designation ) {
       return new NextResponse("Image or Name is missing", { status: 404 });
     }
 
@@ -56,8 +56,8 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       return new NextResponse("User Not Found", { status: 404 });
     }
     const {name , image, designation,facebook,twitter,instagram,linkedin,id} = await req.json();
-    if (!name || !image || !designation || !facebook || !twitter || !instagram || !linkedin || !id) {
-      return new NextResponse("Image or Name or ID or designation or insta or facebook or linkedin or twitter is missing", { status: 404 });
+    if (!name || !image || !designation || !id) {
+      return new NextResponse("Image or Name or ID or designation is missing", { status: 404 });
     }
 
     await db.lead.update({

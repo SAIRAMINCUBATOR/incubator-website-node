@@ -24,7 +24,7 @@ const MainCarouselEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div id="carousel" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Main Slider</span>
         <Button
@@ -86,7 +86,7 @@ const MainCarouselEdit = () => {
                 No Data Found
               </div>
             )}
-            <ScrollBar orientation="horizontal" />
+            <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
           </ScrollArea>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden">

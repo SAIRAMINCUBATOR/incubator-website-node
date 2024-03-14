@@ -26,31 +26,36 @@ export const Navbar = () => {
 
   const [open, setOpen] = useState(false);
   var lastScrollTop = 0;
-  const handleScroll = () => {
-    var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-    if (ref.current) {
-      if (st > lastScrollTop) {
-        // ref.current.classList.add("nav-main-hide");
-        setNavbar(true);
-      } else if (st < lastScrollTop) {
-        // ref.current.classList.remove("nav-main-hide");
-        setNavbar(false);
-      } // else was horizontal scroll
-      lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-    }
-  };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  useEffect(function onFirstMount() {
+    function onScroll() {
+      var st = (typeof globalThis.window !== 'undefined' && globalThis.window?.pageYOffset) || document.documentElement.scrollTop;
+      if (ref.current) {
+        if (st > lastScrollTop) {
+          setNavbar(true);
+        } else if (st < lastScrollTop) {
+          setNavbar(false);
+        }
+        lastScrollTop = st <= 0 ? 0 : st; 
+      }
+    }
+    
+    if (typeof globalThis.window !== 'undefined') {
+      globalThis.window?.addEventListener("scroll", onScroll);
+  
+      return () => {
+        globalThis.window?.removeEventListener("scroll", onScroll);
+      };
+    }
   }, []);
+  
 
   return (
     <div
       ref={ref}
       className={`nav-main ${
         Navbar && "nav-main-hide"
-      } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-[10] flex  bg-background shadow-2xl justify-between`}
+      } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-20 flex  bg-background shadow-2xl justify-between`}
     >
       <Image
         src={logo}
@@ -176,9 +181,7 @@ export const Navbar = () => {
               <UserButton setClose={() => setOpen(false)} />
             </div>
           </SheetFooter>
-         
         </SheetContent>
-        
       </Sheet>
     </div>
   );

@@ -15,8 +15,12 @@ interface Props {
 import { useEffect } from "react";
 import { Pagination } from "./Pagination";
 import { Testimony } from "@prisma/client";
+import { useSession } from "./providers/context/SessionContext";
+import Link from "next/link";
+import { Pencil } from "lucide-react";
 
 export const TestimonialSlider = ({ testimonycontent }: Props) => {
+  const { token } = useSession();
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(-1);
   const [count, setCount] = React.useState(-1);
@@ -42,13 +46,25 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
   }, [api]);
   return (
     <div className="h-[700px] w-full relative flex gap-5 flex-wrap justify-center items-center p-7 md:p-8 bg-gradient-to-b from-blue-50 via-blue-90 lg:pb-0 md:pb-[830px] pb-[850px]">
-      <h2
-        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
-        style={{ fontFamily: "Montserrat, sans-serif" }}
-        data-splitting
-      >
-        TESTIMONIAL
-      </h2>
+      <div className="flex justify-end items-center w-full py-2">
+        <div className="w-full flex justify-center">
+          <h2
+            className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+            data-splitting
+          >
+            TESTIMONIALS
+          </h2>
+        </div>
+
+        <div className=" justify-end">
+          {token && (
+            <Link href={"/edit#testimony"}>
+              <Pencil />
+            </Link>
+          )}
+        </div>
+      </div>
       <Carousel
         setApi={setApi}
         opts={{

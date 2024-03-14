@@ -1,23 +1,22 @@
 "use client";
 import Image from "next/image";
-import { ImageData } from "@/schema";
-import { ChevronDown, ChevronUp, X } from "lucide-react";
+import { ChevronDown, ChevronUp, Pencil, X } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Gallery } from "@prisma/client";
+import { useSession } from "./providers/context/SessionContext";
+import Link from "next/link";
 
 const GalleryComponent = ({ images }: { images: Gallery[] }) => {
   const [viewMore, setviewMore] = useState(false);
+  const { token } = useSession();
   const ImageC = ({ imagedata }: { imagedata: Gallery }) => {
     return (
       <Dialog>
@@ -65,13 +64,25 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
       )}
       id="gallery"
     >
-      <h2
-        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
-        style={{ fontFamily: "Montserrat, sans-serif" }}
-        data-splitting
-      >
-        GALLERY
-      </h2>
+      <div className="flex justify-end items-center w-full py-2">
+        <div className="w-full flex justify-center">
+          <h2
+            className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+            data-splitting
+          >
+            GALLERY
+          </h2>
+        </div>
+
+        <div className=" justify-end">
+          {token && (
+            <Link href={"/edit#gallery"}>
+              <Pencil />
+            </Link>
+          )}
+        </div>
+      </div>
       <div className="md:block hidden w-full ">
         <div className="relative justify-center items-center flex">
           <div
@@ -124,7 +135,7 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
         {images &&
           Array.from({ length: Math.ceil(images.length / 5) }).map(
             (_, index) => (
-              <ScrollArea className="w-[90%] py-3" key={index}>
+              <ScrollArea className="md:w-[90%] w-full py-3" key={index}>
                 <div className="flex justify-center items-center gap-2">
                   {images
                     .slice(index * 5, index * 5 + 5)
@@ -132,7 +143,10 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
                       <ImageC imagedata={image} />
                     ))}
                 </div>
-                <ScrollBar orientation="horizontal" />
+                <ScrollBar
+                  orientation="horizontal"
+                  color="rgb(156, 163, 175)"
+                />
               </ScrollArea>
             )
           )}

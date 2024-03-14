@@ -24,7 +24,7 @@ const GalleryEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div id="gallery" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Gallery</span>
         <Button
@@ -39,46 +39,54 @@ const GalleryEdit = () => {
         {!loading ? (
           <ScrollArea className="w-full py-4">
             {data && data.length > 0 ? (
-            <div className="flex gap-20 mb-4">
-              {data.map((datum, index) => (
-                <div className="flex flex-col gap-5">
-                  <Image
-                    className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
-                    src={datum.image}
-                    alt={`${datum.name}`}
-                    key={index}
-                    width={200}
-                    height={105}
-                  />
-                  <div className="flex gap-5 justify-center">
-                    <Button
-                      onClick={() =>
-                        onOpen("editGallery", { gallery: datum })
-                      }
-                      variant={"ghost"}
-                      className="bg-green-400 w-[100px] text-white shadow-md"
-                    >
-                      <Pencil className="h-4 w-4 mr-2 fill-green-800" stroke="false"/> Edit
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        onOpen("deleteGallery", { gallery: datum })
-                      }
-                      variant={"ghost"}
-                      className="bg-red-400 w-[100px] text-white shadow-md"
-                    >
-                      <Trash className="h-5 w-5 mr-2 text-white fill-red-800" stroke="false"/> Delete
-                    </Button>
+              <div className="flex gap-20 mb-4">
+                {data.map((datum, index) => (
+                  <div className="flex flex-col gap-5">
+                    <Image
+                      className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
+                      src={datum.image}
+                      alt={`${datum.name}`}
+                      key={index}
+                      width={200}
+                      height={105}
+                    />
+                    <div className="flex gap-5 justify-center">
+                      <Button
+                        onClick={() =>
+                          onOpen("editGallery", { gallery: datum })
+                        }
+                        variant={"ghost"}
+                        className="bg-green-400 w-[100px] text-white shadow-md"
+                      >
+                        <Pencil
+                          className="h-4 w-4 mr-2 fill-green-800"
+                          stroke="false"
+                        />{" "}
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          onOpen("deleteGallery", { gallery: datum })
+                        }
+                        variant={"ghost"}
+                        className="bg-red-400 w-[100px] text-white shadow-md"
+                      >
+                        <Trash
+                          className="h-5 w-5 mr-2 text-white fill-red-800"
+                          stroke="false"
+                        />{" "}
+                        Delete
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            ): (
+                ))}
+              </div>
+            ) : (
               <div className="w-full flex justify-center text-2xl font-bold">
-              No Data Found
+                No Data Found
               </div>
             )}
-            <ScrollBar orientation="horizontal" />
+            <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
           </ScrollArea>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden">

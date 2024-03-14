@@ -3,11 +3,11 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import AutoScroll from "embla-carousel-auto-scroll";
+import { useSession } from "./providers/context/SessionContext";
+import Link from "next/link";
+import { Pencil } from "lucide-react";
 
 export const Startup = ({
   tags1,
@@ -16,15 +16,28 @@ export const Startup = ({
   tags1: String[];
   tags2: String[];
 }) => {
+  const {token} = useSession();
   return (
     <div id="startups" className="projects  ">
-      <h2
-        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
-        style={{ fontFamily: "Montserrat, sans-serif" }}
-        data-splitting
-      >
-        STARTUPS
-      </h2>
+     <div className="flex justify-end items-center w-full py-2">
+        <div className="w-full flex justify-center">
+          <h2
+            className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+            data-splitting
+          >
+            START UP
+          </h2>
+        </div>
+
+        <div className=" justify-end">
+          {token &&
+          <Link href={"/edit#projects"}>
+          <Pencil />
+          </Link>
+          }
+        </div>
+      </div>
       <div
         className={
           "flex lg:flex-row flex-col w-full justify-evenly md:min-h-[400px] items-cente space-y-8 lg:space-y-0"

@@ -172,8 +172,8 @@ h2.splitting[data-scroll="out"] .char {
   transition: transform 0.5s ease-in-out;
 }
 .our-projects:hover {
-    transform: scale(1.1);
-  }
+  transform: scale(1.1);
+}
 
 .projects-swiper {
   width: 95%;
@@ -287,26 +287,26 @@ h2.splitting[data-scroll="out"] .char {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.802) 10%, transparent);
 }
 @media screen and (max-width: 800px) {
-.footer{
-  flex-direction: column;
-  gap: 25px;
-  justify-content: center;
-  align-items: center;
-  padding: 8% 5%;
+  .footer {
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    padding: 8% 5%;
+  }
 }
-}
-.sairam-footer{
+.sairam-footer {
   width: 50%;
   object-fit: cover;
   margin-left: auto;
 }
 
-.incub-footer{
+.incub-footer {
   object-fit: cover;
   width: 80%;
 }
 
-.footillus{
+.footillus {
   position: absolute;
   height: auto;
   width: auto;
@@ -317,20 +317,26 @@ h2.splitting[data-scroll="out"] .char {
   z-index: -10;
 }
 
-.footer > div{
+.footer > div {
   flex: 0 1 33%;
   /* outline: 1px solid red; */
 }
 
-.footer{
+.footer {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: row wrap;
   width: 100%;
   /* background: linear-gradient(90deg, rgba(173, 204, 233, 0.5) 0%, rgba(255, 255, 255, 0) 100%); */
-  background: linear-gradient(180deg, rgba(173, 204, 233, 0.5) 0%, rgba(255, 255, 255, 0) 51.04%, rgba(236, 243, 250, 0.117021) 62.5%, rgba(173, 204, 233, 0.5) 100%);
-  box-shadow: inset 0px 0px 30px #ADCCE9;
+  background: linear-gradient(
+    180deg,
+    rgba(173, 204, 233, 0.5) 0%,
+    rgba(255, 255, 255, 0) 51.04%,
+    rgba(236, 243, 250, 0.117021) 62.5%,
+    rgba(173, 204, 233, 0.5) 100%
+  );
+  box-shadow: inset 0px 0px 30px #adcce9;
   padding: 5% 8%;
   gap: 40px;
   position: relative;
@@ -344,4 +350,35 @@ h2.splitting[data-scroll="out"] .char {
     rgba(0, 0, 0, 0.292) 80%,
     transparent
   );
+}
+
+.editor table {
+  width: 100%; /* Make the table fill its container */
+  border-collapse: collapse; /* Collapse the borders into a single border */
+  border-spacing: 0; /* Ensure no space between cells */
+  margin: auto; /* Center the table horizontally */
+}
+
+/* Table header styles */
+.editor th {
+  background-color: #f2f2f2; /* Light gray background */
+  border: 1px solid #ddd; /* Gray border */
+  padding: 8px; /* Padding around the content */
+  text-align: left; /* Align text to the left */
+}
+
+/* Table body cell styles */
+.editor td {
+  border: 1px solid #ddd; /* Gray border */
+  padding: 8px; /* Padding around the content */
+}
+
+/* Optional: Alternate row background color */
+.editor tr:nth-child(even) {
+  background-color: #f9f9f9; /* Lighter gray background for even rows */
+}
+
+/* Specific color for the first row */
+.editor tr:first-child {
+  background-color: #c0c0c0; /* Different color for the first row */
 }

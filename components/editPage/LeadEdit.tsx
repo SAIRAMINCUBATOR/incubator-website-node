@@ -24,7 +24,7 @@ const LeadEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div id="leads" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Lead Members</span>
         <Button
@@ -58,7 +58,9 @@ const LeadEdit = () => {
                       >
                         <Pencil
                           className="h-4 w-4 mr-2 fill-green-800"
-                          stroke="false"/> Edit
+                          stroke="false"
+                        />{" "}
+                        Edit
                       </Button>
                       <Button
                         onClick={() => onOpen("deleteLead", { lead: datum })}
@@ -80,7 +82,7 @@ const LeadEdit = () => {
                 No Data Found
               </div>
             )}
-            <ScrollBar orientation="horizontal" />
+            <ScrollBar orientation="horizontal" color="rgb(156, 163, 175)" />
           </ScrollArea>
         ) : (
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden">

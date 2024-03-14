@@ -28,6 +28,7 @@ import { useState } from "react";
 import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -71,6 +72,14 @@ export const AddGalleryModel = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -100,6 +109,7 @@ export const AddGalleryModel = () => {
                     </FormLabel>
                     <FormControl>
                       <FileUpload
+                      disabled={isLoading}
                         value={field.value}
                         onChange={field.onChange}
                       />

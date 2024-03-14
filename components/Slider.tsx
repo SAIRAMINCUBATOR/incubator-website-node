@@ -10,10 +10,10 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import { useEffect } from "react";
-import { MainCarousel } from "@prisma/client";
+import { ImageData } from "@/schema";
 
 interface Props {
-  images: MainCarousel[];
+  images: ImageData[];
 }
 
 export const Slider = ({ images }: Props) => {
@@ -64,7 +64,7 @@ export const Slider = ({ images }: Props) => {
             >
               <Image
                 src={img.image}
-                alt=""
+                alt={img.name}
                 className={"md:h-[600px] w-full object-contain"}
                 height={200}
                 width={400}

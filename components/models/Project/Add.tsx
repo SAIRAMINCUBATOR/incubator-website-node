@@ -4,7 +4,6 @@ import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -28,9 +27,10 @@ import { useState } from "react";
 import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
-import { Trash, X } from "lucide-react";
+import { AlertCircle, Trash, X } from "lucide-react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Editor from "@/components/RichTextEditor";
+import { ScrollBar } from "@/components/ui/scroll-area";
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Image name is required.",
@@ -58,7 +58,7 @@ export const AddProject = () => {
       name: "",
       image: [],
       description: "",
-      content:""
+      content: "",
     },
   });
 
@@ -81,6 +81,14 @@ export const AddProject = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -91,21 +99,18 @@ export const AddProject = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-auto w-1/2">
+      <DialogContent className="bg-white text-black p-0 overflow-auto w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Add Project Image
           </DialogTitle>
         </DialogHeader>
         <ScrollArea
-          className="space-y-8 self-center"
-          style={{ width: "100%", maxHeight: 600 }}
+          className="space-y-8 self-center w-[99%]"
+          style={{ maxHeight: 600 }}
         >
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 px-6"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
               <div className="space-y-8 px-6">
                 <FormField
                   control={form.control}
@@ -116,7 +121,7 @@ export const AddProject = () => {
                         Image List
                       </FormLabel>
                       <FormControl>
-                        <div className="flex flex-col items-center w-full">
+                        <div className="flex flex-col items-center">
                           {Array.isArray(field.value) &&
                             field.value.map((imageUrl, index) => (
                               <div
@@ -124,6 +129,7 @@ export const AddProject = () => {
                                 className="mb-2 flex items-center w-full"
                               >
                                 <FileUpload
+                                  disabled={isLoading}
                                   value={field.value[index]}
                                   onChange={(file) => {
                                     const updatedList = [...field.value];
@@ -134,15 +140,18 @@ export const AddProject = () => {
                                 <Trash
                                   className="ml-2 text-red-500 cursor-pointer"
                                   onClick={() => {
-                                    const updatedList = [...field.value];
-                                    updatedList.splice(index, 1);
-                                    field.onChange(updatedList);
+                                    if (!isLoading) {
+                                      const updatedList = [...field.value];
+                                      updatedList.splice(index, 1);
+                                      field.onChange(updatedList);
+                                    }
                                   }}
                                 />
                               </div>
                             ))}
                           <div className="items-center">
                             <Button
+                              disabled={isLoading}
                               onClick={(e) => {
                                 e.preventDefault();
                                 field.onChange([...(field.value || []), null]);
@@ -158,67 +167,67 @@ export const AddProject = () => {
                     </FormItem>
                   )}
                 />
+
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Project Title
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                          placeholder="Enter Project Title"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Project Description
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                          placeholder="Enter Project"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        Project Content
+                      </FormLabel>
+                      <FormControl>
+                        <Editor value={field.value} onChange={field.onChange} disabled={isLoading}/>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Project Title
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
-                        placeholder="Enter Project Title"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Project Description
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
-                        placeholder="Enter Project"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="content"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      Project Content
-                    </FormLabel>
-                    <FormControl>
-                      <Editor value={field.value} onChange={field.onChange} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <DialogFooter className=" py-4">
+              <DialogFooter className=" py-4 px-6  bg-gray-100 w-[101%]">
                 <Button
                   variant="primary"
                   disabled={isLoading}
@@ -229,6 +238,7 @@ export const AddProject = () => {
               </DialogFooter>
             </form>
           </Form>
+          <ScrollBar orientation="vertical" />
         </ScrollArea>
       </DialogContent>
     </Dialog>

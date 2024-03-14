@@ -1,18 +1,11 @@
 "use client";
 import Image, { StaticImageData } from "next/image";
-import { Testimonial } from "@/schema";
 import { Slider } from "@/components/Slider";
 import { TestimonialSlider } from "@/components/TestimonialSlider";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import * as React from "react";
 import { Projects } from "@/components/Projects";
-import img from "@/public/projects/p1-1.jpg";
-import img1 from "@/public/projects/p2-1.jpg";
-import img2 from "@/public/projects/p3-1.png";
-import img3 from "@/public/projects/p4-1.png";
-import img4 from "@/public/projects/p5-1.png";
-import img5 from "@/public/projects/p6-1.jpg";
 
 import logo1 from "@/public/logo/1.png";
 import logo2 from "@/public/logo/2 .png";
@@ -26,10 +19,9 @@ import logo9 from "@/public/logo/8.png";
 import logo10 from "@/public/logo/10.png";
 import logo15 from "@/public/logo/15.png";
 
-import { ImageData, TeamInt } from "@/schema";
+import { ImageData } from "@/schema";
 import { Startup } from "@/components/Startup";
 
-import ceo from "@/public/teams/Sai Prakash Leo Muthu.jpg";
 import { TeamComponent } from "@/components/Team";
 import { Company } from "@/components/Companys";
 import GalleryComponent from "@/components/Gallery";
@@ -49,7 +41,7 @@ import {
 } from "@prisma/client";
 import axios from "axios";
 export default function Home() {
-  const [MainCarousel, setMainCarousel] = useState<MainCarousel[]>([]);
+  const [MainCarousel, setMainCarousel] = useState<ImageData[]>([]);
   const [Testimony, setTestimony] = useState<Testimony[]>([]);
   const [TeamMembers, setTeamMembers] = useState<Team[]>([]);
   const [LeadMembers, setLeadMembers] = useState<Lead[]>([]);
@@ -67,7 +59,15 @@ export default function Home() {
   const getMainCarouselData = async () => {
     try {
       const response = await axios.get("/api/components/mainCarousel");
-      setMainCarousel(response.data.response);
+      const responseData : MainCarousel[]  = response.data.response;
+      const formatedResponse: ImageData[] = responseData.map(res=>{
+        const data:ImageData = {
+          image: res.image,
+          name: res.name
+        } 
+        return data
+      })
+      setMainCarousel(formatedResponse);
     } catch (e) {
       console.log(e);
     }
@@ -165,7 +165,7 @@ export default function Home() {
       <AboutUs />
       <Establishment />
       <Projects projects={ProjectContent} />
-      <Startup tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list?StrtUpData[0].list:tags} tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list?StrtUpData[1].list:tags} />
+      <Startup tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list} tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list} />
       <Company images={companies} />
       <Funds />
 

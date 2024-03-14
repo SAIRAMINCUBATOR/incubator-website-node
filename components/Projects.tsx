@@ -16,12 +16,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Pagination } from "@/components/Pagination";
 import { Project } from "@prisma/client";
+import { Pencil } from "lucide-react";
+import { useSession } from "./providers/context/SessionContext";
 
 interface Props {
   projects: Project[];
 }
 
 export const Projects = ({ projects }: Props) => {
+  const {token} = useSession();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(-1);
   const [count, setCount] = useState(-1);
@@ -48,17 +51,27 @@ export const Projects = ({ projects }: Props) => {
 
   return (
     <div id="projects" className="projects">
-      <h2
-        className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
-        style={{ fontFamily: "Montserrat, sans-serif" }}
-        data-splitting
-      >
-        OUR STUDENTS WORK
-      </h2>
+      <div className="flex justify-end items-center w-full py-2">
+        <div className="w-full flex justify-center">
+          <h2
+            className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+            data-splitting
+          >
+            OUR STUDENTS WORK
+          </h2>
+        </div>
+
+        <div className=" justify-end">
+          {token &&
+          <Link href={"/edit#projects"}>
+          <Pencil />
+          </Link>
+          }
+        </div>
+      </div>
       <div
-        className={
-          "flex flex-col justify-center min-h-[400px] items-center"
-        }
+        className={"flex flex-col justify-center min-h-[400px] items-center"}
       >
         <Carousel
           setApi={setApi}
@@ -82,8 +95,8 @@ export const Projects = ({ projects }: Props) => {
                 >
                   <div className="relative">
                     <Image
-                    width={1000}
-                    height={1000}
+                      width={1000}
+                      height={1000}
                       src={project.image[0]}
                       alt="Image"
                       className={cn(
@@ -101,7 +114,7 @@ export const Projects = ({ projects }: Props) => {
                           href={`/projects/${project.id}`}
                           className="apply-now"
                         >
-                          <Button>DETAILS</Button>
+                          <Button variant="primary">DETAILS</Button>
                         </Link>
                       </div>
                     </div>

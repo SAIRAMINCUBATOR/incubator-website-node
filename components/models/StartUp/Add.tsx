@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-model-store";
 import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
-import { Trash } from "lucide-react";
+import { AlertCircle, Trash } from "lucide-react";
 import { useEffect } from "react";
 
 const formSchema = z.object({
@@ -71,6 +71,14 @@ export const AddStartUp = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -157,6 +165,7 @@ export const AddStartUp = () => {
                           ))}
                         <div className="items-center">
                           <Button
+                          disabled={isLoading}
                             onClick={(e) => {
                               e.preventDefault();
                               field.onChange([...(field.value || []), ""]);

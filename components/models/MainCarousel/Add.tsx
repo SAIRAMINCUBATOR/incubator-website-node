@@ -28,6 +28,7 @@ import { useState } from "react";
 import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -71,6 +72,14 @@ export const AddMainCarouselModel = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -103,6 +112,8 @@ export const AddMainCarouselModel = () => {
                     </FormLabel>
                     <FormControl>
                       <FileUpload
+                                              disabled={isLoading}
+
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -136,7 +147,7 @@ export const AddMainCarouselModel = () => {
               )}
             />
 
-            <DialogFooter className="px-6 py-4 w-full flex items-center justify-center bg-gray-100">
+            <DialogFooter className="px-6 py-4  bg-gray-100">
               <Button
                 variant="primary"
                 disabled={isLoading}

@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
 import { useEffect } from "react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -99,6 +100,14 @@ export const EditTeam = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -136,6 +145,8 @@ export const EditTeam = () => {
                       </FormLabel>
                       <FormControl>
                         <FileUpload
+                                                disabled={isLoading}
+
                           value={field.value}
                           onChange={field.onChange}
                         />
@@ -195,7 +206,7 @@ export const EditTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Facebook Profile
+                        Member's Facebook Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -216,7 +227,7 @@ export const EditTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Twitter Profile
+                        Member's Twitter Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -237,7 +248,7 @@ export const EditTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Instagram Profile
+                        Member's Instagram Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -258,7 +269,7 @@ export const EditTeam = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's LinkedIn Profile
+                        Member's LinkedIn Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input

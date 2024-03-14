@@ -112,6 +112,8 @@ export const AddTestimony = () => {
                     </FormLabel>
                     <FormControl>
                       <FileUpload
+                                              disabled={isLoading}
+
                         value={field.value}
                         onChange={field.onChange}
                       />

@@ -26,9 +26,8 @@ import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-model-store";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { toast } from "sonner";
-import { FileUpload } from "@/components/FileUpload";
 import { useEffect } from "react";
-import { Trash } from "lucide-react";
+import { AlertCircle, Trash } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -82,6 +81,14 @@ export const EditStartUp = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -165,6 +172,7 @@ export const EditStartUp = () => {
                           ))}
                         <div className="items-center">
                           <Button
+                          disabled={isLoading}
                             onClick={(e) => {
                               e.preventDefault();
                               field.onChange([...(field.value || []), ""]);

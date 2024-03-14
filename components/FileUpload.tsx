@@ -38,9 +38,10 @@ import axios from "axios";
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
+  disabled? :boolean
 }
 
-export const FileUpload = ({ onChange, value }: FileUploadProps) => {
+export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
   const [file, setFile] = useState<Blob>();
   const [uploading, setUploading] = useState(false);
   const { token, isTokenExpired } = useSession();
@@ -96,6 +97,7 @@ export const FileUpload = ({ onChange, value }: FileUploadProps) => {
         <Image src={value} alt="Upload" width={200} height={100} />
         <Button
           onClick={() => setAlertOpen(true)}
+          disabled={disabled}
           className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm h-fit"
           type="button"
         >

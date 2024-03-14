@@ -17,6 +17,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { AlertCircle } from "lucide-react";
 
 const DeleteGallery = () => {
   const router = useRouter();
@@ -48,6 +49,14 @@ const DeleteGallery = () => {
       }
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 

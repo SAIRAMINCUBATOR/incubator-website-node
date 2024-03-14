@@ -30,6 +30,7 @@ import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -85,6 +86,14 @@ export const AddLead = () => {
       onClose();
     } catch (error) {
       console.log(error);
+      if (error && error.response && error.response.data) {
+        toast(
+          <>
+            <AlertCircle />
+            {error.response.data}
+          </>
+        );
+      }
     }
   };
 
@@ -118,6 +127,7 @@ export const AddLead = () => {
                       </FormLabel>
                       <FormControl>
                         <FileUpload
+                        disabled={isLoading}
                           value={field.value}
                           onChange={field.onChange}
                         />
@@ -177,7 +187,7 @@ export const AddLead = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                        Member's Facebook Profilen (OPTIONAL)
+                        Member's Facebook Profile (OPTIONAL)
                       </FormLabel>
                       <FormControl>
                         <Input

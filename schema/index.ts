@@ -19,7 +19,7 @@ export interface TeamInt {
 }
 
 export interface ImageData {
-  image: StaticImageData;
+  image: string;
   name: string;
 }
 export interface TableData {
