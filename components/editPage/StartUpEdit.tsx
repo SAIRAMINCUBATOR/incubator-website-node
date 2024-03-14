@@ -46,7 +46,9 @@ const StartUpEdit = () => {
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <div className="h-full w-full border-2 ">
-                      <p className="text-2xl font-semibold">{datum.name}</p>
+                      <p className="text-2xl font-semibold text-center">
+                        {datum.name}
+                      </p>
                     </div>
                     <div className="flex gap-5 justify-center">
                       <Button

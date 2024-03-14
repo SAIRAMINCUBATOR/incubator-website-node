@@ -28,6 +28,7 @@ import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { AlertCircle, Trash } from "lucide-react";
 import { useEffect } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -93,103 +94,105 @@ export const AddStartUp = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">
+      <DialogContent className="bg-white text-black p-0 overflow-auto w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Add StartUp
           </DialogTitle>
         </DialogHeader>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 w-full"
-          >
-            <div className="space-y-8 px-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      StartUp Type
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter StartUp Type"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="list"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
-                      StartUp List
-                    </FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col items-center w-full">
-                        {Array.isArray(field.value) &&
-                          field.value.map((startup, index) => (
-                            <div
-                              key={index}
-                              className="mb-2 flex items-center w-full"
-                            >
-                              <Input
-                                disabled={isLoading}
-                                className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 w-full"
-                                placeholder={`Enter Startup ${index + 1}`}
-                                value={field.value[index]}
-                                onChange={(e) => {
-                                  const updatedList = [...field.value];
-                                  updatedList[index] = e.target.value;
-                                  field.onChange(updatedList);
-                                }}
-                              />
-                              <Trash
-                                className="ml-2 text-red-500 cursor-pointer"
-                                onClick={() => {
-                                  const updatedList = [...field.value];
-                                  updatedList.splice(index, 1);
-                                  field.onChange(updatedList);
-                                }}
-                              />
-                            </div>
-                          ))}
-                        <div className="items-center">
-                          <Button
+        <ScrollArea
+          className="space-y-8 self-center"
+          style={{ width: "100%", maxHeight: 200 }}
+        >
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              <div className="space-y-8 px-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        StartUp Type
+                      </FormLabel>
+                      <FormControl>
+                        <Input
                           disabled={isLoading}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              field.onChange([...(field.value || []), ""]);
-                            }}
-                            variant={"primary"}
-                            className=" focus:outline-none w-full px-10"
-                          >
-                            Add Startup
-                          </Button>
+                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                          placeholder="Enter StartUp Type"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="list"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                        StartUp List
+                      </FormLabel>
+                      <FormControl>
+                        <div className="flex flex-col items-center w-full">
+                          {Array.isArray(field.value) &&
+                            field.value.map((startup, index) => (
+                              <div
+                                key={index}
+                                className="mb-2 flex items-center w-full"
+                              >
+                                <Input
+                                  disabled={isLoading}
+                                  className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 w-full"
+                                  placeholder={`Enter Startup ${index + 1}`}
+                                  value={field.value[index]}
+                                  onChange={(e) => {
+                                    const updatedList = [...field.value];
+                                    updatedList[index] = e.target.value;
+                                    field.onChange(updatedList);
+                                  }}
+                                />
+                                <Trash
+                                  className="ml-2 text-red-500 cursor-pointer"
+                                  onClick={() => {
+                                    const updatedList = [...field.value];
+                                    updatedList.splice(index, 1);
+                                    field.onChange(updatedList);
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          <div className="items-center">
+                            <Button
+                              disabled={isLoading}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                field.onChange([...(field.value || []), ""]);
+                              }}
+                              variant={"primary"}
+                              className=" focus:outline-none w-full px-10"
+                            >
+                              Add Startup
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
-              <Button variant="primary" disabled={isLoading}>
-                Add
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <DialogFooter className="bg-gray-100 px-6 py-4">
+                <Button variant="primary" disabled={isLoading}>
+                  Add
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
