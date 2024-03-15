@@ -98,10 +98,6 @@ export const EditMainCarousel = () => {
     onClose();
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">

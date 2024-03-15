@@ -46,7 +46,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
     setToken(newToken);
     setRole(newRole);
     setIsPasswordDefault(exp.isPasswordDefault);
-    console.log(exp.isPasswordDefault);
   };
 
   const clearSession = () => {

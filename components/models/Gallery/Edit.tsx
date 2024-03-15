@@ -98,9 +98,6 @@ export const EditGallery = () => {
     onClose();
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>

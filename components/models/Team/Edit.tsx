@@ -116,9 +116,6 @@ export const EditTeam = () => {
     onClose();
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>

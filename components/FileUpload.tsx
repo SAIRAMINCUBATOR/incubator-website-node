@@ -78,14 +78,13 @@ export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
   };
 
   const handleDelete = async () => {
-    console.log(value);
     const url = value.substring(
       value.indexOf("files") + 8,
       value.lastIndexOf("?")
     );
-    // await axios.delete("/api/firebase?id="+url, {
-    //   headers: { Authorization: "Bearer " + token },
-    // });
+    await axios.delete("/api/firebase?id="+url, {
+      headers: { Authorization: "Bearer " + token },
+    });
     onChange("");
 
     setFile(undefined);

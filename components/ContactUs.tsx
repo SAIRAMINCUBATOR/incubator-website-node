@@ -43,7 +43,6 @@ const ContactUs = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const data = await axios.post("/api/contactus", values);
-      console.log(data.data)
       toast("Message Sent");
       form.reset();
     } catch (error: any) {

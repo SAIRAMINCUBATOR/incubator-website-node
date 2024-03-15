@@ -34,10 +34,10 @@ export const Navbar = () => {
   };
   function SmoothScrollLink({ href, children }) {
     return (
-      <Link href={href} className="w-fit">
+      <Link href={href} className="w-fit m-0 p-0 h-fit">
         <Button
           variant="ghost"
-          className="nav-link font-semibold"
+          className="nav-link font-semibold w-fit m-0 p-0 h-fit"
           onClick={(e) => {
             e.preventDefault(); // Prevent default link behavior
             const sectionId = href.split("#")[1]; // Extract section ID from href
@@ -71,6 +71,17 @@ export const Navbar = () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >1024)
+      setOpen(false);
+  
+    }
+   
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const { token, isTokenExpired } = useSession();
 
   return (
@@ -86,7 +97,7 @@ export const Navbar = () => {
         className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
       />
       <div className={"lg:flex items-center gap-5 m-5 hidden"}>
-        <div className="nav-btns flex items-center">
+        <div className="nav-btns flex items-center gap-3">
           <SmoothScrollLink href={"/#home"}>HOME</SmoothScrollLink>
           <SmoothScrollLink href={"/#about-us"}>ABOUT US</SmoothScrollLink>
           <SmoothScrollLink href={"/#projects"}>PROJECTS</SmoothScrollLink>
@@ -176,7 +187,7 @@ export const Navbar = () => {
         <SheetTrigger className={"lg:hidden block mx-5"}>
           <Hamburger toggled={open} toggle={setOpen} size={24} />
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="lg:hidden">
           <SheetHeader>
             <SheetTitle className="text-center">
               Sairam Techno Incubator
@@ -212,6 +223,15 @@ export const Navbar = () => {
             <Link className=" font-semibold" href="/apply">
               APPLY
             </Link>
+            {(!token || isTokenExpired()) && (
+              <Link
+                className=" font-semibold"
+                href="/auth/signin"
+                onClick={() => setPopOverOpen(false)}
+              >
+                SIGN IN
+              </Link>
+            )}
           </div>
           <SheetFooter className="">
             <div className="w-full flex justify-center pt-4">

@@ -30,7 +30,7 @@ export const Establishment = () => {
         }}
       />
       <div
-        className="w-[600px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
+        className="xl:w-[550px] lg:w-[450px] md:w-[300px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
         style={{ fontFamily: "Montserrat, sans-serif" }}
         data-aos="zoom-out"
         data-aos-delay={100}
@@ -52,7 +52,7 @@ export const Establishment = () => {
       </div>
 
       <div
-        className="w-[600px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
+        className="xl:w-[550px] lg:w-[450px] md:w-[300px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
         style={{ fontFamily: "Montserrat, sans-serif" }}
         data-aos="zoom-out"
         data-aos-delay={200}
@@ -66,7 +66,7 @@ export const Establishment = () => {
       </div>
 
       <div
-        className="w-[600px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
+        className="xl:w-[550px] lg:w-[450px] md:w-[300px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
         style={{ fontFamily: "Montserrat, sans-serif" }}
         data-aos="zoom-out"
         data-aos-delay={100}
@@ -84,7 +84,7 @@ export const Establishment = () => {
       </div>
 
       <div
-        className="w-[600px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
+        className="xl:w-[550px] lg:w-[450px] md:w-[300px] min-h-[350px] h-full flex flex-col m-3 p-10 bg-white shadow-lg border-4 border-blue-400 border-opacity-50 rounded-2xl"
         style={{ fontFamily: "Montserrat, sans-serif" }}
         data-aos="zoom-out"
         data-aos-delay={200}

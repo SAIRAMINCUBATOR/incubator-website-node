@@ -10,7 +10,7 @@ import TeamEdit from "@/components/editPage/TeamEdit";
 import TestimonyEdit from "@/components/editPage/Testimonyedit";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -19,14 +19,24 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { ChevronRight, Menu } from "lucide-react";
 
 const EditPage = () => {
   const [sheetOpen, setSheetOpen] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >1024)
+      setSheetOpen(false);
+  
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     section.scrollIntoView({ behavior: "smooth" });
   };
+
   function SmoothScrollLink({ href, children }) {
     return (
       <Link href={href}>
@@ -72,7 +82,12 @@ const EditPage = () => {
         <SideBarComponets />
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger className="lg:hidden block sticky top-5 left-3"><Menu/></SheetTrigger>
+        <SheetTrigger className="lg:hidden block sticky h-[98vh] w-fit">
+          <div className="flex flex-col h-full justify-center items-center ml-2"
+          >
+          <ChevronRight className="m-0 p-0 text-2xl" size={32}/>
+          </div>
+          </SheetTrigger>
         <SheetContent className="w-1/2" side="left">
           <SheetHeader>
             <SheetTitle>Sairam Techno Incubator</SheetTitle>
@@ -82,7 +97,7 @@ const EditPage = () => {
         </SheetContent>
       </Sheet>
 
-      <div className=" lg:w-[90%] ml-5 lg:ml-0 w-full flex flex-col">
+      <div className=" lg:w-[90%] lg:ml-0 w-full flex flex-col">
         <MainCarouselEdit />
         <TestimonyEdit />
         <LeadEdit />

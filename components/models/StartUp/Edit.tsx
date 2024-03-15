@@ -99,10 +99,6 @@ export const EditStartUp = () => {
     onClose();
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-auto w-full">
