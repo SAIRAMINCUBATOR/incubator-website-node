@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SessionContext } from "@/components/providers/context/SessionContext";
 import { ModalProvider } from "@/components/providers/model-provider";
 import { RedirectType, redirect, usePathname } from "next/navigation";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const path = usePathname();
@@ -91,7 +92,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       }}
     >
       <ModalProvider />
+      <ParallaxProvider>
       {children}
+      </ParallaxProvider>
     </SessionContext.Provider>
   );
 }

@@ -18,6 +18,7 @@ import { Pagination } from "@/components/Pagination";
 import { Project } from "@prisma/client";
 import { Pencil } from "lucide-react";
 import { useSession } from "./providers/context/SessionContext";
+import { Parallax } from "react-scroll-parallax";
 
 interface Props {
   projects: Project[];
@@ -73,6 +74,8 @@ export const Projects = ({ projects }: Props) => {
       <div
         className={"flex flex-col justify-center min-h-[400px] items-center"}
       >
+        <Parallax translateY={[50, 0, "easeIn"]} scale={[0,1, "easeIn"]} startScroll={1400} endScroll={1900} className="flex">
+
         <Carousel
           setApi={setApi}
           opts={{
@@ -123,6 +126,7 @@ export const Projects = ({ projects }: Props) => {
               ))}
           </CarouselContent>
         </Carousel>
+        </Parallax>
       </div>
       <Pagination total={count} current={current} />
     </div>

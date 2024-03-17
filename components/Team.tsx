@@ -6,6 +6,7 @@ import { Team } from "@prisma/client";
 import { useSession } from "./providers/context/SessionContext";
 import Link from "next/link";
 import { Pencil } from "lucide-react";
+import { Parallax } from "react-scroll-parallax";
 
 interface Props {
   row0: Team[];
@@ -35,26 +36,36 @@ export const TeamComponent = ({ row0, rowN }: Props) => {
           )}
         </div>
       </div>
-      <div className="w-full flex flex-col items-center">
-        <ScrollArea className="md:w-[80%] w-full gap-y-6">
-          <div className="flex justify-center pt-10">
-            {row0 &&
-              row0.map((team, index) => <TeamPeople team={team} key={index} />)}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-        <div className="hidden lg:flex flex-wrap items-center w-[85%] justify-center gap-y-6">
-          {rowN &&
-            rowN.map((team, index) => <TeamPeople team={team} key={index} />)}
-        </div>
-        <ScrollArea className="lg:hidden block w-full ">
-          <div className="flex items-center justify-center">
+      <Parallax
+        scale={[0, 1, "easeIn"]}
+        endScroll={4300}
+        className="flex"
+      >
+        <div className="w-full flex flex-col items-center">
+          <ScrollArea className="md:w-[80%] w-full gap-y-6">
+            <div className="flex justify-center pt-10">
+              {row0 &&
+                row0.map((team, index) => (
+                  <TeamPeople team={team} key={index} />
+                ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+          <div className="hidden lg:flex flex-wrap items-center w-[85%] justify-center gap-y-6">
             {rowN &&
               rowN.map((team, index) => <TeamPeople team={team} key={index} />)}
           </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </div>
+          <ScrollArea className="lg:hidden block w-full ">
+            <div className="flex items-center justify-center">
+              {rowN &&
+                rowN.map((team, index) => (
+                  <TeamPeople team={team} key={index} />
+                ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </div>
+      </Parallax>
     </div>
   );
 };

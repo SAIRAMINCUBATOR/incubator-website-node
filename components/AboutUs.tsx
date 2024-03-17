@@ -1,9 +1,12 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
+import { Parallax, useParallax } from "react-scroll-parallax";
 export const AboutUs = () => {
+
   return (
     <div
+    
       id="about-us"
       className="why relative flex justify-center items-center align-middle justify-items-center bg-blue-500 bg-opacity-5 h-full py-10 overflow-hidden lg:flex-row flex-col gap-10 max-w-screen"
       style={{
@@ -12,6 +15,7 @@ export const AboutUs = () => {
         backgroundPosition: "0% 0%",
       }}
     >
+
       <img
         loading="lazy"
         src="illustration1.png"
@@ -33,7 +37,7 @@ export const AboutUs = () => {
             "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
         }}
       />
-
+      <Parallax translateY={[50, 0, "easeIn"]} scale={[0.5, 1]} startScroll={150} endScroll={500} className="flex">
       <Image
         width={3000}
         height={3000}
@@ -41,7 +45,8 @@ export const AboutUs = () => {
         alt={"Sairam Incubator Foundation Logo"}
         className="w-[35%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
       />
-
+     
+     </Parallax>
       <div className="flex flex-col w-[40%] ml-10">
         <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 lg:text-6xl md:text-4xl text-2xl">
           WHY INCUBATION
@@ -58,6 +63,7 @@ export const AboutUs = () => {
           to maximize business potential.
         </p>
       </div>
+      
     </div>
   );
 };
