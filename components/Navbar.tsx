@@ -18,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "./ui/button";
 import { useSession } from "./providers/context/SessionContext";
 
 export const Navbar = () => {
@@ -28,28 +27,6 @@ export const Navbar = () => {
 
   const [open, setOpen] = useState(false);
   var lastScrollTop = 0;
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    section.scrollIntoView({ behavior: "smooth" });
-  };
-  function SmoothScrollLink({ href, children }) {
-    return (
-      <Link href={href} className="w-fit m-0 p-0 h-fit">
-        <Button
-          variant="ghost"
-          className="nav-link font-semibold w-fit m-0 p-0 h-fit"
-          onClick={(e) => {
-            e.preventDefault(); // Prevent default link behavior
-            const sectionId = href.split("#")[1]; // Extract section ID from href
-            scrollToSection(sectionId); // Scroll to the section
-            setOpen(false);
-          }}
-        >
-          {children}
-        </Button>
-      </Link>
-    );
-  }
 
   useEffect(() => {
     function onScroll() {
@@ -92,20 +69,22 @@ export const Navbar = () => {
         Navbar && "nav-main-hide"
       } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-20 flex  bg-background shadow-2xl justify-between`}
     >
+      <Link href={"/"}>
       <Image
         src={logo}
         alt={"Logo"}
         className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
       />
+      </Link>
       <div className={"lg:flex items-center gap-5 m-5 hidden"}>
         <div className="nav-btns flex items-center gap-4">
-          <SmoothScrollLink href={"/#home"}>HOME</SmoothScrollLink>
-          <SmoothScrollLink href={"/#about-us"}>ABOUT US</SmoothScrollLink>
-          <SmoothScrollLink href={"/#projects"}>PROJECTS</SmoothScrollLink>
-          <SmoothScrollLink href={"/#startups"}> START UPS</SmoothScrollLink>
-          <SmoothScrollLink href={"/#gallery"}> GALLERY</SmoothScrollLink>
-          <SmoothScrollLink href={"/#team"}> TEAM</SmoothScrollLink>
-          <SmoothScrollLink href={"/#footer"}> CONTACT</SmoothScrollLink>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#home"}>HOME</Link>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#about-us"}>ABOUT US</Link>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#projects"}>PROJECTS</Link>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#startups"}> START UPS</Link>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#gallery"}> GALLERY</Link>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#team"}> TEAM</Link>
+          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#footer"}> CONTACT</Link>
         </div>
         <div className="flex items-center gap-2">
           <Popover open={popOverOpen} onOpenChange={setPopOverOpen}>
@@ -195,13 +174,13 @@ export const Navbar = () => {
             </SheetTitle>
           </SheetHeader>
           <div className={"flex flex-col space-y-3 mt-10 items-center"}>
-            <SmoothScrollLink href={"/#home"}>HOME</SmoothScrollLink>
-            <SmoothScrollLink href={"/#about-us"}>ABOUT US</SmoothScrollLink>
-            <SmoothScrollLink href={"/#projects"}>PROJECTS</SmoothScrollLink>
-            <SmoothScrollLink href={"/#startups"}> START UPS</SmoothScrollLink>
-            <SmoothScrollLink href={"/#gallery"}> GALLERY</SmoothScrollLink>
-            <SmoothScrollLink href={"/#team"}> TEAM</SmoothScrollLink>
-            <SmoothScrollLink href={"/#footer"}> CONTACT</SmoothScrollLink>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#home"}>HOME</Link>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#about-us"}>ABOUT US</Link>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#projects"}>PROJECTS</Link>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#startups"}> START UPS</Link>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#gallery"}> GALLERY</Link>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#team"}> TEAM</Link>
+            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#footer"}> CONTACT</Link>
 
             <Link className=" font-semibold" href="/sdg">
               S.D.G.
