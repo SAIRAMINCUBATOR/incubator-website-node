@@ -42,6 +42,7 @@ export const Navbar = () => {
             e.preventDefault(); // Prevent default link behavior
             const sectionId = href.split("#")[1]; // Extract section ID from href
             scrollToSection(sectionId); // Scroll to the section
+            setOpen(false);
           }}
         >
           {children}
@@ -97,7 +98,7 @@ export const Navbar = () => {
         className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
       />
       <div className={"lg:flex items-center gap-5 m-5 hidden"}>
-        <div className="nav-btns flex items-center gap-3">
+        <div className="nav-btns flex items-center gap-4">
           <SmoothScrollLink href={"/#home"}>HOME</SmoothScrollLink>
           <SmoothScrollLink href={"/#about-us"}>ABOUT US</SmoothScrollLink>
           <SmoothScrollLink href={"/#projects"}>PROJECTS</SmoothScrollLink>

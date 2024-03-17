@@ -7,13 +7,25 @@ import {
 import Image, { StaticImageData } from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { ImageData } from "@/schema";
+import Link from "next/link";
+import { Pencil } from "lucide-react";
+import { useSession } from "./providers/context/SessionContext";
 
 interface Props {
   images: ImageData[];
 }
 
 export const CompanyComponent = ({ images }: Props) => {
+  const {token} = useSession();
   return (
+    <div className="relative">
+        <div className=" absolute top-4 right-5 z-30">
+          {token && (
+            <Link href={"/edit#companies"}>
+              <Pencil />
+            </Link>
+          )}
+        </div>
     <Carousel
       className="w-[90%] m-5 carousel "
       opts={{
@@ -46,5 +58,6 @@ export const CompanyComponent = ({ images }: Props) => {
           ))}
       </CarouselContent>
     </Carousel>
+    </div>
   );
 };

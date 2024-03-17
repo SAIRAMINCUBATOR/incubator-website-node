@@ -19,7 +19,7 @@ export const Startup = ({
   const {token} = useSession();
   return (
     <div id="startups" className="projects  ">
-     <div className="flex justify-end items-center w-full py-2">
+     <div className="flex justify-end items-center w-full py-2 relative">
         <div className="w-full flex justify-center">
           <h2
             className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
@@ -30,9 +30,9 @@ export const Startup = ({
           </h2>
         </div>
 
-        <div className=" justify-end">
+        <div className=" absolute top-4 right-0 z-30">
           {token &&
-          <Link href={"/edit#projects"}>
+          <Link href={"/edit#startup"}>
           <Pencil />
           </Link>
           }

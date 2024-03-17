@@ -4,13 +4,13 @@ import { Button } from "../ui/button";
 import { Loader2, Pencil, PlusCircle, Trash } from "lucide-react";
 import { useModal } from "@/hooks/use-model-store";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { Gallery } from "@prisma/client";
+import { Company, Gallery } from "@prisma/client";
 import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const CompanyEdit = () => {
-  const [data, setData] = useState<Gallery[]>();
+  const [data, setData] = useState<Company[]>();
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen } = useModal();
 
@@ -40,9 +40,9 @@ const CompanyEdit = () => {
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
-          <div >
+          <div>
             {data && data.length > 0 ? (
-              <div className="flex flex-wrap gap-20 mb-4">
+              <div className="flex flex-wrap gap-20 mb-4 justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image

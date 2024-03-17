@@ -112,7 +112,7 @@ export const AddMainCarouselModel = () => {
                     </FormLabel>
                     <FormControl>
                       <FileUpload
-                                              disabled={isLoading}
+                         disabled={isLoading}
 
                         value={field.value}
                         onChange={field.onChange}

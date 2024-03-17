@@ -82,11 +82,9 @@ const EditPage = () => {
         <SideBarComponets />
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger className="lg:hidden block sticky h-[98vh] w-fit">
-          <div className="flex flex-col h-full justify-center items-center ml-2"
-          >
-          <ChevronRight className="m-0 p-0 text-2xl" size={32}/>
-          </div>
+        <SheetTrigger className="lg:hidden block sticky top-[50%] -translate-y-[50%] left-2 w-fit">
+          <ChevronRight className="m-0 p-0 text-2xl" size={28}/>
+
           </SheetTrigger>
         <SheetContent className="w-1/2" side="left">
           <SheetHeader>

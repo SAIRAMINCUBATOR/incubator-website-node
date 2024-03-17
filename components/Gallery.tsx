@@ -75,7 +75,7 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
           </h2>
         </div>
 
-        <div className=" justify-end">
+        <div className=" justify-end mr-5">
           {token && (
             <Link href={"/edit#gallery"}>
               <Pencil />

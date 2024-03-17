@@ -24,7 +24,10 @@ const GalleryEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div id="gallery" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div
+      id="gallery"
+      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
+    >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Gallery</span>
         <Button
@@ -39,7 +42,7 @@ const GalleryEdit = () => {
         {!loading ? (
           <div className="w-full py-4">
             {data && data.length > 0 ? (
-              <div className="flex flex-wrap gap-20 mb-4">
+              <div className="flex flex-wrap gap-20 mb-4 justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image

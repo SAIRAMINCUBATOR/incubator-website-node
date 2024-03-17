@@ -31,6 +31,7 @@ import { useEffect } from "react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { AlertCircle, Trash } from "lucide-react";
 import Editor from "@/components/RichTextEditor";
+import { MultipleFileUpload } from "@/components/MultipleFileUpload";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -125,7 +126,7 @@ export const EditProject = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="space-y-8 px-6">
-                <FormField
+              <FormField
                   control={form.control}
                   name="image"
                   render={({ field }) => (
@@ -134,46 +135,20 @@ export const EditProject = () => {
                         Image List
                       </FormLabel>
                       <FormControl>
-                        <div className="flex flex-col items-center w-full">
-                          {Array.isArray(field.value) &&
-                            field.value.map((imageUrl, index) => (
+                        <div className="flex flex-col items-center">
                               <div
-                                key={index}
                                 className="mb-2 flex items-center w-full"
                               >
-                                <FileUpload
+                                <MultipleFileUpload
                                   disabled={isLoading}
-                                  value={field.value[index]}
-                                  onChange={(file) => {
-                                    const updatedList = [...field.value];
-                                    updatedList[index] = file; // Assuming FileUpload returns the file object
-                                    field.onChange(updatedList);
-                                  }}
+                                  value={field.value}
+                                  onChange={
+                                    field.onChange
+                                  }
                                 />
-                                <Trash
-                                  className="ml-2 text-red-500 cursor-pointer"
-                                  onClick={() => {
-                                    if (!isLoading) {
-                                      const updatedList = [...field.value];
-                                      updatedList.splice(index, 1);
-                                      field.onChange(updatedList);
-                                    }
-                                  }}
-                                />
+                                
                               </div>
-                            ))}
-                          <div className="items-center">
-                            <Button
-                              disabled={isLoading}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                field.onChange([...(field.value || []), null]);
-                              }}
-                              className="hover:underline focus:outline-none w-full px-10 bg-violet-500"
-                            >
-                              Add Image
-                            </Button>
-                          </div>
+                          
                         </div>
                       </FormControl>
                       <FormMessage />

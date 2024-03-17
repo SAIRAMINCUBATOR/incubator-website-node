@@ -49,7 +49,7 @@ const ProjectEdit = () => {
         {!loading ? (
           <div className="w-full py-4">
             {data && data.length > 0 ? (
-              <div className="flex gap-20 mb-4 flex-wrap">
+              <div className="flex gap-20 mb-4 flex-wrap justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image

@@ -40,6 +40,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
     } catch (error) {
       //@ts-ignore
       if (error && error.response && error.response.data) {
+        if (error.response.data == "User Not Found")
         clearSession();
       }
 

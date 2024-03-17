@@ -54,6 +54,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     setToken(null);
     setRole(null);
     setIsPasswordDefault(null);
+    redirect("/", RedirectType.replace);
   };
 
   const changePasswordNotDefault = () => {

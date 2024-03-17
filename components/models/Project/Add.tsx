@@ -31,6 +31,7 @@ import { AlertCircle, Trash, X } from "lucide-react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Editor from "@/components/RichTextEditor";
 import { ScrollBar } from "@/components/ui/scroll-area";
+import { MultipleFileUpload } from "@/components/MultipleFileUpload";
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Image name is required.",
@@ -122,45 +123,19 @@ export const AddProject = () => {
                       </FormLabel>
                       <FormControl>
                         <div className="flex flex-col items-center">
-                          {Array.isArray(field.value) &&
-                            field.value.map((imageUrl, index) => (
                               <div
-                                key={index}
                                 className="mb-2 flex items-center w-full"
                               >
-                                <FileUpload
+                                <MultipleFileUpload
                                   disabled={isLoading}
-                                  value={field.value[index]}
-                                  onChange={(file) => {
-                                    const updatedList = [...field.value];
-                                    updatedList[index] = file; // Assuming FileUpload returns the file object
-                                    field.onChange(updatedList);
-                                  }}
+                                  value={field.value}
+                                  onChange={
+                                    field.onChange
+                                  }
                                 />
-                                <Trash
-                                  className="ml-2 text-red-500 cursor-pointer"
-                                  onClick={() => {
-                                    if (!isLoading) {
-                                      const updatedList = [...field.value];
-                                      updatedList.splice(index, 1);
-                                      field.onChange(updatedList);
-                                    }
-                                  }}
-                                />
+                                
                               </div>
-                            ))}
-                          <div className="items-center">
-                            <Button
-                              disabled={isLoading}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                field.onChange([...(field.value || []), null]);
-                              }}
-                              className="hover:underline focus:outline-none w-full px-10 bg-violet-500"
-                            >
-                              Add Image
-                            </Button>
-                          </div>
+                          
                         </div>
                       </FormControl>
                       <FormMessage />

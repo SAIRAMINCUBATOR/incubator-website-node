@@ -16,7 +16,7 @@ export const TeamComponent = ({ row0, rowN }: Props) => {
   const { token } = useSession();
   return (
     <div id="team" className="w-full text-center bg-blue-100/50 p-5">
-      <div className="flex justify-end items-center w-full py-2">
+      <div className="flex justify-end items-center w-full py-2 relative">
         <div className="w-full flex justify-center">
           <h2
             className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
@@ -27,7 +27,7 @@ export const TeamComponent = ({ row0, rowN }: Props) => {
           </h2>
         </div>
 
-        <div className=" justify-end">
+        <div className=" absolute top-4 right-4 z-30">
           {token && (
             <Link href={"/edit#leads"}>
               <Pencil />

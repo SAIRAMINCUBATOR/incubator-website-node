@@ -104,7 +104,7 @@ export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
         </Button>
         <AlertDialog
           open={alertOpen}
-          onOpenChange={() => setAlertOpen(!alertOpen)}
+          onOpenChange={setAlertOpen}
         >
           <AlertDialogContent>
             <AlertDialogHeader>

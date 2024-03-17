@@ -31,7 +31,10 @@ const TestimonyEdit = () => {
     getData();
   }, [isOpen]);
   return (
-    <div id="testimony" className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4">
+    <div
+      id="testimony"
+      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
+    >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Testimonial</span>
         <Button
@@ -46,7 +49,7 @@ const TestimonyEdit = () => {
         {!loading ? (
           <div className="w-full py-4 ">
             {data && data.length > 0 ? (
-              <div className="flex gap-20 mb-4 flex-wrap">
+              <div className="flex gap-20 mb-4 flex-wrap justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image
