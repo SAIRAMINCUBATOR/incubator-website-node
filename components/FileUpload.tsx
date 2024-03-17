@@ -93,15 +93,17 @@ export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
   if (value) {
     return (
       <div className="relative h-fit w-full flex justify-center">
+        <div className="relative">
         <Image src={value} alt="Upload" width={200} height={100} />
         <Button
           onClick={() => setAlertOpen(true)}
           disabled={disabled}
-          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm h-fit"
+          className="bg-rose-500 text-white p-1 rounded-full absolute -top-4 -right-4 shadow-sm h-fit"
           type="button"
         >
           <X className="h-4 w-4" />
         </Button>
+        </div>
         <AlertDialog
           open={alertOpen}
           onOpenChange={setAlertOpen}
