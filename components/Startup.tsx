@@ -44,12 +44,6 @@ export const Startup = ({
           "flex lg:flex-row flex-col w-full justify-evenly md:min-h-[400px] items-cente space-y-8 lg:space-y-0"
         }
       >
-        <Parallax
-          translateY={[50, 0, "easeIn"]}
-          scale={[0, 1, "easeIn"]}
-          endScroll={2600}
-          className="flex"
-        >
           <div className="min-h-[400px] md:min-w-[500px] border-blue-400 border-4 rounded-2xl flex flex-col bg-white shadow-lg">
             <h2
               className={`max-w-[400px] uppercase font-sans text-3xl font-bold text-wrap p-10 relative `}
@@ -89,13 +83,7 @@ export const Startup = ({
               </Carousel>
             </div>
           </div>
-        </Parallax>
-        <Parallax
-          translateY={[50, 0, "easeIn"]}
-          scale={[0, 1, "easeIn"]}
-          endScroll={2600}
-          className="flex"
-        >
+
           <div className="min-h-[400px] md:min-w-[500px] border-blue-400 border-4 rounded-2xl flex flex-col bg-white shadow-lg">
             <h2
               className={`max-w-[450px] uppercase font-sans text-3xl font-bold text-wrap p-10 relative `}
@@ -135,7 +123,6 @@ export const Startup = ({
               </Carousel>
             </div>
           </div>
-        </Parallax>
       </div>
     </div>
   );

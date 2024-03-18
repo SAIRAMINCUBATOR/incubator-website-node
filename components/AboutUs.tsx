@@ -37,7 +37,6 @@ export const AboutUs = () => {
             "invert(47%) sepia(31%) saturate(4645%) hue-rotate(201deg) brightness(101%) contrast(96%)",
         }}
       />
-      <Parallax translateY={[50, 0, "easeIn"]} scale={[0.5, 1]} startScroll={150} endScroll={500} className="flex">
       <Image
         width={3000}
         height={3000}
@@ -46,7 +45,6 @@ export const AboutUs = () => {
         className="w-[35%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
       />
      
-     </Parallax>
       <div className="flex flex-col w-[40%] ml-10">
         <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 lg:text-6xl md:text-4xl text-2xl">
           WHY INCUBATION
