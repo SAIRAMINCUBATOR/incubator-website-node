@@ -23,8 +23,8 @@ const DeleteGallery = () => {
   const router = useRouter();
   const { isOpen, type, data, onClose } = useModal();
   const { token, isTokenExpired } = useSession();
-  const isModalOpen = isOpen && type === "deleteGallery";
-  const { gallery } = data;
+  const isModalOpen = isOpen && type === "deleteMainGallery";
+  const { mainGallery } = data;
   const onSubmit = async () => {
     try {
       if (!token && isTokenExpired()) {
@@ -32,9 +32,9 @@ const DeleteGallery = () => {
         handleClose();
       }
       const url = qs.stringifyUrl({
-        url: "/api/components/gallery",
+        url: "/api/components/mainGallery",
         query: {
-          id: gallery?.id,
+          id: mainGallery?.id,
         },
       });
 

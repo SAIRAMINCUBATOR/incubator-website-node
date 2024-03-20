@@ -37,6 +37,7 @@ const ProjectPage = (req: any, res: any) => {
     <div className="w-full flex flex-col items-center  bg-sky-200/50">
       {ProjectContent && ProjectContent.image && (
         <Slider
+        imagesize="object-contain"
           images={ProjectContent.image.map((img) => {
             const image: ImageData = { name: "", image: img };
             return image;

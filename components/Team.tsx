@@ -28,7 +28,7 @@ export const TeamComponent = ({ row0, rowN }: Props) => {
 
         <div className=" absolute top-4 right-4 z-30">
           {token && (
-            <Link href={"/edit#leads"}>
+            <Link href={"/edit?section=leads"}>
               <Pencil />
             </Link>
           )}

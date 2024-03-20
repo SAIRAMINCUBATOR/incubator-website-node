@@ -65,7 +65,7 @@ export const Projects = ({ projects }: Props) => {
 
         <div className=" justify-end">
           {token &&
-          <Link href={"/edit#projects"}>
+          <Link href={"/edit?section=project"}>
           <Pencil />
           </Link>
           }
@@ -74,7 +74,6 @@ export const Projects = ({ projects }: Props) => {
       <div
         className={"flex flex-col justify-center min-h-[400px] items-center"}
       >
-        <Parallax translateY={[50, 0, "easeIn"]} scale={[0,1, "easeIn"]} startScroll={1400} endScroll={1900} className="flex">
 
         <Carousel
           setApi={setApi}
@@ -126,7 +125,6 @@ export const Projects = ({ projects }: Props) => {
               ))}
           </CarouselContent>
         </Carousel>
-        </Parallax>
       </div>
       <Pagination total={count} current={current} />
     </div>

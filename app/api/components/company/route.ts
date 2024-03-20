@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
     return NextResponse.json("Added");
   } catch (error) {
-    console.log("GALLERY POST", error);
+    console.log("COMPANY POST", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const response = await db.company.findMany();
     return NextResponse.json({response});
   } catch (error) {
-    console.log("GALLERY GET", error);
+    console.log("COMPANY GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -67,7 +67,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     });
     return NextResponse.json("Updated");
   } catch (error) {
-    console.log("GALLERY PUT", error);
+    console.log("COMPANY PUT", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -95,7 +95,7 @@ export async function DELETE(req: NextRequest,
     });
     return NextResponse.json("Deleted");
   } catch (error) {
-    console.log("GALLERY DELETE", error);
+    console.log("COMPANY DELETE", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

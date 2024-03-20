@@ -13,9 +13,9 @@ import { EditTeam } from "../models/Team/Edit";
 import { AddLead } from "../models/Lead/Add";
 import { EditLead } from "../models/Lead/Edit";
 import DeleteLead from "../models/Lead/Delete";
-import { AddGalleryModel } from "../models/Gallery/Add";
-import { EditGallery } from "../models/Gallery/Edit";
-import DeleteGallery from "../models/Gallery/Delete";
+import { AddMainGalleryModel } from "../models/mainGallery/Add";
+import { EditGallery } from "../models/mainGallery/Edit";
+import DeleteGallery from "../models/mainGallery/Delete";
 import { AddStartUp } from "../models/StartUp/Add";
 import { EditStartUp } from "../models/StartUp/Edit";
 import DeleteStartUp from "../models/StartUp/Delete";
@@ -50,7 +50,7 @@ export const ModalProvider = () => {
       <AddLead/>
       <EditLead/>
       <DeleteLead/>
-      <AddGalleryModel/>
+      <AddMainGalleryModel/>
       <EditGallery/>
       <DeleteGallery/>
       <AddStartUp/>

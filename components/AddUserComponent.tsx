@@ -32,6 +32,7 @@ import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { useEffect } from "react";
 import { Checkbox } from "./ui/checkbox";
+import PasswordInput from "./PasswordInput";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is Required" }),
@@ -200,11 +201,11 @@ const AddUserComponent = () => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
+                        <PasswordInput
                           className=" bg-slate-300 shadow-inner"
                           disabled={isLoading}
                           placeholder="********"
-                          type="password"
+                          
                           {...field}
                         />
                       </FormControl>

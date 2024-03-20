@@ -27,7 +27,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       redirect("/", RedirectType.replace);
 
     }
-  }, [path]);
+  }, [path, token]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");

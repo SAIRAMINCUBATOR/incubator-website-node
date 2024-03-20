@@ -18,7 +18,7 @@ import { AboutUs } from "@/components/AboutUs";
 import { HaveAProject } from "@/components/HaveAProject";
 import { useEffect, useState } from "react";
 import {
-  Gallery,
+  MainGallery,
   Lead,
   MainCarousel,
   StartUp,
@@ -34,7 +34,7 @@ export default function Home() {
   const [Testimony, setTestimony] = useState<Testimony[]>([]);
   const [TeamMembers, setTeamMembers] = useState<Team[]>([]);
   const [LeadMembers, setLeadMembers] = useState<Lead[]>([]);
-  const [GalleryImages, setGalleryImages] = useState<Gallery[]>([]);
+  const [GalleryImages, setGalleryImages] = useState<MainGallery[]>([]);
   const [StrtUpData, setStrtUpData] = useState<StartUp[]>([]);
   const [ProjectContent, setProjectContent] = useState<Project[]>([]);
   const [Companies, setCompanies] = useState<ImageData[]>([]);
@@ -65,7 +65,7 @@ export default function Home() {
 
   const getGallery = async () => {
     try {
-      const response = await axios.get("/api/components/gallery");
+      const response = await axios.get("/api/components/mainGallery");
       setGalleryImages(response.data.response);
     } catch (e) {
       console.log(e);
@@ -136,16 +136,14 @@ export default function Home() {
     getCompany();
   }, []);
 
-
   return (
     <div
       className={
         "flex justify-center items-center align-middle justify-items-center flex-col"
       }
     >
-      {/* <Navbar /> */}
       <div className={"flex justify-center max-h-fit relative"} id={"home"}>
-        <Slider images={MainCarousel} />
+        <Slider images={MainCarousel} imagesize="object-cover" />
         <Link href={"/apply"} className={"absolute bottom-20"}>
           <Button className="bg-blue-500 text-white px-4 py-2 rounded-md transition-transform transform-gpu hover:scale-105 hover:bg-blue-500">
             Apply Now

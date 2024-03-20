@@ -10,8 +10,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const { name, image, description,content } = await req.json();
-    if (!name || !image || !description ||!content ) {
+    const { name, image, description, content } = await req.json();
+    if (!name || !image || !description || !content) {
       return new NextResponse("Image or Name or Description is missing", {
         status: 404,
       });
@@ -37,18 +37,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    if(!id)
-    {
-      
-    const response = await db.project.findMany();
-    return NextResponse.json({ response });
-    }
-    else{
-      const response=await db.project.findFirst(
-        {where:{
-          id
-        }}
-      );
+    if (!id) {
+      const response = await db.project.findMany();
+      return NextResponse.json({ response });
+    } else {
+      const response = await db.project.findFirst({
+        where: {
+          id,
+        },
+      });
       return NextResponse.json({ response });
     }
   } catch (error) {
@@ -65,11 +62,14 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const { name, image, description,content, id } = await req.json();
+    const { name, image, description, content, id } = await req.json();
     if (!name || !id || !description || !content) {
-      return new NextResponse("Image or Name or ID or description or content is missing", {
-        status: 404,
-      });
+      return new NextResponse(
+        "Image or Name or ID or description or content is missing",
+        {
+          status: 404,
+        }
+      );
     }
 
     await db.project.update({

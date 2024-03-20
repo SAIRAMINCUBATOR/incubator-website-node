@@ -23,24 +23,37 @@ enum Gender {
   FEMALE
 }
 
+enum CategoryType {
+  MainGallery
+  AuxilaryGallery
+  Collaboration
+}
+
 model User {
-  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   email             String
   password          String
   isPasswordDefault Boolean
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
-  role              MemberRole     @default(USER)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  role              MemberRole        @default(USER)
   gender            Gender
   MainCarousel      MainCarousel[]
   Testimony         Testimony[]
   Team              Team[]
   Lead              Lead[]
-  Gallery           Gallery[]
   StartUp           StartUp[]
   Project           Project[]
   Company           Company[]
+  MainGallery       MainGallery[]
+  AuxilaryGallery   AuxilaryGallery[]
+  Mentor            Mentor[]
+  AdvisoryBoard     AdvisoryBoard[]
+  IPR               IPR[]
+  Collaboration     Collaboration[]
+  Category          Category[]
+  Funding           Funding[]
 }
 
 model MainCarousel {
@@ -71,6 +84,7 @@ model Team {
   twitter       String?
   instagram     String?
   linkedin      String?
+  experience    String?
   addedByUserId String  @db.ObjectId
   addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
@@ -84,16 +98,40 @@ model Lead {
   twitter       String?
   instagram     String?
   linkedin      String?
+  experience    String?
   addedByUserId String  @db.ObjectId
   addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
-model Gallery {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+model Category {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  MainGallery     MainGallery[]
+  AuxilaryGallery AuxilaryGallery[]
+  type            CategoryType
+  addedByUserId   String            @db.ObjectId
+  addedByUser     User              @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  Collaboration   Collaboration[]
+}
+
+model MainGallery {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   image         String
   name          String
-  addedByUserId String @db.ObjectId
-  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  categoryId    String   @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model AuxilaryGallery {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  categoryId    String   @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
 model Company {
@@ -120,4 +158,53 @@ model Project {
   content       String?
   addedByUserId String   @db.ObjectId
   addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Mentor {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  organization  String
+  designation   String
+  expertise     String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model AdvisoryBoard {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  organization  String
+  designation   String
+  expertise     String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model IPR {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  jobs          String[]
+  designation   String
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Collaboration {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  jobs          String[]
+  designation   String
+  categoryId    String   @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Funding {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  cin           String
+  contact       String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }

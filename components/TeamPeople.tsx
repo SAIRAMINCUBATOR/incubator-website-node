@@ -1,4 +1,3 @@
-import { TeamInt } from "@/schema";
 import { Team } from "@prisma/client";
 import {
   ChevronUp,

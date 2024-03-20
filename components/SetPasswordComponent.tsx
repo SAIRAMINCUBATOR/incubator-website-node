@@ -37,6 +37,7 @@ import axios from "axios";
 import { AlertCircle, Loader2, X } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { useEffect, useState } from "react";
+import PasswordInput from "./PasswordInput";
 
 const formSchema = z.object({
   password: z
@@ -156,10 +157,10 @@ const SetPasswordComponent = () => {
                   <FormItem>
                     <FormLabel>Old Password</FormLabel>
                     <FormControl>
-                      <Input
+                      <PasswordInput
                         disabled={isLoading}
                         placeholder="********"
-                        type="password"
+                        
                         {...field}
                       />
                     </FormControl>
@@ -175,10 +176,10 @@ const SetPasswordComponent = () => {
                   <FormItem>
                     <FormLabel>New Pasword</FormLabel>
                     <FormControl>
-                      <Input
+                      <PasswordInput
                         disabled={isLoading}
                         placeholder="********"
-                        type="password"
+                        
                         {...field}
                       />
                     </FormControl>
@@ -194,9 +195,9 @@ const SetPasswordComponent = () => {
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
-                      <Input
+                      <PasswordInput
                         disabled={isLoading}
-                        type={"password"}
+                        
                         placeholder="********"
                         {...field}
                       />

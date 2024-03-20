@@ -21,6 +21,7 @@ import axios from "axios";
 import { AlertCircle, Loader2, XOctagon } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { useEffect, useState } from "react";
+import PasswordInput from "./PasswordInput";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -107,10 +108,10 @@ const SignInComponent = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
+                      <PasswordInput
                         className=" bg-slate-300 shadow-inner"
                         disabled={isLoading}
-                        type={"password"}
+                        
                         placeholder="*********"
                         {...field}
                       />

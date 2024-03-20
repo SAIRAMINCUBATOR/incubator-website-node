@@ -24,40 +24,46 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-model-store";
-import { useSession } from "@/components/providers/context/SessionContext";
+import { useEffect, useState } from "react";
+import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
-import { useEffect } from "react";
 import { AlertCircle } from "lucide-react";
+import { SearchableSelect } from "@/components/SearchableSelect";
+import { Category, CategoryType } from "@prisma/client";
 
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Image name is required.",
   }),
+  category: z.string().min(1, "Category is Required"),
   image: z.string().min(1, {
     message: "Image is required.",
   }),
 });
 
-export const EditGallery = () => {
-  const { isOpen, onClose, type, data } = useModal();
+export const AddMainGalleryModel = () => {
+  const { isOpen, onClose, type } = useModal();
   const { token, isTokenExpired } = useSession();
+  const [categories, setCategories] = useState<Category[]>();
   const router = useRouter();
+  const isModalOpen = isOpen && type === "addMainGallery";
 
-  const isModalOpen = isOpen && type === "editGallery";
-  const { gallery } = data;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: gallery?.name,
-      image: gallery?.image,
+      name: "",
+      image: "",
+      category: "",
     },
   });
 
-  useEffect(() => {
-    if (gallery?.name) form.setValue("name", gallery.name);
-    if (gallery?.image) form.setValue("image", gallery.image);
-  }, [gallery, form]);
+  const getCatagories = async () => {
+    const response = await axios.get(
+      "/api/components/category?type=" + CategoryType.MainGallery.toString()
+    );
+    setCategories(response.data.response);
+  };
 
   const isLoading = form.formState.isSubmitting;
 
@@ -68,15 +74,11 @@ export const EditGallery = () => {
         handleClose();
       }
 
-      await axios.put(
-        "/api/components/gallery",
-        { ...values, id: gallery?.id },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      await axios.post("/api/components/mainGallery", values, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
       form.reset();
       router.refresh();
       onClose();
@@ -93,18 +95,21 @@ export const EditGallery = () => {
     }
   };
 
+  useEffect(() => {
+    getCatagories();
+  }, []);
+
   const handleClose = () => {
     form.reset();
     onClose();
   };
-
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Gallery Image
+            Add Gallery Image
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -120,7 +125,7 @@ export const EditGallery = () => {
                     </FormLabel>
                     <FormControl>
                       <FileUpload
-                      disabled={isLoading}
+                        disabled={isLoading}
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -152,10 +157,39 @@ export const EditGallery = () => {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      Category
+                    </FormLabel>
+                    <FormControl>
+                      <SearchableSelect
+                        type={CategoryType.MainGallery}
+                        disabled={isLoading}
+                        onSelect={field.onChange}
+                        inputOptions={
+                          categories &&
+                          categories.map((category:Category) => ({
+                            label: category.name,
+                            value: category.id,
+                          }))
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
             </div>
+
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Edit
+                Add
               </Button>
             </DialogFooter>
           </form>

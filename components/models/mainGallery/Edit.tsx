@@ -24,34 +24,53 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-model-store";
-import { useState } from "react";
-import { useSession } from "../../providers/context/SessionContext";
+import { useSession } from "@/components/providers/context/SessionContext";
 import { toast } from "sonner";
 import { FileUpload } from "@/components/FileUpload";
+import { useEffect, useState } from "react";
 import { AlertCircle } from "lucide-react";
+import { SearchableSelect } from "@/components/SearchableSelect";
+import { Category, CategoryType } from "@prisma/client";
 
 const formSchema = z.object({
   name: z.string().min(1, {
     message: "Image name is required.",
   }),
+  category: z.string().min(1, "Category is Required"),
   image: z.string().min(1, {
     message: "Image is required.",
   }),
 });
 
-export const AddGalleryModel = () => {
-  const { isOpen, onClose, type } = useModal();
+export const EditGallery = () => {
+  const { isOpen, onClose, type, data } = useModal();
   const { token, isTokenExpired } = useSession();
-  const router = useRouter();
-  const isModalOpen = isOpen && type === "addGallery";
+  const [categories, setCategories] = useState<Category[]>();
 
+  const router = useRouter();
+
+  const isModalOpen = isOpen && type === "editMainGallery";
+  const { mainGallery } = data;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      image: "",
+      name: mainGallery?.name,
+      image: mainGallery?.image,
+      category: mainGallery?.categoryId,
     },
   });
+  const getCatagories = async () => {
+    const response = await axios.get(
+      "/api/components/category?type=" + CategoryType.MainGallery.toString()
+    );
+    setCategories(response.data.response);
+  };
+
+  useEffect(() => {
+    if (mainGallery?.name) form.setValue("name", mainGallery.name);
+    if (mainGallery?.image) form.setValue("image", mainGallery.image);
+    if (mainGallery?.categoryId) form.setValue("category", mainGallery.categoryId);
+  }, [mainGallery, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -62,11 +81,15 @@ export const AddGalleryModel = () => {
         handleClose();
       }
 
-      await axios.post("/api/components/gallery", values, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      await axios.put(
+        "/api/components/mainGallery",
+        { ...values, id: mainGallery?.id },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       form.reset();
       router.refresh();
       onClose();
@@ -87,13 +110,16 @@ export const AddGalleryModel = () => {
     form.reset();
     onClose();
   };
+  useEffect(() => {
+    getCatagories();
+  }, []);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Add Gallery Image
+            Edit Gallery Image
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -109,7 +135,7 @@ export const AddGalleryModel = () => {
                     </FormLabel>
                     <FormControl>
                       <FileUpload
-                      disabled={isLoading}
+                        disabled={isLoading}
                         value={field.value}
                         onChange={field.onChange}
                       />
@@ -141,11 +167,37 @@ export const AddGalleryModel = () => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      Category
+                    </FormLabel>
+                    <FormControl>
+                      <SearchableSelect
+                        type={CategoryType.MainGallery}
+                        disabled={isLoading}
+                        onSelect={field.onChange}
+                        defaultValue={categories && categories.find((category)=>category.id == field.value)}
+                        inputOptions={
+                          categories &&
+                          categories.map((category: Category) => ({
+                            label: category.name,
+                            value: category.id,
+                          }))
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Add
+                Edit
               </Button>
             </DialogFooter>
           </form>

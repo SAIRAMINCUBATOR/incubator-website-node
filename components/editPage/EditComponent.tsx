@@ -1,37 +1,50 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Loader2, Pencil, PlusCircle, Trash } from "lucide-react";
-import { useModal } from "@/hooks/use-model-store";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { Gallery } from "@prisma/client";
+import { Pencil, PlusCircle, Trash } from "lucide-react";
+import { ModalType, useModal } from "@/hooks/use-model-store";
 import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const GalleryEdit = () => {
-  const [data, setData] = useState<Gallery[]>();
+interface Props{
+  modelName: "company" | "team" | "lead" | "mainGallery" | "testimony" | "mainCarousel" | "project" | "startup"
+  addType: ModalType
+  editType: ModalType
+  deleteType: ModalType
+}
+
+
+const EditComponent = ({ modelName, addType, editType, deleteType}: Props) => {
+  const [data, setData] = useState<any[]>();
   const [loading, setLoading] = useState(false);
-  const { onOpen, isOpen } = useModal();
+  const { onOpen, isOpen, type } = useModal();
 
   const getData = async () => {
     setLoading(true);
-    const response = await axios.get("/api/components/gallery");
+    const response = await axios.get("/api/components/"+modelName);
     setData(response.data.response);
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (!isOpen && type && type.toString().toLocaleLowerCase().endsWith(modelName.toLocaleLowerCase()))
+    getData();
+  }, [isOpen, type]);
+
   useEffect(() => {
     getData();
-  }, [isOpen]);
+  }, []);
+
   return (
     <div
-      id="gallery"
+      id={modelName}
       className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
     >
       <div className="flex items-center justify-between gap-5 w-full">
-        <span className=" font-montserrat font-bold text-xl">Gallery</span>
+        <span className=" font-montserrat font-bold text-xl capitalize">{modelName}</span>
         <Button
-          onClick={() => onOpen("addGallery")}
+          onClick={() => onOpen(addType)}
           variant={"ghost"}
           className=" border-dashed bg-blue-500 text-white shadow-lg hover:scale-105"
         >
@@ -40,14 +53,14 @@ const GalleryEdit = () => {
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
-          <div className="w-full py-4">
+          <div>
             {data && data.length > 0 ? (
               <div className="flex flex-wrap gap-20 mb-4 justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image
-                      className="object-cover rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
-                      src={datum.image}
+                      className="object-contain rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
+                      src={Array.isArray(datum.image) ? datum.image[0] : datum.image}
                       alt={`${datum.name}`}
                       key={index}
                       width={200}
@@ -56,7 +69,7 @@ const GalleryEdit = () => {
                     <div className="flex gap-5 justify-center">
                       <Button
                         onClick={() =>
-                          onOpen("editGallery", { gallery: datum })
+                          onOpen(editType, { [modelName]: datum })
                         }
                         variant={"ghost"}
                         className="bg-green-400 w-[100px] text-white shadow-md"
@@ -69,7 +82,7 @@ const GalleryEdit = () => {
                       </Button>
                       <Button
                         onClick={() =>
-                          onOpen("deleteGallery", { gallery: datum })
+                          onOpen(deleteType, { [modelName]: datum })
                         }
                         variant={"ghost"}
                         className="bg-red-400 w-[100px] text-white shadow-md"
@@ -121,4 +134,4 @@ const GalleryEdit = () => {
   );
 };
 
-export default GalleryEdit;
+export default EditComponent;

@@ -10,14 +10,14 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Gallery } from "@prisma/client";
+import { MainGallery } from "@prisma/client";
 import { useSession } from "./providers/context/SessionContext";
 import Link from "next/link";
 
-const GalleryComponent = ({ images }: { images: Gallery[] }) => {
+const GalleryComponent = ({ images }: { images: MainGallery[] }) => {
   const [viewMore, setviewMore] = useState(false);
   const { token } = useSession();
-  const ImageC = ({ imagedata }: { imagedata: Gallery }) => {
+  const ImageC = ({ imagedata }: { imagedata: MainGallery }) => {
     return (
       <Dialog>
         <DialogTrigger>
@@ -77,7 +77,7 @@ const GalleryComponent = ({ images }: { images: Gallery[] }) => {
 
         <div className=" justify-end mr-5">
           {token && (
-            <Link href={"/edit#gallery"}>
+            <Link href={"/edit?section=gallery"}>
               <Pencil />
             </Link>
           )}

@@ -1,14 +1,13 @@
 "use client";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { Testimonial } from "@/schema";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselApi,
 } from "@/components/ui/carousel";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 interface Props {
   testimonycontent: Testimony[];
 }

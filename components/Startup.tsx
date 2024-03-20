@@ -33,7 +33,7 @@ export const Startup = ({
 
         <div className=" absolute top-4 right-0 z-30">
           {token && (
-            <Link href={"/edit#startup"}>
+            <Link href={"/edit?section=startup"}>
               <Pencil />
             </Link>
           )}

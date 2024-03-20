@@ -14,9 +14,10 @@ import { ImageData } from "@/schema";
 
 interface Props {
   images: ImageData[];
+  imagesize: "object-cover" | "object-contain"
 }
 
-export const Slider = ({ images }: Props) => {
+export const Slider = ({ images, imagesize }: Props) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(-1);
   const [count, setCount] = React.useState(-1);
@@ -65,7 +66,7 @@ export const Slider = ({ images }: Props) => {
               <Image
                 src={img.image}
                 alt={img.name}
-                className={"md:h-[600px] w-full object-contain"}
+                className={"md:h-[600px] w-full "+imagesize}
                 height={800}
                 width={800}
               />

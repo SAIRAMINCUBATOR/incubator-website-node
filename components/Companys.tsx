@@ -21,13 +21,13 @@ export const CompanyComponent = ({ images }: Props) => {
     <div className="relative">
         <div className=" absolute top-4 right-5 z-30">
           {token && (
-            <Link href={"/edit#companies"}>
+            <Link href={"/edit?section=company"}>
               <Pencil />
             </Link>
           )}
         </div>
     <Carousel
-      className="w-[90%] m-5 carousel "
+      className="lg:w-[90%] w-screen m-5 carousel "
       opts={{
         align: "start",
         loop: true,

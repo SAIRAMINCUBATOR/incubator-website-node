@@ -58,7 +58,7 @@ export const Funds = () => {
       <div className="flex gap-[70px] flex-col lg:flex-row items-center justify-center">
         {/* Fund Div 1 */}
         <div
-          className="flex flex-col w-[30%] p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
+          className="flex flex-col md:w-[70%] lg:w-[30%] w-full p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
           data-aos="fade-up"
           data-aos-offset="100"
         >
@@ -81,7 +81,7 @@ export const Funds = () => {
 
         {/* Fund Div 2 */}
         <div
-          className="flex flex-col w-[30%] p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
+          className="flex flex-col md:w-[70%] lg:w-[30%] w-full p-5 h-[400px] bg-white border-4 rounded-xl border-blue-500 border-opacity-50 items-center justify-around"
           data-aos="fade-up"
           data-aos-offset="100"
           data-aos-delay="100"

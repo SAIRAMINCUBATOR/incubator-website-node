@@ -21,6 +21,7 @@ const StartUpEdit = () => {
     setLoading(false);
   };
   useEffect(() => {
+    if (!isOpen)
     getData();
   }, [isOpen]);
   return (
