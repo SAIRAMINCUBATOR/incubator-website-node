@@ -3,6 +3,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers/Provider";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export default function RootLayout({
@@ -28,7 +29,9 @@ export default function RootLayout({
       >
         <Providers>
           <Toaster position="top-right" />
+          <Suspense>
           {children}
+          </Suspense>
         </Providers>
       </body>
     </html>

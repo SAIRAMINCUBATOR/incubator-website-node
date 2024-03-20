@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const Projects = ({ projects }: Props) => {
-  const {token} = useSession();
+  const { token } = useSession();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(-1);
   const [count, setCount] = useState(-1);
@@ -64,17 +64,16 @@ export const Projects = ({ projects }: Props) => {
         </div>
 
         <div className=" justify-end">
-          {token &&
-          <Link href={"/edit?section=project"}>
-          <Pencil />
-          </Link>
-          }
+          {token && (
+            <Link href={"/edit?section=project"}>
+              <Pencil />
+            </Link>
+          )}
         </div>
       </div>
       <div
         className={"flex flex-col justify-center min-h-[400px] items-center"}
       >
-
         <Carousel
           setApi={setApi}
           opts={{
