@@ -150,7 +150,7 @@ export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
           onDropRejected={handleError}
         >
           {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()} className="cursor-pointer ">
+            <div {...getRootProps()} className="cursor-pointer w-full">
               <>
                 <input {...getInputProps()} />
                 <div className="flex flex-col items-center gap-3">

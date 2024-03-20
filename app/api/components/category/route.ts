@@ -11,10 +11,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {name , type} = await req.json();
+    const { name, type } = await req.json();
     if (!name || !type) {
       return new NextResponse("Type or Name is missing", { status: 404 });
     }
+    console.log(type);
 
     const category = await db.category.create({
       data: {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         addedByUserId: user.id,
       },
     });
-    return NextResponse.json({category});
+    return NextResponse.json({ category });
   } catch (error) {
     console.log("CATEGORY POST", error);
     return new NextResponse("Internal Server Error", { status: 500 });
@@ -37,16 +38,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const response = await db.category.findMany({
       where: {
-        type
+        type,
+      },include:{
+        MainGallery: true,
+        AuxilaryGallery: true
       }
     });
-    return NextResponse.json({response});
+    return NextResponse.json({ response });
   } catch (error) {
     console.log("CATEGORY GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
-
 
 // export async function PUT(req: NextRequest, res: NextResponse) {
 //   try {
@@ -97,7 +100,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 //       where:{
 //         id
 //       },
-      
+
 //     });
 //     return NextResponse.json("Deleted");
 //   } catch (error) {

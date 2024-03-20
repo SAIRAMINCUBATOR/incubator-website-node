@@ -34,7 +34,9 @@ export const SearchableSelect = ({
   const { token } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState<Option[]>(inputOptions);
-  const [value, setValue] = useState<Option | null>(defaultValue && createOption(defaultValue));
+  const [value, setValue] = useState<Option | null>(
+    defaultValue && createOption(defaultValue)
+  );
 
   // Filter out duplicates initially
   useEffect(() => {
@@ -53,6 +55,7 @@ export const SearchableSelect = ({
 
   const handleCreate = async (inputValue: string) => {
     setIsLoading(true);
+    console.log(type)
     const response = await axios.post(
       "/api/components/category",
       { name: inputValue, type },
@@ -74,10 +77,6 @@ export const SearchableSelect = ({
     onSelect(value?.value);
   };
 
-  useEffect(() => {
-    console.log(defaultValue);
-  }, [defaultValue]);
-
   return (
     <CreatableSelect
       form="submit"
@@ -90,6 +89,7 @@ export const SearchableSelect = ({
       onCreateOption={handleCreate}
       options={options}
       value={value}
+      maxMenuHeight={150}
     />
   );
 };

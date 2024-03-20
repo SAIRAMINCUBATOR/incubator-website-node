@@ -7,29 +7,50 @@ import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface Props{
-  modelName: "company" | "team" | "lead" | "mainGallery" | "testimony" | "mainCarousel" | "project" | "startup"
-  addType: ModalType
-  editType: ModalType
-  deleteType: ModalType
+interface Props {
+  modelName:
+    | "company"
+    | "team"
+    | "lead"
+    | "mainGallery"
+    | "testimony"
+    | "mainCarousel"
+    | "project"
+    | "auxGallery"
+    | "startup";
+  addType: ModalType;
+  editType: ModalType;
+  deleteType: ModalType;
 }
 
-
-const EditComponent = ({ modelName, addType, editType, deleteType}: Props) => {
+const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
   const [data, setData] = useState<any[]>();
+  const [currentType, setCurrentType] = useState(null);
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen, type } = useModal();
 
   const getData = async () => {
     setLoading(true);
-    const response = await axios.get("/api/components/"+modelName);
+    const response = await axios.get("/api/components/" + modelName);
     setData(response.data.response);
     setLoading(false);
   };
 
   useEffect(() => {
-    if (!isOpen && type && type.toString().toLocaleLowerCase().endsWith(modelName.toLocaleLowerCase()))
-    getData();
+    if (isOpen) {
+      setCurrentType(type);
+    }
+    if (
+      !isOpen &&
+      currentType &&
+      currentType
+        .toString()
+        .toLocaleLowerCase()
+        .endsWith(modelName.toLocaleLowerCase())
+    ) {
+      getData();
+      setCurrentType(null);
+    }
   }, [isOpen, type]);
 
   useEffect(() => {
@@ -42,7 +63,9 @@ const EditComponent = ({ modelName, addType, editType, deleteType}: Props) => {
       className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
     >
       <div className="flex items-center justify-between gap-5 w-full">
-        <span className=" font-montserrat font-bold text-xl capitalize">{modelName}</span>
+        <span className=" font-montserrat font-bold text-xl capitalize">
+          {modelName}
+        </span>
         <Button
           onClick={() => onOpen(addType)}
           variant={"ghost"}
@@ -60,7 +83,11 @@ const EditComponent = ({ modelName, addType, editType, deleteType}: Props) => {
                   <div className="flex flex-col gap-5">
                     <Image
                       className="object-contain rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
-                      src={Array.isArray(datum.image) ? datum.image[0] : datum.image}
+                      src={
+                        Array.isArray(datum.image)
+                          ? datum.image[0]
+                          : datum.image
+                      }
                       alt={`${datum.name}`}
                       key={index}
                       width={200}
@@ -68,9 +95,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType}: Props) => {
                     />
                     <div className="flex gap-5 justify-center">
                       <Button
-                        onClick={() =>
-                          onOpen(editType, { [modelName]: datum })
-                        }
+                        onClick={() => onOpen(editType, { [modelName]: datum })}
                         variant={"ghost"}
                         className="bg-green-400 w-[100px] text-white shadow-md"
                       >

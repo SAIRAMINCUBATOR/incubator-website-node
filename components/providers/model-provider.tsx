@@ -25,6 +25,9 @@ import DeleteProject from "../models/Project/Delete";
 import { AddCompanyModel } from "../models/Company/Add";
 import { EditCompany } from "../models/Company/Edit";
 import DeleteCompany from "../models/Company/Delete";
+import { AddAuxGalleryComponent } from "../models/auxGallery/Add";
+import { EditAuxGallery } from "../models/auxGallery/Edit";
+import { DeleteAuxGallery } from "../models/auxGallery/Delete";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -62,6 +65,9 @@ export const ModalProvider = () => {
       <AddCompanyModel/>
       <EditCompany/>
       <DeleteCompany/>
+      <AddAuxGalleryComponent/>
+      <EditAuxGallery/>
+      <DeleteAuxGallery/>
     </>
   );
 };

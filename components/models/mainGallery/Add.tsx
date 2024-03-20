@@ -97,7 +97,7 @@ export const AddMainGalleryModel = () => {
 
   useEffect(() => {
     getCatagories();
-  }, []);
+  }, [isOpen]);
 
   const handleClose = () => {
     form.reset();
@@ -106,7 +106,7 @@ export const AddMainGalleryModel = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden w-full">
+      <DialogContent className="bg-white text-black p-0  w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Add Gallery Image
@@ -114,7 +114,7 @@ export const AddMainGalleryModel = () => {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="space-y-8 px-6">
+            <div className="space-y-8 px-6 min-h-fit">
               <FormField
                 control={form.control}
                 name="image"
@@ -173,7 +173,7 @@ export const AddMainGalleryModel = () => {
                         onSelect={field.onChange}
                         inputOptions={
                           categories &&
-                          categories.map((category:Category) => ({
+                          categories.map((category: Category) => ({
                             label: category.name,
                             value: category.id,
                           }))
@@ -184,7 +184,6 @@ export const AddMainGalleryModel = () => {
                   </FormItem>
                 )}
               />
-              
             </div>
 
             <DialogFooter className="bg-gray-100 px-6 py-4">

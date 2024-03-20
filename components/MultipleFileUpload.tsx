@@ -98,10 +98,7 @@ export const MultipleFileUpload = ({
   };
 
   const handleDelete = async (val: string) => {
-    const url = val.substring(
-      val.indexOf("files") + 8,
-      val.lastIndexOf("?")
-    );
+    const url = val.substring(val.indexOf("files") + 8, val.lastIndexOf("?"));
     console.log(url);
     try {
       await axios.delete("/api/firebase?id=" + url, {
@@ -140,7 +137,7 @@ export const MultipleFileUpload = ({
     console.log(e);
   };
   useEffect(() => {
-    setAlertOpen(Array.from({length:value.length}, () => false))
+    setAlertOpen(Array.from({ length: value.length }, () => false));
   }, [value]);
 
   return (
@@ -149,13 +146,21 @@ export const MultipleFileUpload = ({
         <div className="relative h-fit w-full flex justify-center flex-wrap items-center gap-4">
           {value.map((val, index) => (
             <div className=" relative border-2">
-              <Image src={val} alt="Upload" width={200} height={100} className="aspect-video" />
+              <Image
+                src={val}
+                alt="Upload"
+                width={200}
+                height={100}
+                className="aspect-video"
+              />
               <Button
-                onClick={() => setAlertOpen((prev) => {
-                  const l = [...prev];
-                  l[index] = true;
-                  return l;
-                })}
+                onClick={() =>
+                  setAlertOpen((prev) => {
+                    const l = [...prev];
+                    l[index] = true;
+                    return l;
+                  })
+                }
                 disabled={disabled}
                 className="bg-rose-500 text-white p-1 rounded-full absolute -top-4 -right-4 shadow-sm h-fit"
                 type="button"
@@ -178,7 +183,6 @@ export const MultipleFileUpload = ({
                       Are you absolutely sure?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      
                       This action cannot be undone. This will permanently remove
                       your data from our servers.
                     </AlertDialogDescription>
@@ -203,7 +207,7 @@ export const MultipleFileUpload = ({
           onDropRejected={handleError}
         >
           {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()} className="cursor-pointer ">
+            <div {...getRootProps()} className="cursor-pointer w-full">
               <>
                 <input {...getInputProps()} />
                 <div className="flex flex-col items-center gap-3">

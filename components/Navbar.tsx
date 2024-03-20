@@ -52,11 +52,9 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >1024)
-      setOpen(false);
-  
-    }
-   
+      if (window.innerWidth > 1024) setOpen(false);
+    };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -70,21 +68,67 @@ export const Navbar = () => {
       } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-20 flex  bg-background shadow-2xl justify-between`}
     >
       <Link href={"/"}>
-      <Image
-        src={logo}
-        alt={"Logo"}
-        className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
-      />
+        <Image
+          src={logo}
+          alt={"Logo"}
+          className={"object-contain h-20 left-0 w-fit p-2 ml-5"}
+        />
       </Link>
       <div className={"lg:flex items-center gap-5 m-5 hidden"}>
         <div className="nav-btns flex items-center gap-4">
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#home"}>HOME</Link>
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#about-us"}>ABOUT US</Link>
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#projects"}>PROJECTS</Link>
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#startups"}> START UPS</Link>
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#gallery"}> GALLERY</Link>
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#team"}> TEAM</Link>
-          <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#footer"}> CONTACT</Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#home"}
+          >
+            HOME
+          </Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#about-us"}
+          >
+            ABOUT US
+          </Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#projects"}
+          >
+            PROJECTS
+          </Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#startups"}
+          >
+            {" "}
+            START UPS
+          </Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#gallery"}
+          >
+            {" "}
+            GALLERY
+          </Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#team"}
+          >
+            {" "}
+            TEAM
+          </Link>
+          <Link
+            className="nav-link font-semibold"
+            onClick={() => setOpen(false)}
+            href={"/#footer"}
+          >
+            {" "}
+            CONTACT
+          </Link>
         </div>
         <div className="flex items-center gap-2">
           <Popover open={popOverOpen} onOpenChange={setPopOverOpen}>
@@ -98,13 +142,13 @@ export const Navbar = () => {
             </PopoverTrigger>
             <PopoverContent>
               <div className="flex flex-col justify-center items-center nav-btns gap-3">
-                <Link
+                {/* <Link
                   className=" font-semibold"
                   href="/sdg"
                   onClick={() => setPopOverOpen(false)}
                 >
                   S.D.G.
-                </Link>
+                </Link> */}
                 <Link
                   className=" font-semibold"
                   href="/management"
@@ -135,7 +179,7 @@ export const Navbar = () => {
                 </Link>
                 <Link
                   className=" font-semibold"
-                  href="/main-gallery"
+                  href="/gallery2"
                   onClick={() => setPopOverOpen(false)}
                 >
                   MAIN-GALLERY
@@ -174,17 +218,63 @@ export const Navbar = () => {
             </SheetTitle>
           </SheetHeader>
           <div className={"flex flex-col space-y-3 mt-10 items-center"}>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#home"}>HOME</Link>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#about-us"}>ABOUT US</Link>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#projects"}>PROJECTS</Link>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#startups"}> START UPS</Link>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#gallery"}> GALLERY</Link>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#team"}> TEAM</Link>
-            <Link className="nav-link font-semibold" onClick={()=>setOpen(false)} href={"/#footer"}> CONTACT</Link>
-
-            <Link className=" font-semibold" href="/sdg">
-              S.D.G.
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#home"}
+            >
+              HOME
             </Link>
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#about-us"}
+            >
+              ABOUT US
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#projects"}
+            >
+              PROJECTS
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#startups"}
+            >
+              {" "}
+              START UPS
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#gallery"}
+            >
+              {" "}
+              GALLERY
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#team"}
+            >
+              {" "}
+              TEAM
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              onClick={() => setOpen(false)}
+              href={"/#footer"}
+            >
+              {" "}
+              CONTACT
+            </Link>
+
+            {/* <Link className=" font-semibold" href="/sdg">
+              S.D.G.
+            </Link> */}
             <Link className=" font-semibold" href="/management">
               MANAGEMENT
             </Link>
@@ -197,7 +287,7 @@ export const Navbar = () => {
             <Link className=" font-semibold" href="/fundings">
               FUNDINGS
             </Link>
-            <Link className=" font-semibold" href="/main-gallery">
+            <Link className=" font-semibold" href="/gallery2">
               MAIN-GALLERY
             </Link>
             <Link className=" font-semibold" href="/apply">

@@ -7,6 +7,7 @@ import {
   Team,
   Testimony,
   Company,
+  AuxilaryGallery,
 } from "@prisma/client";
 import { create } from "zustand";
 
@@ -26,6 +27,9 @@ export type ModalType =
   | "editMainGallery"
   | "deleteMainGallery"
   | "addMainGallery"
+  | "editAuxGallery"
+  | "deleteAuxGallery"
+  | "addAuxGallery"
   | "addStartUp"
   | "editStartUp"
   | "deleteStartUp"
@@ -42,6 +46,7 @@ interface ModalData {
   team?: Team;
   lead?: Lead;
   mainGallery?: MainGallery;
+  auxGallery? : AuxilaryGallery;
   startup?: StartUp;
   project?: Project;
   company?: Company;

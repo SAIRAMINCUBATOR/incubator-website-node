@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       });
     }
 
-    await db.mainGallery.create({
+    await db.auxilaryGallery.create({
       data: {
         name,
         image,
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
     return NextResponse.json("Added");
   } catch (error) {
-    console.log("MAIN GALLERY POST", error);
+    console.log("AUX GALLERY POST", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -36,10 +36,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
    
-    const response = await db.mainGallery.findMany();
+    const response = await db.auxilaryGallery.findMany();
     return NextResponse.json({ response });
   } catch (error) {
-    console.log("MAIN GALLERY GET", error);
+    console.log("AUX GALLERY GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -59,7 +59,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       });
     }
 
-    await db.mainGallery.update({
+    await db.auxilaryGallery.update({
       where: {
         id,
       },
@@ -72,7 +72,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     });
     return NextResponse.json("Updated");
   } catch (error) {
-    console.log("MAIN GALLERY PUT", error);
+    console.log("AUX GALLERY PUT", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -94,14 +94,14 @@ export async function DELETE(
       return new NextResponse("ID is missing", { status: 404 });
     }
 
-    await db.mainGallery.delete({
+    await db.auxilaryGallery.delete({
       where: {
         id,
       },
     });
     return NextResponse.json("Deleted");
   } catch (error) {
-    console.log("MAIN GALLERY DELETE", error);
+    console.log("AUX GALLERY DELETE", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

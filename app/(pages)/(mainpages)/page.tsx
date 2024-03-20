@@ -26,6 +26,8 @@ import {
   Testimony,
   Project,
   Company,
+  Category,
+  CategoryType,
 } from "@prisma/client";
 import axios from "axios";
 import { CompanyComponent } from "@/components/Companys";
@@ -35,6 +37,7 @@ export default function Home() {
   const [TeamMembers, setTeamMembers] = useState<Team[]>([]);
   const [LeadMembers, setLeadMembers] = useState<Lead[]>([]);
   const [GalleryImages, setGalleryImages] = useState<MainGallery[]>([]);
+  const [TempGalleryImages, setTempGalleryImages] = useState<MainGallery[]>([]);
   const [StrtUpData, setStrtUpData] = useState<StartUp[]>([]);
   const [ProjectContent, setProjectContent] = useState<Project[]>([]);
   const [Companies, setCompanies] = useState<ImageData[]>([]);
@@ -66,7 +69,7 @@ export default function Home() {
   const getGallery = async () => {
     try {
       const response = await axios.get("/api/components/mainGallery");
-      setGalleryImages(response.data.response);
+      setTempGalleryImages(response.data.response);
     } catch (e) {
       console.log(e);
     }
@@ -136,6 +139,18 @@ export default function Home() {
     getCompany();
   }, []);
 
+  useEffect(() => {
+    const uniqueCategories = new Set();
+    const filteredImages = TempGalleryImages.filter((image) => {
+      if (!uniqueCategories.has(image.categoryId)) {
+        uniqueCategories.add(image.categoryId);
+        return true;
+      }
+      return false;
+    });
+    if (filteredImages.length > 0) setGalleryImages(filteredImages);
+  }, [TempGalleryImages]);
+
   return (
     <div
       className={
@@ -162,7 +177,7 @@ export default function Home() {
 
       <TeamComponent row0={LeadMembers} rowN={TeamMembers} />
       <HaveAProject />
-      <GalleryComponent images={GalleryImages} />
+      <GalleryComponent images={GalleryImages} id="gallery"/>
       <TestimonialSlider testimonycontent={Testimony} />
     </div>
   );

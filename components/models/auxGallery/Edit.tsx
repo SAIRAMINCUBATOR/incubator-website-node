@@ -42,36 +42,37 @@ const formSchema = z.object({
   }),
 });
 
-export const EditGallery = () => {
+export const EditAuxGallery = () => {
   const { isOpen, onClose, type, data } = useModal();
   const { token, isTokenExpired } = useSession();
   const [categories, setCategories] = useState<Category[]>();
 
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "editMainGallery";
-  const { mainGallery } = data;
+  const isModalOpen = isOpen && type === "editAuxGallery";
+  const { auxGallery } = data;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: mainGallery?.name,
-      image: mainGallery?.image,
-      category: mainGallery?.categoryId,
+      name: auxGallery?.name,
+      image: auxGallery?.image,
+      category: auxGallery?.categoryId,
     },
   });
   const getCatagories = async () => {
     const response = await axios.get(
-      "/api/components/category?type=" + CategoryType.MainGallery.toString()
+      "/api/components/category?type=" + CategoryType.AuxilaryGallery
     );
     setCategories(response.data.response);
+    console.log(response)
   };
 
   useEffect(() => {
-    if (mainGallery?.name) form.setValue("name", mainGallery.name);
-    if (mainGallery?.image) form.setValue("image", mainGallery.image);
-    if (mainGallery?.categoryId)
-      form.setValue("category", mainGallery.categoryId);
-  }, [mainGallery, form]);
+    if (auxGallery?.name) form.setValue("name", auxGallery.name);
+    if (auxGallery?.image) form.setValue("image", auxGallery.image);
+    if (auxGallery?.categoryId)
+      form.setValue("category", auxGallery.categoryId);
+  }, [auxGallery, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -83,8 +84,8 @@ export const EditGallery = () => {
       }
 
       await axios.put(
-        "/api/components/mainGallery",
-        { ...values, id: mainGallery?.id },
+        "/api/components/auxGallery",
+        { ...values, id: auxGallery?.id },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -120,7 +121,7 @@ export const EditGallery = () => {
       <DialogContent className="bg-white text-black p-0  w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Gallery Image
+            Edit Gallery 2 Image
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -178,7 +179,7 @@ export const EditGallery = () => {
                     </FormLabel>
                     <FormControl>
                       <SearchableSelect
-                        type={CategoryType.MainGallery}
+                        type={CategoryType.AuxilaryGallery}
                         disabled={isLoading}
                         onSelect={field.onChange}
                         defaultValue={

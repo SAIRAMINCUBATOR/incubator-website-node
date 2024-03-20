@@ -44,13 +44,13 @@ const EditPage = () => {
     useEffect(() => {
       const scrollHandler = () => {
         const element = document.getElementById(href.split("#")[1]);
-        // if (element) {
-        const elementRect = element.getBoundingClientRect();
+        if (element) {
+          const elementRect = element.getBoundingClientRect();
 
-        const isElementInScrollView =
-          elementRect.bottom > 200 && elementRect.top < 200;
-        setVisible(isElementInScrollView);
-        // }
+          const isElementInScrollView =
+            elementRect.bottom > 200 && elementRect.top < 200;
+          setVisible(isElementInScrollView);
+        }
       };
 
       document.addEventListener("scroll", scrollHandler);
@@ -100,6 +100,7 @@ const EditPage = () => {
         <SmoothScrollLink href="#team">Team Members</SmoothScrollLink>
         <SmoothScrollLink href="#mainGallery">Gallery</SmoothScrollLink>
         <SmoothScrollLink href="#testimony">Testimonial</SmoothScrollLink>
+        <SmoothScrollLink href="#auxGallery">Gallery 2</SmoothScrollLink>
 
         <div className=" bottom-2 absolute">
           <UserButton />
@@ -172,6 +173,13 @@ const EditPage = () => {
           addType="addTestimony"
           editType="editTestimony"
           deleteType="deleteTestimony"
+        />
+
+        <EditComponent
+          modelName="auxGallery"
+          addType="addAuxGallery"
+          editType="editAuxGallery"
+          deleteType="deleteAuxGallery"
         />
       </div>
     </div>
