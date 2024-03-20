@@ -24,7 +24,7 @@ const DeleteCompany = () => {
   const { isOpen, type, data, onClose } = useModal();
   const { token, isTokenExpired } = useSession();
   const isModalOpen = isOpen && type === "deleteCompany";
-  const { gallery } = data;
+  const { company } = data;
   const onSubmit = async () => {
     try {
       if (!token && isTokenExpired()) {
@@ -34,7 +34,7 @@ const DeleteCompany = () => {
       const url = qs.stringifyUrl({
         url: "/api/components/company",
         query: {
-          id: gallery?.id,
+          id: company?.id,
         },
       });
 
