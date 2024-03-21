@@ -45,6 +45,7 @@ const formSchema = z.object({
   twitter: z.string().optional(),
   instagram: z.string().optional(),
   linkedin: z.string().optional(),
+  experience: z.string().optional(),
 });
 
 export const EditTeam = () => {
@@ -64,6 +65,7 @@ export const EditTeam = () => {
       twitter: team?.twitter,
       instagram: team?.instagram,
       linkedin: team?.linkedin,
+      experience: team?.experience,
     },
   });
 
@@ -75,6 +77,7 @@ export const EditTeam = () => {
     if (team?.twitter) form.setValue("twitter", team.twitter);
     if (team?.instagram) form.setValue("instagram", team.instagram);
     if (team?.linkedin) form.setValue("linkedin", team.linkedin);
+    if (team?.experience) form.setValue("experience", team.experience);
   }, [team, form]);
 
   const isLoading = form.formState.isSubmitting;
@@ -116,7 +119,6 @@ export const EditTeam = () => {
     onClose();
   };
 
-
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-auto w-full">
@@ -142,8 +144,7 @@ export const EditTeam = () => {
                       </FormLabel>
                       <FormControl>
                         <FileUpload
-                                                disabled={isLoading}
-
+                          disabled={isLoading}
                           value={field.value}
                           onChange={field.onChange}
                         />
@@ -273,6 +274,26 @@ export const EditTeam = () => {
                           disabled={isLoading}
                           className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
                           placeholder="Enter Member's LinkedIn Profile"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="experience"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      experience (OPTIONAL)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-200/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 shadow-inner"
+                          placeholder="Enter Member's Experience"
                           {...field}
                         />
                       </FormControl>

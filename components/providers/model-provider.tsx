@@ -28,6 +28,9 @@ import DeleteCompany from "../models/Company/Delete";
 import { AddAuxGalleryComponent } from "../models/auxGallery/Add";
 import { EditAuxGallery } from "../models/auxGallery/Edit";
 import { DeleteAuxGallery } from "../models/auxGallery/Delete";
+import { AddCollaboration } from "../models/collaboration/Add";
+import { EditCollaboration } from "../models/collaboration/Edit";
+import { DeleteCollaboration } from "../models/collaboration/Delete";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -68,6 +71,9 @@ export const ModalProvider = () => {
       <AddAuxGalleryComponent/>
       <EditAuxGallery/>
       <DeleteAuxGallery/>
-    </>
+      <AddCollaboration/>
+      <EditCollaboration/>
+      <DeleteCollaboration/>
+      </>
   );
 };

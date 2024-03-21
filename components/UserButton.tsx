@@ -53,8 +53,6 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
 
   const handleLogout = () => {
     setOpen(false);
-    if (setClose)
-    setClose();
     router.replace("/");
     clearSession();
   };

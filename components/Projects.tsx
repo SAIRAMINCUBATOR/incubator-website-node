@@ -107,10 +107,10 @@ export const Projects = ({ projects }: Props) => {
                     />
                     <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
                       <div className="project-info text-left  bg-gradient-to-t from-black via-gray-900 to-transparent text-white rounded-xl">
-                        <h3 className="project-title font-semibold">
+                        <h3 className="project-title font-semibold text-center">
                           {project.name}
                         </h3>
-                        <p className="project-desc">{project.description}</p>
+                        <p className="project-desc hidden lg:block">{project.description}</p>
                         <Link
                           href={`/projects/${project.id}`}
                           className="apply-now"

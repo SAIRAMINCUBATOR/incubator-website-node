@@ -8,6 +8,7 @@ import {
   Testimony,
   Company,
   AuxilaryGallery,
+  Collaboration,
 } from "@prisma/client";
 import { create } from "zustand";
 
@@ -38,7 +39,11 @@ export type ModalType =
   | "editProject"
   | "addCompany"
   | "editCompany"
-  | "deleteCompany";
+  | "deleteCompany"
+  | "editProject"
+  | "addCollaboration"
+  | "editCollaboration"
+  | "deleteCollaboration";
 
 interface ModalData {
   mainCarousel?: MainCarousel;
@@ -50,6 +55,7 @@ interface ModalData {
   startup?: StartUp;
   project?: Project;
   company?: Company;
+  collaboration?: Collaboration;
 }
 
 interface ModalStore {

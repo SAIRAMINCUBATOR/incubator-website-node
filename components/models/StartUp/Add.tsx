@@ -88,9 +88,7 @@ export const AddStartUp = () => {
     onClose();
   };
 
-  // useEffect(() => {
-  //   fiel
-  // }, []);
+
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>

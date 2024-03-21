@@ -9,10 +9,12 @@ const nextConfig = {
         return config;
     },
     images: {
-        domains: [
-            "uploadthing.com",
-            "utfs.io",
-            "firebasestorage.googleapis.com"
+        remotePatterns: [
+            {
+                hostname:"firebasestorage.googleapis.com"
+            }
+           
+            
         ]
     }
 }

@@ -10,7 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, Pencil } from "lucide-react";
+import { ChevronRight, Menu, Pencil } from "lucide-react";
 import axios from "axios";
 import { Category, CategoryType, MainGallery } from "@prisma/client";
 import GalleryComponent from "@/components/Gallery";
@@ -111,6 +111,15 @@ const GalleryPage = () => {
   function SideBarComponets() {
     return (
       <div className="flex flex-col p-3 items-center gap-5 ">
+        <Link href={"/edit?section=mainGallery"}>
+          <Button
+            variant={"ghost"}
+            className="bg-green-400 w-[100px] text-white shadow-md"
+          >
+            <Pencil className="h-4 w-4 mr-2 fill-green-800" stroke="false" />{" "}
+            Edit
+          </Button>
+        </Link>
         <span className=" text-2xl font-bold">Categories</span>
         {categories &&
           categories.map((cat) => (
@@ -144,7 +153,7 @@ const GalleryPage = () => {
         </div>
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger className="lg:hidden block sticky top-[20%] -translate-y-[50%] left-2 w-fit">
-            <Menu className="m-0 p-0 text-2xl" size={28} />
+            <ChevronRight className="m-0 p-0 text-2xl" size={28} />
           </SheetTrigger>
           <SheetContent className="w-1/2" side="left">
             <SheetHeader>
@@ -167,14 +176,6 @@ const GalleryPage = () => {
                   />
                 );
             })}
-        </div>
-        <div className=" justify-end mr-5">
-          <Link href={"/edit?section=mainGallery"}>
-            <Button variant="link">
-              Edit
-              <Pencil size={18} className="ml-2" />
-            </Button>
-          </Link>
         </div>
       </div>
     </div>

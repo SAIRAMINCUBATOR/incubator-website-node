@@ -45,6 +45,7 @@ const formSchema = z.object({
   twitter: z.string().optional(),
   instagram: z.string().optional(),
   linkedin: z.string().optional(),
+  experience: z.string().optional(),
 });
 
 export const EditLead = () => {
@@ -64,6 +65,7 @@ export const EditLead = () => {
       twitter: lead?.twitter,
       instagram: lead?.instagram,
       linkedin: lead?.linkedin,
+      experience: lead?.experience
     },
   });
 
@@ -75,6 +77,7 @@ export const EditLead = () => {
     if (lead?.twitter) form.setValue("twitter", lead.twitter);
     if (lead?.instagram) form.setValue("instagram", lead.instagram);
     if (lead?.linkedin) form.setValue("linkedin", lead.linkedin);
+    if (lead?.experience) form.setValue("experience", lead.experience);
   }, [lead, form]);
 
   const isLoading = form.formState.isSubmitting;
@@ -272,6 +275,26 @@ export const EditLead = () => {
                           disabled={isLoading}
                           className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                           placeholder="Enter Member's LinkedIn Profile"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="experience"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      experience (OPTIONAL)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                          placeholder="Enter Member's experience"
                           {...field}
                         />
                       </FormControl>

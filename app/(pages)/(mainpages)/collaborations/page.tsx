@@ -1,209 +1,179 @@
-import React from "react";
+"use client";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ChevronRight, Pencil } from "lucide-react";
+import axios from "axios";
+import { Category, CategoryType, Collaboration } from "@prisma/client";
+import GalleryComponent from "@/components/Gallery";
+const CollaborationPage = () => {
+  const params = useSearchParams();
+  const section = params.get("cat");
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [images, setImages] = useState<Collaboration[]>([]);
 
-const CollabPage = () => {
-  const html = `
-  <style>
-  .main-gallery{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5%;
-    gap: 5%;
-    background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(173, 204, 233, 0.5) 100%);
-    box-shadow: inset 0px 0px 15px #ADCCE9;
-    max-width: 100%;
-}
+  const getCategories = async () => {
+    try {
+      const response = await axios.get(
+        "/api/components/category?type=" + CategoryType.Collaboration
+      );
+      setCategories(response.data.response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getGallery = async () => {
+    try {
+      const response = await axios.get("/api/components/collaboration");
+      setImages(response.data.response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getCategories();
+    getGallery();
+  }, []);
 
-.maingal-class{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6%;
-    padding: 1%;
-}
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1024) setSheetOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  const scrollToSection = (id: string) => {
+    if (id) {
+      const section = document.getElementById(id);
+      if (section) section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-.maingal-class-1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6%;
-    padding: 3%;
-}
+  useEffect(() => {
+    const timer = setTimeout(() => scrollToSection(section), 1000);
+    return () => clearTimeout(timer);
+  }, [section]);
 
-.maingal-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2%;
-    padding: 0%;
-}
+  function SmoothScrollLink({ href, children }) {
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+      const scrollHandler = () => {
+        const element = document.getElementById(href.split("#")[1]);
+        if (element) {
+          const elementRect = element.getBoundingClientRect();
 
-.maingal-main h2{
-    text-align: center;
-}
+          const isElementInScrollView =
+            elementRect.bottom > 200 && elementRect.top < 200;
+          setVisible(isElementInScrollView);
+        }
+      };
 
-.maingal-class1{
-    justify-content: center;
-    align-items: center;
-}
+      document.addEventListener("scroll", scrollHandler);
+      scrollHandler();
+      return () => {
+        document.removeEventListener("scroll", scrollHandler);
+      };
+    }, []);
+    return (
+      <Link
+        href={href}
+        className={
+          visible
+            ? " underline bg-gray-400 rounded-xl transition-all duration-150 ease-in"
+            : ""
+        }
+      >
+        <Button
+          variant={"link"}
+          className="text-xl "
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default link behavior
+            const sectionId = href.split("#")[1]; // Extract section ID from href
+            scrollToSection(sectionId); // Scroll to the section
+            setSheetOpen(false);
+          }}
+        >
+          {children}
+        </Button>
+      </Link>
+    );
+  }
 
-.maingal-class2{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1%;
-}
-
-.maingal-class3{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.maingal-img{
-    left: 10%;
-}
-
-.maingal-img h2{
-    text-align: center;
-    font-size: medium;
-    font-weight: bold;
-}
-
-.incubation-points p {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 26px;
-  color: #454545;
-  text-align: justify;
-}
-
-.our-projects {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 2.8rem;
-  color: rgba(69, 69, 69, 0.8);
-}
-
-.main-gallery1{
-    display: flex;
-    flex-direction: column;
-    padding: 2%;
-    width: 100%;
-    /* justify-content: space-between; */
-    align-items: center;
-    max-width: 100%;
-    gap: 25px;
-    background: linear-gradient(270deg, rgba(173, 204, 233, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-}
-
-.collab{
-    text-align: center;
-}
-</style>
-  <section class="main-gallery" id="main-gallery">
- 
-  <h2 class="our-projects" data-splitting>INCUBATION COLLABORATION</h2> <br><br>
-  <div class="maingal-class-1">
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img1.jpg" height="" width="200" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img2.png" height="" width="" alt=""></div>
-          </div>
-          <p>(R&D Organization)</p>
+  function SideBarComponets() {
+    return (
+      <div className="flex flex-col p-3 items-center gap-5 ">
+        <Link href={"/edit?section=collaboration"}>
+          <Button
+            variant={"ghost"}
+            className="bg-green-400 w-[100px] text-white shadow-md"
+          >
+            <Pencil className="h-4 w-4 mr-2 fill-green-800" stroke="false" />{" "}
+            Edit
+          </Button>
+        </Link>
+        <span className=" text-2xl font-bold">Categories</span>
+        {categories &&
+          categories.map((cat) => (
+            <>
+              {
+                //@ts-ignore
+                cat.Collaboration.length > 0 && (
+                  <SmoothScrollLink href={"#" + cat.id}>
+                    {cat.name}
+                  </SmoothScrollLink>
+                )
+              }
+            </>
+          ))}
       </div>
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img3.png" height="" width="185" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img4.png" height="" width="175" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img5.png" height="" width="150" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img6.png" height="100" width="120" alt=""></div>
-          </div>
-          <p>(Incubatee Receiving Supports From)</p>
+    );
+  }
+  return (
+    <div className="flex justify-center w-full flex-col items-center p-3">
+      <div className="flex items-start w-full lg:w-[90%]">
+        <div className="hidden lg:flex sticky top-[15%] left-0 flex-col p-3 items-center gap-5 w-[12%] ">
+          <SideBarComponets />
+        </div>
+        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+          <SheetTrigger className="lg:hidden block sticky top-[20%] -translate-y-[50%] left-2 w-fit">
+            <ChevronRight className="m-0 p-0 text-2xl" size={28} />
+          </SheetTrigger>
+          <SheetContent className="w-1/2" side="left">
+            <SheetHeader>
+              <SheetTitle>Sairam Techno Incubator</SheetTitle>
+            </SheetHeader>
+            <SideBarComponets />
+          </SheetContent>
+        </Sheet>
+
+        <div className=" lg:w-[90%] lg:ml-0 w-full flex flex-col">
+          {categories &&
+            categories.map((cat) => {
+              const imgs = images.filter((img) => img.categoryId == cat.id);
+              if (imgs.length > 0)
+                return (
+                  <GalleryComponent
+                    min="min-w-[100px]"
+                    collab
+                    images={imgs}
+                    id={cat.id}
+                    heading={cat.name}
+                  />
+                );
+            })}
+        </div>
       </div>
-  </div>
-  <div class="maingal-class-1">
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img7.png" height="100" width="195" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img8.png" height="150" width="" alt=""></div>
-          </div>
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img9.png" height="100" width="195" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img10.jpg" height="150" width="" alt=""></div>
-          </div>
-          <p>(Association)</p>
-      </div>
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img11.png" height="275 " width="400" alt=""></div>
-          </div>
-          <p>(Product)</p>
-      </div>
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img12.jpg" height="" width="100" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img13.png" height="" width="100" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img14.png" height="" width="100" alt=""></div>
-          </div>
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img15.png" height="" width="185" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img16.png" height="" width="175" alt=""></div>
-          </div>
-          <p>(Incubation Partners)</p>
-      </div>
-  </div>
-  <div class="maingal-class-1">
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img17.png" height="100" width="300" alt=""></div>
-          </div>
-          <p>(Networking)</p>
-      </div>
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img19.png" height="100" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img20.png" height="100" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img21.png" height="100" width="" alt=""></div>
-          </div>
-          <p>(1.25 Crores Funds Raised From)</p>
-      </div>
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img18.png" height="" width="" alt=""></div>
-          </div>
-          <p>(Legal & IPR Support)</p>
-      </div>
-  </div>
-  <div class="maingal-class-1">
-      <div class="collab">
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img22.png" height="100" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img23.png" height="100" width="" alt=""></div>
-          </div>
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img24.png" height="" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img25.png" height="" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img26.png" height="" width="" alt=""></div>
-          </div>
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img27.png" height="" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img28.jpg" height="" width="" alt=""></div>
-          </div>
-          <div class="maingal-main">
-              <div class="maingal-img"><img src="/collaborations/img29.jpg" height="" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img30.png" height="" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img31.jpg" height="" width="" alt=""></div>
-              <div class="maingal-img"><img src="/collaborations/img32.png" height="" width="" alt=""></div>
-          </div>
-          <p>(Government Support)</p>
-      </div>
-  </div>
-</section>
-`;
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    </div>
+  );
 };
 
-export default CollabPage;
+export default CollaborationPage;

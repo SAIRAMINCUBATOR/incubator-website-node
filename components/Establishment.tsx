@@ -42,7 +42,7 @@ export const Establishment = () => {
           </h3>
           <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
           <p
-            className="text-base leading-26 text-gray-600 text-[20.5px] text-justify"
+            className="text-base leading-26 text-gray-600 text-[20.5px] md:text-ellipsis text-justify"
             style={{ fontFamily: "Montserrat, sans-serif" }}
           >
             Sri Sairam Techno Incubation Foundation was established on 12th
@@ -64,7 +64,7 @@ export const Establishment = () => {
             VISION
           </h3>
           <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
-          <p className="text-base text-balance text-gray-600 text-[20.5px] text-justify">
+          <p className="text-base text-gray-600 text-[20.5px] md:text-ellipsis md:text-ellipsis text-justify">
             To be a center of excellence that construct a dynamic and
             sustainable ecosystem for enriching Entrepreneurship Skills.
           </p>
@@ -81,7 +81,7 @@ export const Establishment = () => {
             OBJECTIVES
           </h3>
           <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
-          <p className="text-base text-balance text-gray-600 text-[20.5px] text-justify">
+          <p className="text-base text-balance text-gray-600 text-[20.5px] md:text-ellipsis text-justify">
             Enhance the graduate engineers knowledge to suit the industry
             requirements. Ready to adopt industry culture. Make students aware
             of latest technology and understand the processes of developing a

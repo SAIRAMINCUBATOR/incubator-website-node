@@ -41,7 +41,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
         type,
       },include:{
         MainGallery: true,
-        AuxilaryGallery: true
+        AuxilaryGallery: true,
+        Collaboration: true
       }
     });
     return NextResponse.json({ response });

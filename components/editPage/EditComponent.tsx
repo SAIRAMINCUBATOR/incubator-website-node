@@ -17,7 +17,8 @@ interface Props {
     | "mainCarousel"
     | "project"
     | "auxGallery"
-    | "startup";
+    | "startup"
+    | "collaboration"
   addType: ModalType;
   editType: ModalType;
   deleteType: ModalType;
@@ -129,7 +130,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
             )}
           </div>
         ) : (
-          <div className="flex gap-10 py-4 items-start w-full overflow-hidden">
+          <div className="flex gap-10 py-4 md:items-start items-center w-full overflow-hidden">
             <div className="flex flex-col gap-5  ">
               <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
               <div className="flex items-start h-full gap-2 justify-between">
@@ -137,14 +138,14 @@ const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
-            <div className="flex flex-col gap-5 ">
+            <div className="md:flex flex-col gap-5 hidden">
               <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
               <div className="flex items-start h-full gap-2 justify-between">
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
-            <div className="flex flex-col gap-5  ">
+            <div className="md:flex flex-col gap-5  hidden">
               <Skeleton className="h-[105px] w-[200px] rounded-xl bg-gray-400" />
               <div className="flex items-start h-full gap-2 justify-between">
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />

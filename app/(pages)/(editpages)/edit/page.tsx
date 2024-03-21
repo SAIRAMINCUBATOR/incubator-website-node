@@ -101,6 +101,7 @@ const EditPage = () => {
         <SmoothScrollLink href="#mainGallery">Gallery</SmoothScrollLink>
         <SmoothScrollLink href="#testimony">Testimonial</SmoothScrollLink>
         <SmoothScrollLink href="#auxGallery">Gallery 2</SmoothScrollLink>
+        <SmoothScrollLink href="#collaboration">Collaboration</SmoothScrollLink>
 
         <div className=" bottom-2 absolute">
           <UserButton />
@@ -180,6 +181,13 @@ const EditPage = () => {
           addType="addAuxGallery"
           editType="editAuxGallery"
           deleteType="deleteAuxGallery"
+        />
+
+        <EditComponent
+          modelName="collaboration"
+          addType="addCollaboration"
+          editType="editCollaboration"
+          deleteType="deleteCollaboration"
         />
       </div>
     </div>

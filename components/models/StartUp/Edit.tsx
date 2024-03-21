@@ -94,7 +94,34 @@ export const EditStartUp = () => {
     }
   };
 
+  const handlePaste = (event) => {
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData("text");
+    const strippedData = pastedText
+      .split("\n")
+      .filter((entry:string) => entry.trim() !== "");
+    const newList = [...form.getValues().list] ;
+    newList.pop();
+    console.log(newList, strippedData);
+    event.target.value = "";
+    form.setValue("list", [...newList, ...strippedData]);
 
+  };
+
+
+  const handleAddStartup = (e) => {
+    e.preventDefault();
+    // Add new startup to the list
+    form.setValue("list", [...(form.getValues().list || []), ""]);
+
+    setTimeout(function(){
+      if (ref.current) {
+        const element = ref.current;
+        element.children[element.children.length-1].scrollIntoView()
+      }
+    }, 200);
+   
+  };
 
   const handleClose = () => {
     form.reset();
@@ -144,18 +171,16 @@ export const EditStartUp = () => {
                     </FormLabel>
                     <FormControl>
                       <div className="flex flex-col items-center w-full">
-                        <ScrollArea
-                          className="space-y-8 self-center pb-8  pr-4 m-2 mt-0"
-                          style={{ width: "100%", height: 300 }}
-                        >
-                          <div ref={ref}>
+                        <ScrollArea className="self-center m-2  h-[300px] w-full">
+                          <div ref={ref} className="overflow-auto">
                             {Array.isArray(field.value) &&
                               field.value.map((startup, index) => (
                                 <div
                                   key={index}
-                                  className="mb-2 flex items-center w-full"
+                                  className="mb-2 flex items-center w-[98%] gap-2"
                                 >
                                   <Input
+                                    onPaste={handlePaste}
                                     disabled={isLoading}
                                     className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 w-full"
                                     placeholder={`Enter Startup ${index + 1}`}
@@ -169,13 +194,14 @@ export const EditStartUp = () => {
                                   <Button
                                     className="w-fit"
                                     variant="ghost"
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                      e.preventDefault();
                                       const updatedList = [...field.value];
                                       updatedList.splice(index, 1);
                                       field.onChange(updatedList);
                                     }}
                                   >
-                                    <Trash className="ml-2 text-red-500 " />
+                                    <Trash className=" text-red-500 " />
                                   </Button>
                                 </div>
                               ))}
@@ -184,15 +210,9 @@ export const EditStartUp = () => {
                         <div className="items-center">
                           <Button
                             variant="primary"
+                            type="button"
                             disabled={isLoading}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              field.onChange([...(field.value || []), ""]);
-                              if (ref.current) {
-                                const element = ref.current;
-                                element.scrollTop = element.scrollHeight;
-                              }
-                            }}
+                            onClick={handleAddStartup}
                           >
                             Add Startup
                           </Button>

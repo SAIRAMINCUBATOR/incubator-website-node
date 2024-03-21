@@ -65,7 +65,7 @@ export const Navbar = () => {
       ref={ref}
       className={`nav-main ${
         Navbar && "nav-main-hide"
-      } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-20 flex  bg-background shadow-2xl justify-between`}
+      } w-full max-h-[10%] min-h-[5%]  sticky top-0 left-0 z-40 flex  bg-background shadow-2xl justify-between`}
     >
       <Link href={"/"}>
         <Image
@@ -217,7 +217,9 @@ export const Navbar = () => {
               Sairam Techno Incubator
             </SheetTitle>
           </SheetHeader>
-          <div className={"flex flex-col space-y-3 mt-10 items-center"}>
+          <div
+            className={"flex flex-col space-y-3 mt-10 items-center nav-btns"}
+          >
             <Link
               className="nav-link font-semibold"
               onClick={() => setOpen(false)}
@@ -275,36 +277,60 @@ export const Navbar = () => {
             {/* <Link className=" font-semibold" href="/sdg">
               S.D.G.
             </Link> */}
-            <Link className=" font-semibold" href="/management">
+            <Link
+              className="nav-link font-semibold"
+              href="/management"
+              onClick={() => setOpen(false)}
+            >
               MANAGEMENT
             </Link>
-            <Link className=" font-semibold" href="/ipr">
+            <Link
+              className="nav-link font-semibold"
+              href="/ipr"
+              onClick={() => setOpen(false)}
+            >
               I.P.R
             </Link>
-            <Link className=" font-semibold" href="/collaborations">
+            <Link
+              className="nav-link font-semibold"
+              href="/collaborations"
+              onClick={() => setOpen(false)}
+            >
               COLLABORATIONS
             </Link>
-            <Link className=" font-semibold" href="/fundings">
+            <Link
+              className="nav-link font-semibold"
+              href="/fundings"
+              onClick={() => setOpen(false)}
+            >
               FUNDINGS
             </Link>
-            <Link className=" font-semibold" href="/gallery2">
+            <Link
+              className="nav-link font-semibold"
+              href="/gallery2"
+              onClick={() => setOpen(false)}
+            >
               MAIN-GALLERY
             </Link>
-            <Link className=" font-semibold" href="/apply">
+            <Link
+              className="nav-link font-semibold"
+              href="/apply"
+              onClick={() => setOpen(false)}
+            >
               APPLY
             </Link>
             {(!token || isTokenExpired()) && (
               <Link
-                className=" font-semibold"
+                className="nav-link font-semibold"
                 href="/auth/signin"
-                onClick={() => setPopOverOpen(false)}
+                onClick={() => setOpen(false)}
               >
                 SIGN IN
               </Link>
             )}
           </div>
-          <SheetFooter className="">
-            <div className="w-full flex justify-center pt-4">
+          <SheetFooter className="bottom-4 absolute left-[50%] -translate-x-[50%]">
+            <div className="w-full flex justify-center ">
               <UserButton setClose={() => setOpen(false)} />
             </div>
           </SheetFooter>

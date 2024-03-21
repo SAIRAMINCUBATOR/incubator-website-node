@@ -14,7 +14,7 @@ import { ImageData } from "@/schema";
 
 interface Props {
   images: ImageData[];
-  imagesize: "object-cover" | "object-contain"
+  imagesize: "object-cover" | "object-contain";
 }
 
 export const Slider = ({ images, imagesize }: Props) => {
@@ -61,14 +61,16 @@ export const Slider = ({ images, imagesize }: Props) => {
           images.map((img, index) => (
             <CarouselItem
               key={index}
-              className="md:basis-full lg:basis-full w-full flex justify-center  bg-gray-400"
+              className="md:basis-full lg:basis-full w-full flex justify-center  bg-gray-400 "
             >
               <Image
                 src={img.image}
                 alt={img.name}
-                className={"md:h-[600px] w-full "+imagesize}
-                height={800}
-                width={800}
+                className={
+                  "md:h-[600px] h-[450px] w-full " + `${imagesize as string}`
+                }
+                height={8000}
+                width={8000}
               />
             </CarouselItem>
           ))}

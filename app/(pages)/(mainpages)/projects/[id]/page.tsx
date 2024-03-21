@@ -11,7 +11,6 @@ import { Project } from "@prisma/client";
 import { Slider } from "@/components/Slider";
 import { ImageData } from "@/schema";
 import { Loader2, Pencil } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { useSession } from "@/components/providers/context/SessionContext";
 
@@ -25,7 +24,6 @@ const ProjectPage = (req: any, res: any) => {
       setLoading(true);
       const response = await axios.get(`/api/components/project?id=${id}`);
       setProjectContent(response.data.response);
-      console.log(response.data.response);
       setLoading(false);
     } catch (e) {
       console.log(e);

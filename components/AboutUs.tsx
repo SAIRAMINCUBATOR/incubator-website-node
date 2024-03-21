@@ -42,17 +42,17 @@ export const AboutUs = () => {
         height={3000}
         src={"/incubator-logo.png"}
         alt={"Sairam Incubator Foundation Logo"}
-        className="w-[35%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
+        className="w-[50%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
       />
      
-      <div className="flex flex-col w-[40%] ml-10">
+      <div className="flex flex-col w-[80%] md:w-[40%] ml-10">
         <h2 className="font-montserrat font-bold text-rgba-17-17-17-80 lg:text-6xl md:text-4xl text-2xl">
           WHY INCUBATION
           <br />
           IN SAIRAM?
         </h2>
         <hr className="underline border-b-8 mt-[5%] w-[30%] border-blue-500 rounded-full mb-[5%]" />
-        <p className="font-montserrat font-normal text-[1.2rem] md:text-[clamp(1.2rem, 0.23rem + 1.14vw, 1.6rem)] leading-[32px] text-454545">
+        <p className="font-montserrat font-normal text-[1.2rem] md:text-[clamp(1.2rem, 0.23rem + 1.14vw, 1.6rem)] leading-[32px] text-454545 text-justify md:text-start">
           The incubation process allows entrepreneurs to preserve capital and
           gain external support to accelerate their business growth.
           <br />

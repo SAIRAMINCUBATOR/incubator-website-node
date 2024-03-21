@@ -19,29 +19,42 @@ interface Props {
   images: MainGallery[] | AuxilaryGallery[];
   id: string;
   heading?: string;
+  min?: string;
+  collab?: boolean;
 }
 
-const GalleryComponent = ({ images, id, heading }: Props) => {
+const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
   const { token } = useSession();
   const path = usePathname();
   const ImageC = ({ imagedata }: { imagedata: MainGallery }) => {
-    if (path.includes("gallery")) {
+    if (path != "/") {
       return (
         <Dialog>
           <DialogTrigger>
-            <div className="relative group border-2 border-white shadow-lg drop-shadow-lg  group-hover:scale-110 transition-all ease-in duration-200 cursor-pointer">
+            <div
+              className={cn(
+                "relative group  drop-shadow-lg group-hover:scale-110 transition-all ease-in duration-200 cursor-pointer",
+                !collab && "border-2 border-white shadow-lg"
+              )}
+            >
               <Image
                 src={imagedata.image}
                 alt={imagedata.name}
-                width={800}
-                height={800}
-                className="h-[220px] min-w-[350px] max-w-[350px] group-hover:scale-110 group-hover:shadow-xl group-hover:drop-shadow-xl group-hover:rounded-xl transition-all ease-in duration-200"
+                width={collab ? 200 : 800}
+                height={collab ? 200 : 800}
+                className={cn(
+                  "object-contain transition-all ease-in duration-200 group-hover:scale-110",
+                  !collab &&
+                    "h-[220px] min-w-[350px] max-w-[350px]  group-hover:shadow-xl group-hover:drop-shadow-xl group-hover:rounded-xl"
+                )}
               />
-              <div className="absolute top-[90%] text-center text-white flex justify-center transition-all ease-in duration-200 group-hover:top-[95%] items-center z-10 w-full h-[10%] gradient-overlay group-hover:scale-110 group-hover:rounded-b-xl">
-                <span className="font-semibold capitalize ">
-                  {imagedata.name}
-                </span>
-              </div>
+              {!collab && (
+                <div className="absolute top-[90%] text-center text-white flex justify-center transition-all ease-in duration-200 group-hover:top-[95%] items-center z-10 w-full h-[10%] gradient-overlay group-hover:scale-110 group-hover:rounded-b-xl">
+                  <span className="font-semibold capitalize ">
+                    {imagedata.name}
+                  </span>
+                </div>
+              )}
             </div>
           </DialogTrigger>
           <DialogContent className="bg-transparent border-none place-content-center max-w-[3/4]">
@@ -49,13 +62,15 @@ const GalleryComponent = ({ images, id, heading }: Props) => {
               <X className="h-7 w-7 text-white " strokeWidth={3} />
               <span className="sr-only">Close</span>
             </DialogClose>
-            <Image
-              src={imagedata.image}
-              alt={imagedata.name}
-              className=" min-w-[550px]  max-w-[750px]"
-              width={1000}
-              height={1000}
-            />
+            <div className="w-full flex justify-center">
+              <Image
+                src={imagedata.image}
+                alt={imagedata.name}
+                className={cn(" max-w-[750px]", min || "min-w-[500px]")}
+                width={collab ? 200 : 800}
+                height={collab ? 200 : 800}
+              />
+            </div>
             <span className="font-semibold capitalize text-white text-center text-2xl">
               {imagedata.name}
             </span>

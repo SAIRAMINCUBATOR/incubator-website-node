@@ -46,6 +46,7 @@ const formSchema = z.object({
   twitter: z.string().optional(),
   instagram: z.string().optional(),
   linkedin: z.string().optional(),
+  experience: z.string().optional()
 });
 
 export const AddLead = () => {
@@ -64,6 +65,7 @@ export const AddLead = () => {
       twitter: "",
       instagram: "",
       linkedin: "",
+      experience: ""
     },
   });
 
@@ -257,6 +259,26 @@ export const AddLead = () => {
                           disabled={isLoading}
                           className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                           placeholder="Enter Member's LinkedIn Profile"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="experience"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      experience (OPTIONAL)
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          disabled={isLoading}
+                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                          placeholder="Enter Member's Experience"
                           {...field}
                         />
                       </FormControl>
