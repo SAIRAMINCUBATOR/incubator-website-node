@@ -64,7 +64,7 @@ export const Establishment = () => {
             VISION
           </h3>
           <hr className="underline border-b-[7px]  mt-[2%] w-[25%] border-blue-500 rounded-full mb-[5%]" />
-          <p className="text-base text-gray-600 text-[20.5px] md:text-ellipsis md:text-ellipsis text-justify">
+          <p className="text-base text-gray-600 text-[20.5px] md:text-ellipsis text-justify">
             To be a center of excellence that construct a dynamic and
             sustainable ecosystem for enriching Entrepreneurship Skills.
           </p>

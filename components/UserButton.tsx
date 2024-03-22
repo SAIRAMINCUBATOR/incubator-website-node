@@ -20,8 +20,7 @@ import { UserData } from "@/schema";
 
 const UserButton = ({ setClose }: { setClose?: () => void }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const { token, clearSession, isTokenExpired, role } =
-    useSession();
+  const { token, clearSession, isTokenExpired, role } = useSession();
   //@ts-ignore
   const [response, setResponse] = useState<UserData>();
   const [image, setImage] = useState<string>("");
@@ -40,8 +39,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
     } catch (error) {
       //@ts-ignore
       if (error && error.response && error.response.data) {
-        if (error.response.data == "User Not Found")
-        clearSession();
+        if (error.response.data == "User Not Found") clearSession();
       }
 
       console.error(error);
@@ -65,13 +63,12 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
     }
   }, [response]);
 
-
   useEffect(() => {
-      setIsMounted(true);
-  }, [])
-  
+    setIsMounted(true);
+  }, []);
+
   if (!isMounted) {
-      return null;
+    return null;
   }
 
   return (
@@ -94,7 +91,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
           <PopoverContent>
             <div className="w-full flex flex-col gap-3 items-center">
               <div>
-                <span>{response?.name}</span> -{" "}
+                <span>{response?.name}</span> -
                 <span className=" text-sm text-gray-400">
                   {response?.email}
                 </span>
@@ -104,8 +101,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
                   href={"/auth/addUser"}
                   className="w-full"
                   onClick={() => {
-                    if (setClose)
-                    setClose();
+                    if (setClose) setClose();
                     setOpen(false);
                   }}
                 >
@@ -122,8 +118,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
                 href={"/edit"}
                 className="w-full"
                 onClick={() => {
-                  if (setClose)
-                  setClose();
+                  if (setClose) setClose();
                   setOpen(false);
                 }}
               >
@@ -140,8 +135,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
                 href={"/auth/resetPassword"}
                 className="w-full"
                 onClick={() => {
-                  if (setClose)
-                  setClose();
+                  if (setClose) setClose();
                   setOpen(false);
                 }}
               >

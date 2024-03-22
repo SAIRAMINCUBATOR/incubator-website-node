@@ -4,7 +4,7 @@ import StartUpEdit from "@/components/editPage/StartUpEdit";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -15,10 +15,13 @@ import {
 import { ChevronRight, Menu } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import EditComponent from "@/components/editPage/EditComponent";
+import ManagementEdit from "@/components/editPage/Management";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const EditPage = () => {
   const params = useSearchParams();
   const section = params.get("section");
+  const sidebarRef = useRef(null);
   const [sheetOpen, setSheetOpen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -40,6 +43,7 @@ const EditPage = () => {
   }, [section]);
 
   function SmoothScrollLink({ href, children }) {
+    const ref = useRef(null);
     const [visible, setVisible] = useState(false);
     useEffect(() => {
       const scrollHandler = () => {
@@ -61,8 +65,21 @@ const EditPage = () => {
         document.removeEventListener("scroll", scrollHandler);
       };
     }, []);
+
+    useEffect(() => {
+      if (visible && sidebarRef.current) {
+        // Get the element you want to scroll into view
+        const element = ref.current;
+        
+        // Check if the element belongs to the specific scroll area
+        if (element.closest('.sidebar') === sidebarRef.current) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }, [visible]);
     return (
       <Link
+        ref={ref}
         href={href}
         className={
           visible
@@ -92,17 +109,27 @@ const EditPage = () => {
         <Link href={"/"}>
           <Button>Home</Button>
         </Link>
-        <SmoothScrollLink href="#mainCarousel">Main Slider</SmoothScrollLink>
-        <SmoothScrollLink href="#project">Project</SmoothScrollLink>
-        <SmoothScrollLink href="#startup">Start Ups</SmoothScrollLink>
-        <SmoothScrollLink href="#company">Company</SmoothScrollLink>
-        <SmoothScrollLink href="#lead">Team Leads</SmoothScrollLink>
-        <SmoothScrollLink href="#team">Team Members</SmoothScrollLink>
-        <SmoothScrollLink href="#mainGallery">Gallery</SmoothScrollLink>
-        <SmoothScrollLink href="#testimony">Testimonial</SmoothScrollLink>
-        <SmoothScrollLink href="#auxGallery">Gallery 2</SmoothScrollLink>
-        <SmoothScrollLink href="#collaboration">Collaboration</SmoothScrollLink>
 
+        <ScrollArea className="h-[80%] " ref={sidebarRef}>
+          <div className="flex flex-col p-3 items-center gap-5">
+            <SmoothScrollLink href="#mainCarousel">
+              Main Slider
+            </SmoothScrollLink>
+            <SmoothScrollLink href="#project">Project</SmoothScrollLink>
+            <SmoothScrollLink href="#startup">Start Ups</SmoothScrollLink>
+            <SmoothScrollLink href="#company">Company</SmoothScrollLink>
+            <SmoothScrollLink href="#lead">Team Leads</SmoothScrollLink>
+            <SmoothScrollLink href="#team">Team Members</SmoothScrollLink>
+            <SmoothScrollLink href="#mainGallery">Gallery</SmoothScrollLink>
+            <SmoothScrollLink href="#testimony">Testimonial</SmoothScrollLink>
+            <SmoothScrollLink href="#auxGallery">Gallery 2</SmoothScrollLink>
+            <SmoothScrollLink href="#collaboration">
+              Collaboration
+            </SmoothScrollLink>
+            <SmoothScrollLink href="#management">Management</SmoothScrollLink>
+          </div>
+          <ScrollBar color="rgb(156, 173, 175)" />
+        </ScrollArea>
         <div className=" bottom-2 absolute">
           <UserButton />
         </div>
@@ -126,7 +153,7 @@ const EditPage = () => {
         </SheetContent>
       </Sheet>
 
-      <div className=" lg:w-[90%] lg:ml-0 w-full flex flex-col">
+      <div className="  lg:ml-0 w-full flex flex-col">
         <EditComponent
           modelName="mainCarousel"
           addType="addMainCarousel"
@@ -189,6 +216,8 @@ const EditPage = () => {
           editType="editCollaboration"
           deleteType="deleteCollaboration"
         />
+
+        <ManagementEdit />
       </div>
     </div>
   );

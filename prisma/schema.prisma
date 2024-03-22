@@ -54,6 +54,7 @@ model User {
   Collaboration     Collaboration[]
   Category          Category[]
   Funding           Funding[]
+  Management        Management[]
 }
 
 model MainCarousel {
@@ -204,6 +205,15 @@ model Funding {
   name          String
   cin           String
   contact       String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Management {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  designation   String
+  experience    String
   addedByUserId String @db.ObjectId
   addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }

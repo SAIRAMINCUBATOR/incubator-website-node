@@ -102,7 +102,6 @@ export const Navbar = () => {
             onClick={() => setOpen(false)}
             href={"/#startups"}
           >
-            {" "}
             START UPS
           </Link>
           <Link
@@ -110,7 +109,6 @@ export const Navbar = () => {
             onClick={() => setOpen(false)}
             href={"/#gallery"}
           >
-            {" "}
             GALLERY
           </Link>
           <Link
@@ -118,7 +116,6 @@ export const Navbar = () => {
             onClick={() => setOpen(false)}
             href={"/#team"}
           >
-            {" "}
             TEAM
           </Link>
           <Link
@@ -126,7 +123,6 @@ export const Navbar = () => {
             onClick={() => setOpen(false)}
             href={"/#footer"}
           >
-            {" "}
             CONTACT
           </Link>
         </div>
@@ -246,7 +242,6 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
               href={"/#startups"}
             >
-              {" "}
               START UPS
             </Link>
             <Link
@@ -254,7 +249,6 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
               href={"/#gallery"}
             >
-              {" "}
               GALLERY
             </Link>
             <Link
@@ -262,7 +256,6 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
               href={"/#team"}
             >
-              {" "}
               TEAM
             </Link>
             <Link
@@ -270,7 +263,6 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
               href={"/#footer"}
             >
-              {" "}
               CONTACT
             </Link>
 

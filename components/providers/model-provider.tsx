@@ -16,9 +16,7 @@ import DeleteLead from "../models/Lead/Delete";
 import { AddMainGalleryModel } from "../models/mainGallery/Add";
 import { EditGallery } from "../models/mainGallery/Edit";
 import DeleteGallery from "../models/mainGallery/Delete";
-import { AddStartUp } from "../models/StartUp/Add";
 import { EditStartUp } from "../models/StartUp/Edit";
-import DeleteStartUp from "../models/StartUp/Delete";
 import { AddProject } from "../models/Project/Add";
 import { EditProject } from "../models/Project/Edit";
 import DeleteProject from "../models/Project/Delete";
@@ -31,6 +29,7 @@ import { DeleteAuxGallery } from "../models/auxGallery/Delete";
 import { AddCollaboration } from "../models/collaboration/Add";
 import { EditCollaboration } from "../models/collaboration/Edit";
 import { DeleteCollaboration } from "../models/collaboration/Delete";
+import { EditManagement } from "../models/managementTeam/Edit";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -45,35 +44,34 @@ export const ModalProvider = () => {
   return (
     <>
       <AddMainCarouselModel />
-      <EditMainCarousel/>
-      <DeleteMainCarousel/>
-      <AddTestimony/>
-      <DeleteTestimony/>
-      <EditTestimony/>
-      <AddTeam/>
-      <EditTeam/>
-      <DeleteTeam/>
-      <AddLead/>
-      <EditLead/>
-      <DeleteLead/>
-      <AddMainGalleryModel/>
-      <EditGallery/>
-      <DeleteGallery/>
-      <AddStartUp/>
-      <EditStartUp/>
-      <DeleteStartUp/>
-      <AddProject/>
-      <EditProject/>
-      <DeleteProject/>
-      <AddCompanyModel/>
-      <EditCompany/>
-      <DeleteCompany/>
-      <AddAuxGalleryComponent/>
-      <EditAuxGallery/>
-      <DeleteAuxGallery/>
-      <AddCollaboration/>
-      <EditCollaboration/>
-      <DeleteCollaboration/>
-      </>
+      <EditMainCarousel />
+      <DeleteMainCarousel />
+      <AddTestimony />
+      <DeleteTestimony />
+      <EditTestimony />
+      <AddTeam />
+      <EditTeam />
+      <DeleteTeam />
+      <AddLead />
+      <EditLead />
+      <DeleteLead />
+      <AddMainGalleryModel />
+      <EditGallery />
+      <DeleteGallery />
+      <EditStartUp />
+      <AddProject />
+      <EditProject />
+      <DeleteProject />
+      <AddCompanyModel />
+      <EditCompany />
+      <DeleteCompany />
+      <AddAuxGalleryComponent />
+      <EditAuxGallery />
+      <DeleteAuxGallery />
+      <AddCollaboration />
+      <EditCollaboration />
+      <DeleteCollaboration />
+      <EditManagement/>
+    </>
   );
 };

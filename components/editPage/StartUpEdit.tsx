@@ -21,8 +21,7 @@ const StartUpEdit = () => {
     setLoading(false);
   };
   useEffect(() => {
-    if (!isOpen)
-    getData();
+    if (!isOpen) getData();
   }, [isOpen]);
   return (
     <div
@@ -31,7 +30,6 @@ const StartUpEdit = () => {
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">StartUp</span>
-       
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
         {!loading ? (
@@ -48,7 +46,7 @@ const StartUpEdit = () => {
                     <div className="flex gap-5 justify-center">
                       <Button
                         onClick={() =>
-                          onOpen("editStartUp", { startup: datum })
+                          onOpen("editManagement", { startup: datum })
                         }
                         variant={"ghost"}
                         className="bg-green-400 w-[100px] text-white shadow-md"
@@ -56,7 +54,7 @@ const StartUpEdit = () => {
                         <Pencil
                           className="h-4 w-4 mr-2 fill-green-800"
                           stroke="false"
-                        />{" "}
+                        />
                         Edit
                       </Button>
                       {/* <Button
@@ -69,7 +67,7 @@ const StartUpEdit = () => {
                         <Trash
                           className="h-5 w-5 mr-2 text-white fill-red-800"
                           stroke="false"
-                        />{" "}
+                        />
                         Delete
                       </Button> */}
                     </div>
@@ -86,15 +84,13 @@ const StartUpEdit = () => {
           <div className="flex gap-10 py-4 items-start w-full overflow-hidden justify-evenly">
             <div className="flex  flex-col gap-5  ">
               <Skeleton className="h-[55px] w-[200px] rounded-xl bg-gray-400" />
-              <div className="flex items-start h-full gap-2 justify-between">
-                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-center">
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>
             <div className="flex flex-col gap-5 ">
               <Skeleton className="h-[55px] w-[200px] rounded-xl bg-gray-400" />
-              <div className="flex items-start h-full gap-2 justify-between">
-                <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
+              <div className="flex items-start h-full gap-2 justify-center">
                 <Skeleton className="h-[40px] w-[90px] rounded-md bg-gray-400" />
               </div>
             </div>

@@ -18,7 +18,7 @@ interface Props {
     | "project"
     | "auxGallery"
     | "startup"
-    | "collaboration"
+    | "collaboration";
   addType: ModalType;
   editType: ModalType;
   deleteType: ModalType;
@@ -103,7 +103,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
                         <Pencil
                           className="h-4 w-4 mr-2 fill-green-800"
                           stroke="false"
-                        />{" "}
+                        />
                         Edit
                       </Button>
                       <Button
@@ -116,7 +116,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
                         <Trash
                           className="h-5 w-5 mr-2 text-white fill-red-800"
                           stroke="false"
-                        />{" "}
+                        />
                         Delete
                       </Button>
                     </div>

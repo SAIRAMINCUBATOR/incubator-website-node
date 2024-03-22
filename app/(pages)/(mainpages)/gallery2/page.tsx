@@ -116,7 +116,7 @@ const GalleryPage = () => {
             variant={"ghost"}
             className="bg-green-400 w-[100px] text-white shadow-md"
           >
-            <Pencil className="h-4 w-4 mr-2 fill-green-800" stroke="false" />{" "}
+            <Pencil className="h-4 w-4 mr-2 fill-green-800" stroke="false" />
             Edit
           </Button>
         </Link>
