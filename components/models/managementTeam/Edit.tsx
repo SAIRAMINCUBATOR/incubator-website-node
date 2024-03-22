@@ -1,9 +1,6 @@
 "use client";
 
 import axios from "axios";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 
 import {
   Dialog,
@@ -12,14 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+
 import {
   Table,
   TableBody,
@@ -188,7 +178,8 @@ export const EditManagement = () => {
             <ScrollArea className="self-center m-2  h-[300px] w-full">
               <Table onPaste={handlePaste} ref={ref} className="relative">
                 <TableCaption>
-                  Paste the table directly to populate the form</TableCaption>
+                  Paste the table directly to populate the form
+                  </TableCaption>
                 <TableHeader className="sticky top-0">
                   <TableRow>
                     <TableHead className="border-0">S. No. </TableHead>

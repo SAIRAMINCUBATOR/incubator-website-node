@@ -24,7 +24,7 @@ const DeleteGallery = () => {
   const { isOpen, type, data, onClose } = useModal();
   const { token, isTokenExpired } = useSession();
   const isModalOpen = isOpen && type === "deleteMainGallery";
-  const { mainGallery } = data;
+  const { mainGallery } = data; 
   const onSubmit = async () => {
     try {
       if (!token && isTokenExpired()) {

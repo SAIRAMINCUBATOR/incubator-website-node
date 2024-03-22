@@ -101,7 +101,7 @@ export async function DELETE(
       return new NextResponse("ID is missing", { status: 404 });
     }
 
-    await db.startUp.delete({
+    await db.management.delete({
       where: {
         id,
       },

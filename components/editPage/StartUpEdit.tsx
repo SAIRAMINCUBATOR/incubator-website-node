@@ -46,7 +46,7 @@ const StartUpEdit = () => {
                     <div className="flex gap-5 justify-center">
                       <Button
                         onClick={() =>
-                          onOpen("editManagement", { startup: datum })
+                          onOpen("editStartUp", { startup: datum })
                         }
                         variant={"ghost"}
                         className="bg-green-400 w-[100px] text-white shadow-md"
