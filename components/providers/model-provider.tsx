@@ -30,6 +30,15 @@ import { AddCollaboration } from "../models/collaboration/Add";
 import { EditCollaboration } from "../models/collaboration/Edit";
 import { DeleteCollaboration } from "../models/collaboration/Delete";
 import { EditManagement } from "../models/managementTeam/Edit";
+import DeleteManagement from "../models/managementTeam/Delete";
+import { EditMentors } from "../models/mentorsTeam/Edit";
+import DeleteMentors from "../models/mentorsTeam/Delete";
+import { EditAdvisoryBoard } from "../models/advisoryBoardTeam/Edit";
+import DeleteAdvisoryBoard from "../models/advisoryBoardTeam/Delete";
+import { EditIPR } from "../models/ipr/Edit";
+import DeleteIPR from "../models/ipr/Delete";
+import { EditFunding } from "../models/fundings/Edit";
+import DeleteFunding from "../models/fundings/Delete";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -72,6 +81,15 @@ export const ModalProvider = () => {
       <EditCollaboration />
       <DeleteCollaboration />
       <EditManagement/>
+      <DeleteManagement/>
+      <EditMentors/>
+      <DeleteMentors/>
+      <EditAdvisoryBoard/>
+      <DeleteAdvisoryBoard/>
+      <EditIPR/>
+      <DeleteIPR/>
+      <EditFunding/>
+      <DeleteFunding/>
     </>
   );
 };

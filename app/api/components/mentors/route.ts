@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getUser } from "@/lib/get-user";
-import { Management, MemberRole } from "@prisma/client";
+import { Mentors, MemberRole } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 // export async function POST(req: NextRequest, res: NextResponse) {
@@ -32,10 +32,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const response = await db.management.findMany();
+    const response = await db.mentors.findMany();
     return NextResponse.json({ response });
   } catch (error) {
-    console.log("MANAGEMENT GET", error);
+    console.log("MENTORS GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -48,29 +48,31 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const { management } = await req.json();
-    if (!management) {
-      return new NextResponse("MANAGEMENT List is missing", { status: 404 });
+    const { mentors } = await req.json();
+    if (!mentors) {
+      return new NextResponse("MENTORS List is missing", { status: 404 });
     }
 
-    management.map(async (member: Management, index: number) => {
+    mentors.map(async (member: Mentors, index: number) => {
       if (member.id != null) {
-        await db.management.update({
+        await db.mentors.update({
           where: {
             id: member.id,
           },
           data: {
             name: member.name,
+            organization:member.organization,
             designation: member.designation,
-            experience: member.experience,
+            expertise: member.expertise,
           },
         });
       } else {
-        await db.management.createMany({
+        await db.mentors.createMany({
           data: {
             name: member.name,
+            organization:member.organization,
             designation: member.designation,
-            experience: member.experience,
+            expertise: member.expertise,
             addedByUserId: user.id,
           },
         });
@@ -79,7 +81,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json("Updated");
   } catch (error) {
-    console.log("Management PUT", error);
+    console.log("Mentors PUT", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -101,14 +103,14 @@ export async function DELETE(
       return new NextResponse("ID is missing", { status: 404 });
     }
 
-    await db.management.delete({
+    await db.mentors.delete({
       where: {
         id,
       },
     });
     return NextResponse.json("Deleted");
   } catch (error) {
-    console.log("Management DELETE", error);
+    console.log("Mentors DELETE", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

@@ -29,22 +29,22 @@ import { toast } from "sonner";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AlertCircle, Trash } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Management } from "@prisma/client";
+import { IPR } from "@prisma/client";
 
-export const EditManagement = () => {
+export const EditIPR = () => {
   const ref = useRef(null);
-  const [management, setManagement] = useState<Management[]>();
+  const [ipr, setIPR] = useState<IPR[]>();
   const { isOpen, onClose, type,onOpen } = useModal();
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
   const [highlightedFields, setHighlightedFields] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const isModalOpen = isOpen && type === "editManagement";
+  const isModalOpen = isOpen && type === "editIPR";
 
   const getData = async () => {
     setIsLoading(true);
-    const response = await axios.get("/api/components/management");
-    setManagement(response.data.response);
+    const response = await axios.get("/api/components/ipr");
+    setIPR(response.data.response);
     setIsLoading(false);
   };
 
@@ -54,28 +54,29 @@ export const EditManagement = () => {
 
   useEffect(() => {
     setHighlightedFields([]);
-    management &&
-      management.map((obj, index) => {
+    ipr &&
+      ipr.map((obj, index) => {
         if (!obj.name) {
           setHighlightedFields((prev) => [
             ...prev,
             { index, fieldName: "name" },
           ]);
         }
+        if (!obj.jobs) {
+            setHighlightedFields((prev) => [
+              ...prev,
+              { index, fieldName: "jobs" },
+            ]);
+          }
         if (!obj.designation) {
           setHighlightedFields((prev) => [
             ...prev,
             { index, fieldName: "designation" },
           ]);
         }
-        if (!obj.experience) {
-          setHighlightedFields((prev) => [
-            ...prev,
-            { index, fieldName: "experience" },
-          ]);
-        }
+        
       });
-  }, [management]);
+  }, [ipr]);
 
   const onSubmit = async (e) => {
     try {
@@ -90,8 +91,8 @@ export const EditManagement = () => {
       }
       setIsLoading(true);
       await axios.put(
-        "/api/components/management",
-        { management },
+        "/api/components/ipr",
+        { ipr },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -123,26 +124,26 @@ export const EditManagement = () => {
     const list = strippedData.map((data) => ({
       id: null,
       name: data[data.length == 4 ? 1 : 0],
-      designation: data[data.length == 4 ? 2 : 1],
-      experience: data[data.length == 4 ? 3 : 2],
+      jobs: data[data.length == 4 ? 2 : 1],
+      designation: data[data.length == 4 ? 3 : 2],
       addedByUserId: null,
     }));
 
-    const newList = [...management];
+    const newList = [...ipr];
     newList.pop();
-    setManagement([...newList, ...list]);
+    setIPR([...newList, ...list]);
   };
 
   const handleAddRow = (e) => {
     e.preventDefault();
     // Add new startup to the list
-    setManagement([
-      ...(management || []),
+    setIPR([
+      ...(ipr || []),
       {
         id: null,
         name: "",
+        jobs: [],
         designation: "",
-        experience: "",
         addedByUserId: null,
       },
     ]);
@@ -155,9 +156,9 @@ export const EditManagement = () => {
     }, 200);
   };
   const handleOnChange = (val: string, index: number, fieldName: string) => {
-    let value = [...management];
+    let value = [...ipr];
     value[index][fieldName] = val;
-    setManagement(value);
+    setIPR(value);
   };
 
   const handleClose = () => {
@@ -169,7 +170,7 @@ export const EditManagement = () => {
       <DialogContent className="bg-white text-black p-0 overflow-auto min-w-fit">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Management Team
+            Edit IPR Team
           </DialogTitle>
         </DialogHeader>
 
@@ -184,14 +185,15 @@ export const EditManagement = () => {
                   <TableRow>
                     <TableHead className="border-0">S. No. </TableHead>
                     <TableHead className="border-0">Name</TableHead>
+                    <TableHead className="border-0">Jobs</TableHead>
                     <TableHead className="border-0">Designation</TableHead>
-                    <TableHead className="border-0">Experience</TableHead>
+                    
                     <TableHead className="border-0">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {management &&
-                    management.map((team, index) => (
+                  {ipr &&
+                    ipr.map((team, index) => (
                       <TableRow key={index}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>
@@ -208,6 +210,28 @@ export const EditManagement = () => {
                             }
                             onChange={(e) =>
                               handleOnChange(e.target.value, index, "name")
+                            }
+                            disabled={isLoading}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            value={team.jobs}
+                            className={
+                              highlightedFields.some(
+                                (field) =>
+                                  field.index === index &&
+                                  field.fieldName === "jobs"
+                              )
+                                ? "border-2 border-red-700"
+                                : ""
+                            }
+                            onChange={(e) =>
+                              handleOnChange(
+                                e.target.value,
+                                index,
+                                "jobs"
+                              )
                             }
                             disabled={isLoading}
                           />
@@ -234,39 +258,18 @@ export const EditManagement = () => {
                             disabled={isLoading}
                           />
                         </TableCell>
-                        <TableCell>
-                          <Input
-                            value={team.experience}
-                            className={
-                              highlightedFields.some(
-                                (field) =>
-                                  field.index === index &&
-                                  field.fieldName === "experience"
-                              )
-                                ? "border-2 border-red-700"
-                                : ""
-                            }
-                            onChange={(e) =>
-                              handleOnChange(
-                                e.target.value,
-                                index,
-                                "experience"
-                              )
-                            }
-                            disabled={isLoading}
-                          />
-                        </TableCell>
+                        
                         <TableCell>
                           <Button
                             disabled={isLoading}
                             className="w-fit"
                             variant="ghost"
                             onClick={(e) => {
-                              onOpen("deleteManagement", {management: team  })
+                              onOpen("deleteIPR", {iPR: team  })
                               e.preventDefault();
-                              const updatedList = [...management];
+                              const updatedList = [...ipr];
                               updatedList.splice(index, 1);
-                              setManagement(updatedList);
+                              setIPR(updatedList);
                             }}
                           >
                             <Trash className=" text-red-500 " />

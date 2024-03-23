@@ -48,7 +48,7 @@ model User {
   Company           Company[]
   MainGallery       MainGallery[]
   AuxilaryGallery   AuxilaryGallery[]
-  Mentor            Mentor[]
+  Mentor            Mentors[]
   AdvisoryBoard     AdvisoryBoard[]
   IPR               IPR[]
   Collaboration     Collaboration[]
@@ -161,7 +161,7 @@ model Project {
   addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
-model Mentor {
+model Mentors {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   organization  String

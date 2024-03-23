@@ -29,22 +29,22 @@ import { toast } from "sonner";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AlertCircle, Trash } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Management } from "@prisma/client";
+import { AdvisoryBoard } from "@prisma/client";
 
-export const EditManagement = () => {
+export const EditAdvisoryBoard = () => {
   const ref = useRef(null);
-  const [management, setManagement] = useState<Management[]>();
+  const [advisoryBoard, setAdvisoryBoard] = useState<AdvisoryBoard[]>();
   const { isOpen, onClose, type,onOpen } = useModal();
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
   const [highlightedFields, setHighlightedFields] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const isModalOpen = isOpen && type === "editManagement";
+  const isModalOpen = isOpen && type === "editAdvisoryBoard";
 
   const getData = async () => {
     setIsLoading(true);
-    const response = await axios.get("/api/components/management");
-    setManagement(response.data.response);
+    const response = await axios.get("/api/components/advisoryBoard");
+    setAdvisoryBoard(response.data.response);
     setIsLoading(false);
   };
 
@@ -54,28 +54,34 @@ export const EditManagement = () => {
 
   useEffect(() => {
     setHighlightedFields([]);
-    management &&
-      management.map((obj, index) => {
+    advisoryBoard &&
+      advisoryBoard.map((obj, index) => {
         if (!obj.name) {
           setHighlightedFields((prev) => [
             ...prev,
             { index, fieldName: "name" },
           ]);
         }
+        if (!obj.organization) {
+            setHighlightedFields((prev) => [
+              ...prev,
+              { index, fieldName: "organization" },
+            ]);
+          }
         if (!obj.designation) {
           setHighlightedFields((prev) => [
             ...prev,
             { index, fieldName: "designation" },
           ]);
         }
-        if (!obj.experience) {
+        if (!obj.expertise) {
           setHighlightedFields((prev) => [
             ...prev,
-            { index, fieldName: "experience" },
+            { index, fieldName: "expertise" },
           ]);
         }
       });
-  }, [management]);
+  }, [advisoryBoard]);
 
   const onSubmit = async (e) => {
     try {
@@ -90,8 +96,8 @@ export const EditManagement = () => {
       }
       setIsLoading(true);
       await axios.put(
-        "/api/components/management",
-        { management },
+        "/api/components/advisoryBoard",
+        { advisoryBoard },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -122,27 +128,29 @@ export const EditManagement = () => {
       .map((text: string) => text.split("\t"));
     const list = strippedData.map((data) => ({
       id: null,
-      name: data[data.length == 4 ? 1 : 0],
-      designation: data[data.length == 4 ? 2 : 1],
-      experience: data[data.length == 4 ? 3 : 2],
+      name: data[data.length == 5 ? 1 : 0],
+      organization: data[data.length == 5 ? 2 : 1],
+      designation: data[data.length == 5 ? 3 : 2],
+      expertise: data[data.length == 5 ? 4 : 3],
       addedByUserId: null,
     }));
 
-    const newList = [...management];
+    const newList = [...advisoryBoard];
     newList.pop();
-    setManagement([...newList, ...list]);
+    setAdvisoryBoard([...newList, ...list]);
   };
 
   const handleAddRow = (e) => {
     e.preventDefault();
     // Add new startup to the list
-    setManagement([
-      ...(management || []),
+    setAdvisoryBoard([
+      ...(advisoryBoard || []),
       {
         id: null,
         name: "",
         designation: "",
-        experience: "",
+        organization:"",
+        expertise: "",
         addedByUserId: null,
       },
     ]);
@@ -155,9 +163,9 @@ export const EditManagement = () => {
     }, 200);
   };
   const handleOnChange = (val: string, index: number, fieldName: string) => {
-    let value = [...management];
+    let value = [...advisoryBoard];
     value[index][fieldName] = val;
-    setManagement(value);
+    setAdvisoryBoard(value);
   };
 
   const handleClose = () => {
@@ -169,7 +177,7 @@ export const EditManagement = () => {
       <DialogContent className="bg-white text-black p-0 overflow-auto min-w-fit">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Management Team
+            Edit AdvisoryBoard Team
           </DialogTitle>
         </DialogHeader>
 
@@ -184,14 +192,15 @@ export const EditManagement = () => {
                   <TableRow>
                     <TableHead className="border-0">S. No. </TableHead>
                     <TableHead className="border-0">Name</TableHead>
+                    <TableHead className="border-0">Organization</TableHead>
                     <TableHead className="border-0">Designation</TableHead>
-                    <TableHead className="border-0">Experience</TableHead>
+                    <TableHead className="border-0">Expertise</TableHead>
                     <TableHead className="border-0">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {management &&
-                    management.map((team, index) => (
+                  {advisoryBoard &&
+                    advisoryBoard.map((team, index) => (
                       <TableRow key={index}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>
@@ -208,6 +217,28 @@ export const EditManagement = () => {
                             }
                             onChange={(e) =>
                               handleOnChange(e.target.value, index, "name")
+                            }
+                            disabled={isLoading}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Input
+                            value={team.organization}
+                            className={
+                              highlightedFields.some(
+                                (field) =>
+                                  field.index === index &&
+                                  field.fieldName === "organization"
+                              )
+                                ? "border-2 border-red-700"
+                                : ""
+                            }
+                            onChange={(e) =>
+                              handleOnChange(
+                                e.target.value,
+                                index,
+                                "organization"
+                              )
                             }
                             disabled={isLoading}
                           />
@@ -236,12 +267,12 @@ export const EditManagement = () => {
                         </TableCell>
                         <TableCell>
                           <Input
-                            value={team.experience}
+                            value={team.expertise}
                             className={
                               highlightedFields.some(
                                 (field) =>
                                   field.index === index &&
-                                  field.fieldName === "experience"
+                                  field.fieldName === "expertise"
                               )
                                 ? "border-2 border-red-700"
                                 : ""
@@ -250,7 +281,7 @@ export const EditManagement = () => {
                               handleOnChange(
                                 e.target.value,
                                 index,
-                                "experience"
+                                "expertise"
                               )
                             }
                             disabled={isLoading}
@@ -262,11 +293,11 @@ export const EditManagement = () => {
                             className="w-fit"
                             variant="ghost"
                             onClick={(e) => {
-                              onOpen("deleteManagement", {management: team  })
+                              onOpen("deleteAdvisoryBoard", {advisoryBoard: team  })
                               e.preventDefault();
-                              const updatedList = [...management];
+                              const updatedList = [...advisoryBoard];
                               updatedList.splice(index, 1);
-                              setManagement(updatedList);
+                              setAdvisoryBoard(updatedList);
                             }}
                           >
                             <Trash className=" text-red-500 " />

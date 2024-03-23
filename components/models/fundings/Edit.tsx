@@ -29,22 +29,22 @@ import { toast } from "sonner";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AlertCircle, Trash } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Management } from "@prisma/client";
+import { Funding } from "@prisma/client";
 
-export const EditManagement = () => {
+export const EditFunding = () => {
   const ref = useRef(null);
-  const [management, setManagement] = useState<Management[]>();
+  const [funding, setFunding] = useState<Funding[]>();
   const { isOpen, onClose, type,onOpen } = useModal();
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
   const [highlightedFields, setHighlightedFields] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const isModalOpen = isOpen && type === "editManagement";
+  const isModalOpen = isOpen && type === "editFunding";
 
   const getData = async () => {
     setIsLoading(true);
-    const response = await axios.get("/api/components/management");
-    setManagement(response.data.response);
+    const response = await axios.get("/api/components/funding");
+    setFunding(response.data.response);
     setIsLoading(false);
   };
 
@@ -54,28 +54,28 @@ export const EditManagement = () => {
 
   useEffect(() => {
     setHighlightedFields([]);
-    management &&
-      management.map((obj, index) => {
+    funding &&
+      funding.map((obj, index) => {
         if (!obj.name) {
           setHighlightedFields((prev) => [
             ...prev,
             { index, fieldName: "name" },
           ]);
         }
-        if (!obj.designation) {
+        if (!obj.cin) {
           setHighlightedFields((prev) => [
             ...prev,
-            { index, fieldName: "designation" },
+            { index, fieldName: "cin" },
           ]);
         }
-        if (!obj.experience) {
+        if (!obj.contact) {
           setHighlightedFields((prev) => [
             ...prev,
-            { index, fieldName: "experience" },
+            { index, fieldName: "contact" },
           ]);
         }
       });
-  }, [management]);
+  }, [funding]);
 
   const onSubmit = async (e) => {
     try {
@@ -90,8 +90,8 @@ export const EditManagement = () => {
       }
       setIsLoading(true);
       await axios.put(
-        "/api/components/management",
-        { management },
+        "/api/components/funding",
+        { funding },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -123,26 +123,26 @@ export const EditManagement = () => {
     const list = strippedData.map((data) => ({
       id: null,
       name: data[data.length == 4 ? 1 : 0],
-      designation: data[data.length == 4 ? 2 : 1],
-      experience: data[data.length == 4 ? 3 : 2],
+      cin: data[data.length == 4 ? 2 : 1],
+      contact: data[data.length == 4 ? 3 : 2],
       addedByUserId: null,
     }));
 
-    const newList = [...management];
+    const newList = [...funding];
     newList.pop();
-    setManagement([...newList, ...list]);
+    setFunding([...newList, ...list]);
   };
 
   const handleAddRow = (e) => {
     e.preventDefault();
     // Add new startup to the list
-    setManagement([
-      ...(management || []),
+    setFunding([
+      ...(funding || []),
       {
         id: null,
         name: "",
-        designation: "",
-        experience: "",
+        cin: "",
+        contact: "",
         addedByUserId: null,
       },
     ]);
@@ -155,9 +155,9 @@ export const EditManagement = () => {
     }, 200);
   };
   const handleOnChange = (val: string, index: number, fieldName: string) => {
-    let value = [...management];
+    let value = [...funding];
     value[index][fieldName] = val;
-    setManagement(value);
+    setFunding(value);
   };
 
   const handleClose = () => {
@@ -169,7 +169,7 @@ export const EditManagement = () => {
       <DialogContent className="bg-white text-black p-0 overflow-auto min-w-fit">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Management Team
+            Edit Funding Team
           </DialogTitle>
         </DialogHeader>
 
@@ -184,14 +184,14 @@ export const EditManagement = () => {
                   <TableRow>
                     <TableHead className="border-0">S. No. </TableHead>
                     <TableHead className="border-0">Name</TableHead>
-                    <TableHead className="border-0">Designation</TableHead>
-                    <TableHead className="border-0">Experience</TableHead>
+                    <TableHead className="border-0">CORPORATE IDENTIFICATION NUMBER (CIN) / REGISTRATION NUMBER</TableHead>
+                    <TableHead className="border-0">CONTACT PERSON NAME (FOUNDER / COFOUNDER / CEO / DIRECTOR)</TableHead>
                     <TableHead className="border-0">Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {management &&
-                    management.map((team, index) => (
+                  {funding &&
+                    funding.map((team, index) => (
                       <TableRow key={index}>
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>
@@ -214,12 +214,12 @@ export const EditManagement = () => {
                         </TableCell>
                         <TableCell>
                           <Input
-                            value={team.designation}
+                            value={team.cin}
                             className={
                               highlightedFields.some(
                                 (field) =>
                                   field.index === index &&
-                                  field.fieldName === "designation"
+                                  field.fieldName === "cin"
                               )
                                 ? "border-2 border-red-700"
                                 : ""
@@ -228,7 +228,7 @@ export const EditManagement = () => {
                               handleOnChange(
                                 e.target.value,
                                 index,
-                                "designation"
+                                "cin"
                               )
                             }
                             disabled={isLoading}
@@ -236,12 +236,12 @@ export const EditManagement = () => {
                         </TableCell>
                         <TableCell>
                           <Input
-                            value={team.experience}
+                            value={team.contact}
                             className={
                               highlightedFields.some(
                                 (field) =>
                                   field.index === index &&
-                                  field.fieldName === "experience"
+                                  field.fieldName === "contact"
                               )
                                 ? "border-2 border-red-700"
                                 : ""
@@ -250,7 +250,7 @@ export const EditManagement = () => {
                               handleOnChange(
                                 e.target.value,
                                 index,
-                                "experience"
+                                "contact"
                               )
                             }
                             disabled={isLoading}
@@ -262,11 +262,11 @@ export const EditManagement = () => {
                             className="w-fit"
                             variant="ghost"
                             onClick={(e) => {
-                              onOpen("deleteManagement", {management: team  })
+                              onOpen("deleteFunding", {funding: team  })
                               e.preventDefault();
-                              const updatedList = [...management];
+                              const updatedList = [...funding];
                               updatedList.splice(index, 1);
-                              setManagement(updatedList);
+                              setFunding(updatedList);
                             }}
                           >
                             <Trash className=" text-red-500 " />

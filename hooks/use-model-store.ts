@@ -10,6 +10,10 @@ import {
   AuxilaryGallery,
   Collaboration,
   Management,
+  Mentors,
+  AdvisoryBoard,
+  IPR,
+  Funding,
 } from "@prisma/client";
 import { create } from "zustand";
 
@@ -43,7 +47,17 @@ export type ModalType =
   | "addCollaboration"
   | "editCollaboration"
   | "deleteCollaboration"
-  | "editManagement";
+  | "editManagement"
+  | "deleteManagement"
+  | "editMentors"
+  | "deleteMentors"
+  | "editAdvisoryBoard"
+  | "deleteAdvisoryBoard"
+  | "editIPR"
+  | "deleteIPR"
+  | "editFunding"
+  | "deleteFunding"
+  ;
 
 interface ModalData {
   mainCarousel?: MainCarousel;
@@ -57,6 +71,10 @@ interface ModalData {
   company?: Company;
   collaboration?: Collaboration;
   management?: Management;
+  mentors?:Mentors
+  advisoryBoard?:AdvisoryBoard
+  iPR?:IPR
+  funding?:Funding
 }
 
 interface ModalStore {

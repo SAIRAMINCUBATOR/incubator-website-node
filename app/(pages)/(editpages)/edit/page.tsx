@@ -17,6 +17,10 @@ import { useSearchParams } from "next/navigation";
 import EditComponent from "@/components/editPage/EditComponent";
 import ManagementEdit from "@/components/editPage/Management";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import MentorsEdit from "@/components/editPage/Mentors";
+import AdvisoryBoardEdit from "@/components/editPage/AdvisoryBoard";
+import IPREdit from "@/components/editPage/IPR";
+import FundingEdit from "@/components/editPage/Funding";
 
 const EditPage = () => {
   const params = useSearchParams();
@@ -218,6 +222,10 @@ const EditPage = () => {
         />
 
         <ManagementEdit />
+        <MentorsEdit/>
+        <AdvisoryBoardEdit/>
+        <IPREdit/>
+        <FundingEdit/>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { getUser } from "@/lib/get-user";
-import { Management, MemberRole } from "@prisma/client";
+import { IPR, MemberRole } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 // export async function POST(req: NextRequest, res: NextResponse) {
@@ -32,10 +32,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const response = await db.management.findMany();
+    const response = await db.iPR.findMany();
     return NextResponse.json({ response });
   } catch (error) {
-    console.log("MANAGEMENT GET", error);
+    console.log("IPR GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -48,29 +48,29 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const { management } = await req.json();
-    if (!management) {
-      return new NextResponse("MANAGEMENT List is missing", { status: 404 });
+    const { ipr } = await req.json();
+    if (!ipr) {
+      return new NextResponse("IPR List is missing", { status: 404 });
     }
 
-    management.map(async (member: Management, index: number) => {
+    ipr.map(async (member: IPR, index: number) => {
       if (member.id != null) {
-        await db.management.update({
+        await db.iPR.update({
           where: {
             id: member.id,
           },
           data: {
             name: member.name,
+            jobs: member.jobs,
             designation: member.designation,
-            experience: member.experience,
           },
         });
       } else {
-        await db.management.createMany({
+        await db.iPR.createMany({
           data: {
             name: member.name,
+            jobs: member.jobs,
             designation: member.designation,
-            experience: member.experience,
             addedByUserId: user.id,
           },
         });
@@ -79,7 +79,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json("Updated");
   } catch (error) {
-    console.log("Management PUT", error);
+    console.log("Ipr PUT", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -101,14 +101,14 @@ export async function DELETE(
       return new NextResponse("ID is missing", { status: 404 });
     }
 
-    await db.management.delete({
+    await db.iPR.delete({
       where: {
         id,
       },
     });
     return NextResponse.json("Deleted");
   } catch (error) {
-    console.log("Management DELETE", error);
+    console.log("Ipr DELETE", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
