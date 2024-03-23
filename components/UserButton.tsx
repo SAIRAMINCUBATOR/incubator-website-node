@@ -20,7 +20,7 @@ import { UserData } from "@/schema";
 
 const UserButton = ({ setClose }: { setClose?: () => void }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const { token, clearSession, isTokenExpired, role } = useSession();
+  const { token, clearSession, role } = useSession();
   //@ts-ignore
   const [response, setResponse] = useState<UserData>();
   const [image, setImage] = useState<string>("");
@@ -28,7 +28,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
   const router = useRouter();
 
   const getData = async () => {
-    // console.log(token);
+    console.log("refresh");
     try {
       const response = await axios.get("/api/auth/getUser", {
         headers: {
@@ -46,6 +46,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
     }
   };
   useEffect(() => {
+    // console.log("refreshed")
     if (token) getData();
   }, [token]);
 

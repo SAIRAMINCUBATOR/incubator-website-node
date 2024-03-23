@@ -17,16 +17,15 @@ import { useSearchParams } from "next/navigation";
 import EditComponent from "@/components/editPage/EditComponent";
 import ManagementEdit from "@/components/editPage/Management";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import MentorsEdit from "@/components/editPage/Mentors";
-import AdvisoryBoardEdit from "@/components/editPage/AdvisoryBoard";
 import IPREdit from "@/components/editPage/IPR";
 import FundingEdit from "@/components/editPage/Funding";
+import { cn } from "@/lib/utils";
 
 const EditPage = () => {
   const params = useSearchParams();
   const section = params.get("section");
-  const sidebarRef = useRef(null);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [modelType, setModelType] = useState("mainCarousel");
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 1024) setSheetOpen(false);
@@ -34,76 +33,28 @@ const EditPage = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const scrollToSection = (id: string) => {
-    if (id) {
-      const section = document.getElementById(id);
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   useEffect(() => {
-    const timer = setTimeout(() => scrollToSection(section), 1000);
-    return () => clearTimeout(timer);
+    if (section) setModelType(section);
   }, [section]);
 
   function SmoothScrollLink({ href, children }) {
-    const ref = useRef(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-      const scrollHandler = () => {
-        const element = document.getElementById(href.split("#")[1]);
-        if (element) {
-          const elementRect = element.getBoundingClientRect();
-
-          const isElementInScrollView =
-            elementRect.bottom > 200 && elementRect.top < 200;
-          setVisible(isElementInScrollView);
-        }
-      };
-
-      document.addEventListener("scroll", scrollHandler);
-
-      scrollHandler();
-
-      return () => {
-        document.removeEventListener("scroll", scrollHandler);
-      };
-    }, []);
-
-    useEffect(() => {
-      if (visible && sidebarRef.current) {
-        // Get the element you want to scroll into view
-        const element = ref.current;
-        
-        // Check if the element belongs to the specific scroll area
-        if (element.closest('.sidebar') === sidebarRef.current) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }, [visible]);
     return (
-      <Link
-        ref={ref}
-        href={href}
-        className={
-          visible
-            ? " underline bg-gray-400 rounded-xl transition-all duration-150 ease-in"
-            : ""
-        }
+      <Button
+        variant={"ghost"}
+        className={cn(
+          "text-xl w-full p-0 m-0 transition-all duration-200 ease-in",
+          modelType == href && "bg-gray-500/50"
+        )}
+        onClick={(e) => {
+          e.preventDefault();
+
+          setModelType(href);
+          // setSheetOpen(false);
+        }}
       >
-        <Button
-          variant={"link"}
-          className="text-xl "
-          onClick={(e) => {
-            e.preventDefault(); // Prevent default link behavior
-            const sectionId = href.split("#")[1]; // Extract section ID from href
-            scrollToSection(sectionId); // Scroll to the section
-            setSheetOpen(false);
-          }}
-        >
-          {children}
-        </Button>
-      </Link>
+        {children}
+      </Button>
     );
   }
 
@@ -114,26 +65,22 @@ const EditPage = () => {
           <Button>Home</Button>
         </Link>
 
-        <ScrollArea className="h-[80%] " ref={sidebarRef}>
-          <div className="flex flex-col p-3 items-center gap-5">
-            <SmoothScrollLink href="#mainCarousel">
-              Main Slider
-            </SmoothScrollLink>
-            <SmoothScrollLink href="#project">Project</SmoothScrollLink>
-            <SmoothScrollLink href="#startup">Start Ups</SmoothScrollLink>
-            <SmoothScrollLink href="#company">Company</SmoothScrollLink>
-            <SmoothScrollLink href="#lead">Team Leads</SmoothScrollLink>
-            <SmoothScrollLink href="#team">Team Members</SmoothScrollLink>
-            <SmoothScrollLink href="#mainGallery">Gallery</SmoothScrollLink>
-            <SmoothScrollLink href="#testimony">Testimonial</SmoothScrollLink>
-            <SmoothScrollLink href="#auxGallery">Gallery 2</SmoothScrollLink>
-            <SmoothScrollLink href="#collaboration">
-              Collaboration
-            </SmoothScrollLink>
-            <SmoothScrollLink href="#management">Management</SmoothScrollLink>
-          </div>
-          <ScrollBar color="rgb(156, 173, 175)" />
-        </ScrollArea>
+        <div className="flex flex-col p-3 items-center gap-2">
+          <SmoothScrollLink href="mainCarousel">Main Slider</SmoothScrollLink>
+          <SmoothScrollLink href="project">Project</SmoothScrollLink>
+          <SmoothScrollLink href="startup">Start Ups</SmoothScrollLink>
+          <SmoothScrollLink href="company">Company</SmoothScrollLink>
+          <SmoothScrollLink href="team">Team Members</SmoothScrollLink>
+          <SmoothScrollLink href="mainGallery">Gallery</SmoothScrollLink>
+          <SmoothScrollLink href="testimony">Testimonial</SmoothScrollLink>
+          <SmoothScrollLink href="auxGallery">Gallery 2</SmoothScrollLink>
+          <SmoothScrollLink href="collaboration">
+            Collaboration
+          </SmoothScrollLink>
+          <SmoothScrollLink href="management">Management</SmoothScrollLink>
+          <SmoothScrollLink href="ipr">IPR</SmoothScrollLink>
+          <SmoothScrollLink href="funding">Funding</SmoothScrollLink>
+        </div>
         <div className=" bottom-2 absolute">
           <UserButton />
         </div>
@@ -163,20 +110,23 @@ const EditPage = () => {
           addType="addMainCarousel"
           editType="editMainCarousel"
           deleteType="deleteMainCarousel"
+          editModelType={modelType}
         />
         <EditComponent
           modelName="project"
           addType="addProject"
           editType="editProject"
           deleteType="deleteProject"
+          editModelType={modelType}
         />
-        <StartUpEdit />
+        <StartUpEdit editModelType={modelType} />
 
         <EditComponent
           modelName="company"
           addType="addCompany"
           editType="editCompany"
           deleteType="deleteCompany"
+          editModelType={modelType}
         />
 
         <EditComponent
@@ -184,6 +134,7 @@ const EditPage = () => {
           addType="addLead"
           editType="editLead"
           deleteType="deleteLead"
+          editModelType={modelType}
         />
 
         <EditComponent
@@ -191,6 +142,7 @@ const EditPage = () => {
           addType="addTeam"
           editType="editTeam"
           deleteType="deleteTeam"
+          editModelType={modelType}
         />
 
         <EditComponent
@@ -198,6 +150,7 @@ const EditPage = () => {
           addType="addMainGallery"
           editType="editMainGallery"
           deleteType="deleteMainGallery"
+          editModelType={modelType}
         />
 
         <EditComponent
@@ -205,6 +158,7 @@ const EditPage = () => {
           addType="addTestimony"
           editType="editTestimony"
           deleteType="deleteTestimony"
+          editModelType={modelType}
         />
 
         <EditComponent
@@ -212,6 +166,7 @@ const EditPage = () => {
           addType="addAuxGallery"
           editType="editAuxGallery"
           deleteType="deleteAuxGallery"
+          editModelType={modelType}
         />
 
         <EditComponent
@@ -219,13 +174,13 @@ const EditPage = () => {
           addType="addCollaboration"
           editType="editCollaboration"
           deleteType="deleteCollaboration"
+          editModelType={modelType}
         />
 
-        <ManagementEdit />
-        <MentorsEdit/>
-        <AdvisoryBoardEdit/>
-        <IPREdit/>
-        <FundingEdit/>
+        <ManagementEdit editModelType={modelType} />
+
+        <IPREdit editModelType={modelType} />
+        <FundingEdit editModelType={modelType} />
       </div>
     </div>
   );

@@ -1,15 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Loader2, Pencil, PlusCircle, Trash } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useModal } from "@/hooks/use-model-store";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { StartUp } from "@prisma/client";
 import axios from "axios";
-import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
-const StartUpEdit = () => {
+const StartUpEdit = ({editModelType}) => {
   const [data, setData] = useState<StartUp[]>();
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen } = useModal();
@@ -23,10 +22,15 @@ const StartUpEdit = () => {
   useEffect(() => {
     if (!isOpen) getData();
   }, [isOpen]);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setVisible("startup" == editModelType)
+  }, [editModelType]);
+
   return (
     <div
       id="startup"
-      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
+      className={cn(" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4", visible?"block": "hidden")}
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">StartUp</span>

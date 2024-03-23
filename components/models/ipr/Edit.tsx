@@ -5,6 +5,7 @@ import axios from "axios";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -30,11 +31,12 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { AlertCircle, Trash } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IPR } from "@prisma/client";
+import JobsComponent from "./Jobs";
 
 export const EditIPR = () => {
   const ref = useRef(null);
   const [ipr, setIPR] = useState<IPR[]>();
-  const { isOpen, onClose, type,onOpen } = useModal();
+  const { isOpen, onClose, type, onOpen } = useModal();
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
   const [highlightedFields, setHighlightedFields] = useState([]);
@@ -62,19 +64,18 @@ export const EditIPR = () => {
             { index, fieldName: "name" },
           ]);
         }
-        if (!obj.jobs) {
-            setHighlightedFields((prev) => [
-              ...prev,
-              { index, fieldName: "jobs" },
-            ]);
-          }
+        if (obj.jobs.length == 0) {
+          setHighlightedFields((prev) => [
+            ...prev,
+            { index, fieldName: "jobs" },
+          ]);
+        }
         if (!obj.designation) {
           setHighlightedFields((prev) => [
             ...prev,
             { index, fieldName: "designation" },
           ]);
         }
-        
       });
   }, [ipr]);
 
@@ -115,24 +116,7 @@ export const EditIPR = () => {
     }
   };
 
-  const handlePaste = (event) => {
-    event.preventDefault();
-    const pastedText = event.clipboardData.getData("text");
-    const strippedData = pastedText
-      .split("\n")
-      .map((text: string) => text.split("\t"));
-    const list = strippedData.map((data) => ({
-      id: null,
-      name: data[data.length == 4 ? 1 : 0],
-      jobs: data[data.length == 4 ? 2 : 1],
-      designation: data[data.length == 4 ? 3 : 2],
-      addedByUserId: null,
-    }));
 
-    const newList = [...ipr];
-    newList.pop();
-    setIPR([...newList, ...list]);
-  };
 
   const handleAddRow = (e) => {
     e.preventDefault();
@@ -155,7 +139,7 @@ export const EditIPR = () => {
       }
     }, 200);
   };
-  const handleOnChange = (val: string, index: number, fieldName: string) => {
+  const handleOnChange = (val: any, index: number, fieldName: string) => {
     let value = [...ipr];
     value[index][fieldName] = val;
     setIPR(value);
@@ -165,29 +149,35 @@ export const EditIPR = () => {
     onClose();
   };
 
+  useEffect(() => {
+    if (ipr && ipr.length == 0) {
+      handleAddRow(new Event("Onclick"));
+    }
+  }, [ipr]);
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-auto min-w-fit">
+      <DialogContent className="bg-white text-black p-0 overflow-auto w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Edit IPR Team
           </DialogTitle>
+          <DialogDescription>
+            Paste the table directly to populate the form
+          </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={onSubmit} className="space-y-8">
+        <form className="space-y-8">
           <div className="flex flex-col items-center w-full">
             <ScrollArea className="self-center m-2  h-[300px] w-full">
-              <Table onPaste={handlePaste} ref={ref} className="relative">
-                <TableCaption>
-                  Paste the table directly to populate the form
-                  </TableCaption>
+              <Table ref={ref} className="relative">
                 <TableHeader className="sticky top-0">
                   <TableRow>
                     <TableHead className="border-0">S. No. </TableHead>
                     <TableHead className="border-0">Name</TableHead>
                     <TableHead className="border-0">Jobs</TableHead>
                     <TableHead className="border-0">Designation</TableHead>
-                    
+
                     <TableHead className="border-0">Action</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -215,8 +205,12 @@ export const EditIPR = () => {
                           />
                         </TableCell>
                         <TableCell>
-                          <Input
+                          <JobsComponent
                             value={team.jobs}
+                            onChange={(value) =>
+                              handleOnChange(value, index, "jobs")
+                            }
+                            disabled={isLoading}
                             className={
                               highlightedFields.some(
                                 (field) =>
@@ -226,14 +220,6 @@ export const EditIPR = () => {
                                 ? "border-2 border-red-700"
                                 : ""
                             }
-                            onChange={(e) =>
-                              handleOnChange(
-                                e.target.value,
-                                index,
-                                "jobs"
-                              )
-                            }
-                            disabled={isLoading}
                           />
                         </TableCell>
                         <TableCell>
@@ -258,14 +244,14 @@ export const EditIPR = () => {
                             disabled={isLoading}
                           />
                         </TableCell>
-                        
+
                         <TableCell>
                           <Button
                             disabled={isLoading}
                             className="w-fit"
                             variant="ghost"
                             onClick={(e) => {
-                              onOpen("deleteIPR", {iPR: team  })
+                              onOpen("deleteIPR", { iPR: team });
                               e.preventDefault();
                               const updatedList = [...ipr];
                               updatedList.splice(index, 1);
@@ -293,7 +279,7 @@ export const EditIPR = () => {
           </div>
 
           <DialogFooter className="bg-gray-100 px-6 py-4">
-            <Button variant="primary" disabled={isLoading}>
+            <Button variant="primary" onClick={onSubmit} disabled={isLoading}>
               Save
             </Button>
           </DialogFooter>

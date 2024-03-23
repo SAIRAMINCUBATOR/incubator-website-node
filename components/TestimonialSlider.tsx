@@ -58,7 +58,7 @@ export const TestimonialSlider = ({ testimonycontent }: Props) => {
 
         <div className=" justify-end">
           {token && (
-            <Link href={"/edit#testimony"}>
+            <Link href={"/edit?section=testimony"}>
               <Pencil />
             </Link>
           )}

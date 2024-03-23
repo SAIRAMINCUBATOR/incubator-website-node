@@ -5,6 +5,7 @@ import axios from "axios";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -171,6 +172,12 @@ export const EditAdvisoryBoard = () => {
   const handleClose = () => {
     onClose();
   };
+  useEffect(() => {
+    if (advisoryBoard && advisoryBoard.length==0){
+      handleAddRow(new Event("Onclick"));
+    }
+  }, [advisoryBoard]);
+
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -179,15 +186,16 @@ export const EditAdvisoryBoard = () => {
           <DialogTitle className="text-2xl text-center font-bold">
             Edit AdvisoryBoard Team
           </DialogTitle>
+          <DialogDescription>
+            Paste the table directly to populate the form
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={onSubmit} className="space-y-8">
           <div className="flex flex-col items-center w-full">
             <ScrollArea className="self-center m-2  h-[300px] w-full">
               <Table onPaste={handlePaste} ref={ref} className="relative">
-                <TableCaption>
-                  Paste the table directly to populate the form
-                  </TableCaption>
+                
                 <TableHeader className="sticky top-0">
                   <TableRow>
                     <TableHead className="border-0">S. No. </TableHead>

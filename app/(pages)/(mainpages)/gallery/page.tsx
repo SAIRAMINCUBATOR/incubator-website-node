@@ -14,13 +14,14 @@ import { ChevronRight, Menu, Pencil } from "lucide-react";
 import axios from "axios";
 import { Category, CategoryType, MainGallery } from "@prisma/client";
 import GalleryComponent from "@/components/Gallery";
+import { useSession } from "@/components/providers/context/SessionContext";
 const GalleryPage = () => {
   const params = useSearchParams();
   const section = params.get("cat");
   const [sheetOpen, setSheetOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [images, setImages] = useState<MainGallery[]>([]);
-
+const {token} = useSession();
   const getCategories = async () => {
     try {
       const response = await axios.get(
@@ -111,6 +112,7 @@ const GalleryPage = () => {
   function SideBarComponets() {
     return (
       <div className="flex flex-col p-3 items-center gap-5 ">
+         {token && (
         <Link href={"/edit?section=mainGallery"}>
           <Button
             variant={"ghost"}
@@ -120,6 +122,7 @@ const GalleryPage = () => {
             Edit
           </Button>
         </Link>
+         )}
         <span className=" text-2xl font-bold">Categories</span>
         {categories &&
           categories.map((cat) => (

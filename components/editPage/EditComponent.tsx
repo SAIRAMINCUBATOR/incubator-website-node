@@ -6,6 +6,7 @@ import { ModalType, useModal } from "@/hooks/use-model-store";
 import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 
 interface Props {
   modelName:
@@ -22,13 +23,18 @@ interface Props {
   addType: ModalType;
   editType: ModalType;
   deleteType: ModalType;
+  editModelType?: string
 }
 
-const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
+const EditComponent = ({ modelName, addType, editType, deleteType, editModelType }: Props) => {
   const [data, setData] = useState<any[]>();
   const [currentType, setCurrentType] = useState(null);
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen, type } = useModal();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    setVisible(modelName == editModelType || (modelName=="lead" && editModelType=="team"))
+  }, [editModelType]);
 
   const getData = async () => {
     setLoading(true);
@@ -61,7 +67,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
   return (
     <div
       id={modelName}
-      className=" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4"
+      className={cn(" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4", visible?"block": "hidden")}
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl capitalize">
@@ -79,7 +85,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType }: Props) => {
         {!loading ? (
           <div>
             {data && data.length > 0 ? (
-              <div className="flex flex-wrap gap-20 mb-4 justify-evenly">
+              <div className="flex flex-wrap gap-10 m-4 justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
                     <Image

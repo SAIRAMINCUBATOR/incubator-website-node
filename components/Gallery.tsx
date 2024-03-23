@@ -58,7 +58,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
             </div>
           </DialogTrigger>
           <DialogContent className="bg-transparent border-none place-content-center max-w-[3/4]">
-            <DialogClose className=" bg-black/35 rounded-full p-4">
+            <DialogClose className=" bg-black/35 rounded-full p-4 lg:-right-16 right-[150px] lg:top-4 -top-16">
               <X className="h-7 w-7 text-white " strokeWidth={3} />
               <span className="sr-only">Close</span>
             </DialogClose>

@@ -147,8 +147,8 @@ model StartUp {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   list          String[]
-  addedByUserId String   @db.ObjectId
-  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  addedByUserId String?   @db.ObjectId
+  addedByUser   User?     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
 model Project {
