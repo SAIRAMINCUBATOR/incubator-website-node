@@ -27,7 +27,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
   const { token } = useSession();
   const path = usePathname();
   const ImageC = ({ imagedata }: { imagedata: MainGallery }) => {
-    if (path != "/") {
+    if (!(path == "/" || path=="/gallery")) {
       return (
         <Dialog>
           <DialogTrigger>
@@ -79,7 +79,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
       );
     } else {
       return (
-        <Link href={"/gallery?cat=" + imagedata.categoryId}>
+        <Link href={"/gallery/" + imagedata.categoryId}>
           <div className="relative group border-2 border-white shadow-lg drop-shadow-lg  group-hover:scale-110 transition-all ease-in duration-200 cursor-pointer">
             <Image
               src={imagedata.image}
@@ -111,7 +111,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
             {heading || "gallery"}
           </h2>
         </div>
-        {token && path == "/" && (
+        {token && (
           <div className=" justify-end mr-5">
             <Link href={"/edit?section=mainGallery"}>
               <Pencil />

@@ -10,32 +10,34 @@ import { useState, useEffect } from "react";
 //   SheetTitle,
 //   SheetTrigger,
 // } from "@/components/ui/sheet";
-import { ChevronRight, Loader2, Menu, Pencil } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2, Menu, Pencil } from "lucide-react";
 import axios from "axios";
 import { Category, CategoryType, MainGallery } from "@prisma/client";
 import GalleryComponent from "@/components/Gallery";
 import { useSession } from "@/components/providers/context/SessionContext";
-const GalleryPage = () => {
-  // const params = useSearchParams();
-  // const section = params.get("cat");
+const GalleryPage = (req, res) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { section } = req?.params;
   // const [sheetOpen, setSheetOpen] = useState(false);
-  // const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [images, setImages] = useState<MainGallery[]>([]);
   // const { token } = useSession();
-  const [GalleryImages, setGalleryImages] = useState<MainGallery[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  // const [category, setCategory] = useState(section);
 
-  // const getCategories = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "/api/components/category?type=" + CategoryType.MainGallery
-  //     );
-  //     setCategories(response.data.response);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const [category, setCategory] = useState(section);
+
+  const getCategories = async () => {
+    try {
+      setIsLoading(true)
+      const response = await axios.get(
+        "/api/components/category?type=" + CategoryType.MainGallery
+      );
+      setCategories(response.data.response);
+      setIsLoading(false)
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const getGallery = async () => {
     try {
       setIsLoading(true)
@@ -47,19 +49,7 @@ const GalleryPage = () => {
     }
   };
   useEffect(() => {
-    const uniqueCategories = new Set();
-    const filteredImages = images.filter((image) => {
-      if (!uniqueCategories.has(image.categoryId)) {
-        uniqueCategories.add(image.categoryId);
-        return true;
-      }
-      return false;
-    });
-    if (filteredImages.length > 0) setGalleryImages(filteredImages);
-  }, [images]);
-
-  useEffect(() => {
-    // getCategories();
+    getCategories();
     getGallery();
   }, []);
 
@@ -77,11 +67,11 @@ const GalleryPage = () => {
   //   }
   // };
 
-  // useEffect(() => {
+  useEffect(() => {
     // const timer = setTimeout(() => scrollToSection(section), 1000);
     // return () => clearTimeout(timer);
-    // setCategory(section)
-  // }, [section]);
+    setCategory(section);
+  }, [section]);
 
   // function SmoothScrollLink({ href, children }) {
   //   const [visible, setVisible] = useState(false);
@@ -161,8 +151,8 @@ const GalleryPage = () => {
   // }
 
   return (
-    <div className="flex justify-center w-full flex-col items-center p-3">
-      <div className="flex items-center">
+    <div className="flex justify-center w-full flex-col items-center p-3 ">
+      <div className="relative flex items-center w-full">
         {/* <h2
           className="md:text-5xl text-3xl font-bold text-gray-600 transition-transform duration-500 ease-in-out hover:scale-110"
           style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -170,30 +160,17 @@ const GalleryPage = () => {
         >
           GALLERY
         </h2> */}
-        {/* <div className="absolute right-10">
-          {token && (
-            <Link href={"/edit?section=mainGallery"}>
-              <Button
-                variant={"ghost"}
-                className="bg-green-400 w-[100px] text-white shadow-md"
-              >
-                <Pencil
-                  className="h-4 w-4 mr-2 fill-green-800"
-                  stroke="false"
-                />
-                Edit
-              </Button>
-            </Link>
-          )}
-        </div> */}
+        <div className="absolute left-16 top-5">
+          <Link href={"/gallery"}>
+            <Button variant={"link"} className="flex items-center w-fit ">
+              <ChevronLeft className="h-5 w-5" />
+              Back
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="flex items-start w-full ">
-        
-      {!isLoading ? <GalleryComponent images={GalleryImages} id="gallery"/> : 
-      <div className="min-h-[400px] flex w-full items-center justify-center">
-        <Loader2 size={42} className="animate-spin"/>
-      </div> }
         {/* <div className="hidden lg:flex sticky top-[30%] left-0 flex-col p-3 items-center gap-5 w-[12%] ">
           <SideBarComponets />
         </div>
@@ -208,21 +185,28 @@ const GalleryPage = () => {
             <SideBarComponets />
           </SheetContent>
         </Sheet> */}
-
-        {/* <div className="  w-full flex flex-col">
-          {categories &&
-            categories.map((cat) => {
-              const imgs = images.filter((img) => img.categoryId == cat.id && cat.id == category);
-              if (imgs.length > 0)
-                return (
-                  <GalleryComponent
-                    images={imgs}
-                    id={cat.id}
-                    heading={cat.name}
-                  />
+        {!isLoading ? (
+          <div className="  w-full flex flex-col">
+            {categories &&
+              categories.map((cat) => {
+                const imgs = images.filter(
+                  (img) => img.categoryId == cat.id && cat.id == category
                 );
-            })}
-        </div> */}
+                if (imgs.length > 0)
+                  return (
+                    <GalleryComponent
+                      images={imgs}
+                      id={cat.id}
+                      heading={cat.name}
+                    />
+                  );
+              })}
+          </div>
+        ) : (
+          <div className="min-h-[400px] flex w-full items-center justify-center">
+            <Loader2 size={42} className="animate-spin" />
+          </div>
+        )}
       </div>
     </div>
   );

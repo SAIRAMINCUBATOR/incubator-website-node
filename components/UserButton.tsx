@@ -12,8 +12,7 @@ import {
 } from "@/components/ui/popover";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AlertCircle, Loader2, Pencil, PlusCircle } from "lucide-react";
-import { toast } from "sonner";
+import { Loader2, Pencil, PlusCircle } from "lucide-react";
 import { useSession } from "@/components/providers/context/SessionContext";
 import { useRouter } from "next/navigation";
 import { UserData } from "@/schema";
@@ -28,7 +27,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
   const router = useRouter();
 
   const getData = async () => {
-    console.log("refresh");
+
     try {
       const response = await axios.get("/api/auth/getUser", {
         headers: {
@@ -46,7 +45,6 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
     }
   };
   useEffect(() => {
-    // console.log("refreshed")
     if (token) getData();
   }, [token]);
 

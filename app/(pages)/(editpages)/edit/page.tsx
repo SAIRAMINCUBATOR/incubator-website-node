@@ -1,10 +1,7 @@
 "use client";
-import UserButton from "@/components/UserButton";
 import StartUpEdit from "@/components/editPage/StartUpEdit";
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -12,14 +9,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ChevronRight, Menu } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import EditComponent from "@/components/editPage/EditComponent";
 import ManagementEdit from "@/components/editPage/Management";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import IPREdit from "@/components/editPage/IPR";
 import FundingEdit from "@/components/editPage/Funding";
-import { cn } from "@/lib/utils";
+import { SideBarComponets } from "@/components/SideBarComponent";
 
 const EditPage = () => {
   const params = useSearchParams();
@@ -38,59 +34,10 @@ const EditPage = () => {
     if (section) setModelType(section);
   }, [section]);
 
-  function SmoothScrollLink({ href, children }) {
-    return (
-      <Button
-        variant={"ghost"}
-        className={cn(
-          "text-xl w-full p-0 m-0 transition-all duration-200 ease-in",
-          modelType == href && "bg-gray-500/50"
-        )}
-        onClick={(e) => {
-          e.preventDefault();
-
-          setModelType(href);
-          // setSheetOpen(false);
-        }}
-      >
-        {children}
-      </Button>
-    );
-  }
-
-  function SideBarComponets() {
-    return (
-      <div className="flex flex-col p-3 items-center gap-5 h-[95vh]">
-        <Link href={"/"}>
-          <Button>Home</Button>
-        </Link>
-
-        <div className="flex flex-col p-3 items-center gap-2">
-          <SmoothScrollLink href="mainCarousel">Main Slider</SmoothScrollLink>
-          <SmoothScrollLink href="project">Project</SmoothScrollLink>
-          <SmoothScrollLink href="startup">Start Ups</SmoothScrollLink>
-          <SmoothScrollLink href="company">Company</SmoothScrollLink>
-          <SmoothScrollLink href="team">Team Members</SmoothScrollLink>
-          <SmoothScrollLink href="mainGallery">Gallery</SmoothScrollLink>
-          <SmoothScrollLink href="testimony">Testimonial</SmoothScrollLink>
-          <SmoothScrollLink href="auxGallery">Gallery 2</SmoothScrollLink>
-          <SmoothScrollLink href="collaboration">
-            Collaboration
-          </SmoothScrollLink>
-          <SmoothScrollLink href="management">Management</SmoothScrollLink>
-          <SmoothScrollLink href="ipr">IPR</SmoothScrollLink>
-          <SmoothScrollLink href="funding">Funding</SmoothScrollLink>
-        </div>
-        <div className=" bottom-2 absolute">
-          <UserButton />
-        </div>
-      </div>
-    );
-  }
   return (
     <div className="flex items-start w-full">
       <div className="hidden lg:flex sticky top-1 left-0 flex-col p-3 items-center gap-5 w-[12%] h-[98vh]">
-        <SideBarComponets />
+        <SideBarComponets modelType={modelType} setModelType={setModelType} setSheetOpen={setSheetOpen}/>
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger className="lg:hidden block sticky top-[50%] -translate-y-[50%] left-2 w-fit">
@@ -100,7 +47,7 @@ const EditPage = () => {
           <SheetHeader>
             <SheetTitle>Sairam Techno Incubator</SheetTitle>
           </SheetHeader>
-          <SideBarComponets />
+          <SideBarComponets modelType={modelType} setModelType={setModelType} setSheetOpen={setSheetOpen}/>
         </SheetContent>
       </Sheet>
 
