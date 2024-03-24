@@ -2,19 +2,24 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Pencil } from "lucide-react";
-import { useModal } from "@/hooks/use-model-store";
 import { cn } from "@/lib/utils";
+import { EditAdvisoryBoardTable } from "../models/advisoryBoardTeam/EditTableComponent";
+import { EditManagementTable } from "../models/managementTeam/EditTableComponenet";
+import { EditMentorsTable } from "../models/mentorsTeam/EditTableComponent";
 
-const ManagementEdit = ({editModelType}) => {
-  const { onOpen } = useModal();
+const ManagementEdit = ({ editModelType }) => {
   const [visible, setVisible] = useState(false);
+  const [modelType, setModelType] = useState("team");
   useEffect(() => {
-    setVisible("management" == editModelType)
+    setVisible("management" == editModelType);
   }, [editModelType]);
   return (
     <div
       id="management"
-      className={cn(" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4", visible?"block": "hidden")}
+      className={cn(
+        " flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4",
+        visible ? "block" : "hidden"
+      )}
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Management</span>
@@ -30,7 +35,8 @@ const ManagementEdit = ({editModelType}) => {
               </div>
               <div className="flex gap-5 justify-center">
                 <Button
-                  onClick={() => onOpen("editManagement")}
+                  // onClick={() => onOpen("editManagement")}
+                  onClick={() => setModelType("team")}
                   variant={"ghost"}
                   className="bg-green-400 w-[100px] text-white shadow-md"
                 >
@@ -50,7 +56,8 @@ const ManagementEdit = ({editModelType}) => {
               </div>
               <div className="flex gap-5 justify-center">
                 <Button
-                  onClick={() => onOpen("editAdvisoryBoard")}
+                  // onClick={() => onOpen("editAdvisoryBoard")}
+                  onClick={() => setModelType("advisory")}
                   variant={"ghost"}
                   className="bg-green-400 w-[100px] text-white shadow-md"
                 >
@@ -64,13 +71,12 @@ const ManagementEdit = ({editModelType}) => {
             </div>
             <div className="flex flex-col gap-5">
               <div className="h-full w-full border-2 ">
-                <p className="text-2xl font-semibold text-center">
-                  Mentors
-                </p>
+                <p className="text-2xl font-semibold text-center">Mentors</p>
               </div>
               <div className="flex gap-5 justify-center">
                 <Button
-                  onClick={() => onOpen("editMentors")}
+                  // onClick={() => onOpen("editMentors")}
+                  onClick={() => setModelType("mentor")}
                   variant={"ghost"}
                   className="bg-green-400 w-[100px] text-white shadow-md"
                 >
@@ -84,6 +90,11 @@ const ManagementEdit = ({editModelType}) => {
             </div>
           </div>
         </div>
+      </div>
+      <div >
+        <EditManagementTable type={modelType} />
+        <EditAdvisoryBoardTable type={modelType} />
+        <EditMentorsTable type={modelType}/>
       </div>
     </div>
   );

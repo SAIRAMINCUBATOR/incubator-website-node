@@ -102,6 +102,15 @@ export async function DELETE(
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
+    const data = await db.advisoryBoard.findFirst({
+      where: {
+        id
+      }
+    })
+    if (!data){
+      return new NextResponse("Data Not Found", { status: 404 });
+    }
+
 
     await db.advisoryBoard.delete({
       where: {

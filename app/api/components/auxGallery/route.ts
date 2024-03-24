@@ -1,5 +1,8 @@
 import { db } from "@/lib/db";
+import { imageDb } from "@/lib/firebase";
 import { getUser } from "@/lib/get-user";
+import axios from "axios";
+import { ref, deleteObject } from "firebase/storage";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -35,7 +38,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-   
     const response = await db.auxilaryGallery.findMany();
     return NextResponse.json({ response });
   } catch (error) {
@@ -93,6 +95,17 @@ export async function DELETE(
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
+    const data = await db.auxilaryGallery.findFirst({
+      where: {
+        id,
+      },
+    });
+    if (!data) {
+      return new NextResponse("Data Not Found", { status: 404 });
+    }
+    const url = data.image.substring(data.image.indexOf("files") + 8, data.image.lastIndexOf("?"));
+    const imgRef = ref(imageDb, "files/" + url);
+    await deleteObject(imgRef);
 
     await db.auxilaryGallery.delete({
       where: {

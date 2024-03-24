@@ -14,6 +14,7 @@ import { AuxilaryGallery, MainGallery } from "@prisma/client";
 import { useSession } from "./providers/context/SessionContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 interface Props {
   images: MainGallery[] | AuxilaryGallery[];
@@ -27,7 +28,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
   const { token } = useSession();
   const path = usePathname();
   const ImageC = ({ imagedata }: { imagedata: MainGallery }) => {
-    if (!(path == "/" || path=="/gallery")) {
+    if (!(path == "/" || path == "/gallery")) {
       return (
         <Dialog>
           <DialogTrigger>
@@ -114,7 +115,20 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
         {token && (
           <div className=" justify-end mr-5">
             <Link href={"/edit?section=mainGallery"}>
-              <Pencil />
+              {path == "/" ? (
+                <Pencil />
+              ) : (
+                <Button
+                  variant={"ghost"}
+                  className="bg-green-400 w-[100px] text-white shadow-md"
+                >
+                  <Pencil
+                    className="h-4 w-4 mr-2 fill-green-800"
+                    stroke="false"
+                  />
+                  Edit
+                </Button>
+              )}
             </Link>
           </div>
         )}

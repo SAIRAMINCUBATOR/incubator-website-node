@@ -42,7 +42,7 @@ export const AboutUs = () => {
         height={3000}
         src={"/incubator-logo.png"}
         alt={"Sairam Incubator Foundation Logo"}
-        className="w-[50%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%]"
+        className="w-[50%] lg:h-[500px] lg:w-[420px] h-[80%] filter transition-transform duration-500 ease-in-out hover:scale-110 mt-[15%] md:mt-[0%] object-contain"
       />
      
       <div className="flex flex-col w-[80%] md:w-[40%] ml-10">

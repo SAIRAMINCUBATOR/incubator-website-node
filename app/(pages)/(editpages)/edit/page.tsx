@@ -35,8 +35,8 @@ const EditPage = () => {
   }, [section]);
 
   return (
-    <div className="flex items-start w-full">
-      <div className="hidden lg:flex sticky top-1 left-0 flex-col p-3 items-center gap-5 w-[12%] h-[98vh]">
+    <div className="flex items-start w-full gap-5">
+      <div className="hidden lg:flex sticky top-1 left-2 flex-col p-3 items-center gap-5 w-[12%] h-[98vh]">
         <SideBarComponets modelType={modelType} setModelType={setModelType} setSheetOpen={setSheetOpen}/>
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>

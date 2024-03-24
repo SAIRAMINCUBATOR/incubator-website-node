@@ -95,7 +95,17 @@ export async function DELETE(
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
-
+    const data = await db.collaboration.findFirst({
+      where: {
+        id,
+      },
+    });
+    if (!data) {
+      return new NextResponse("Data Not Found", { status: 404 });
+    }
+    const url = data.image.substring(data.image.indexOf("files") + 8, data.image.lastIndexOf("?"));
+    const imgRef = ref(imageDb, "files/" + url);
+    await deleteObject(imgRef);
     await db.collaboration.delete({
       where: {
         id,

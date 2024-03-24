@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
+import { imageDb } from "@/lib/firebase";
 import { getUser } from "@/lib/get-user";
+import { ref, deleteObject } from "firebase/storage";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -10,7 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {name , image} = await req.json();
+    const { name, image } = await req.json();
     if (!name || !image) {
       return new NextResponse("Image or Name is missing", { status: 404 });
     }
@@ -31,16 +33,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-  
-
     const response = await db.company.findMany();
-    return NextResponse.json({response});
+    return NextResponse.json({ response });
   } catch (error) {
     console.log("COMPANY GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
-
 
 export async function PUT(req: NextRequest, res: NextResponse) {
   try {
@@ -50,14 +49,16 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {name , image, id} = await req.json();
+    const { name, image, id } = await req.json();
     if (!name || !image || !id) {
-      return new NextResponse("Image or Name or ID is missing", { status: 404 });
+      return new NextResponse("Image or Name or ID is missing", {
+        status: 404,
+      });
     }
 
     await db.company.update({
-      where:{
-        id
+      where: {
+        id,
       },
       data: {
         name,
@@ -72,8 +73,10 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   }
 }
 
-export async function DELETE(req: NextRequest,
-  {params}:{params: {id:string}}) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const headers = req.headers;
     const token = headers.get("Authorization");
@@ -81,17 +84,30 @@ export async function DELETE(req: NextRequest,
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {searchParams} = new URL(req.url);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
+    const data = await db.company.findFirst({
+      where: {
+        id,
+      },
+    });
+    if (!data) {
+      return new NextResponse("Data Not Found", { status: 404 });
+    }
+    const url = data.image.substring(
+      data.image.indexOf("files") + 8,
+      data.image.lastIndexOf("?")
+    );
+    const imgRef = ref(imageDb, "files/" + url);
+    await deleteObject(imgRef);
 
     await db.company.delete({
-      where:{
-        id
+      where: {
+        id,
       },
-      
     });
     return NextResponse.json("Deleted");
   } catch (error) {

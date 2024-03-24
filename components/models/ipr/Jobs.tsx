@@ -1,5 +1,11 @@
 "use client";
-import React, { ChangeEvent, FormEventHandler, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Dialog,
   DialogClose,
@@ -37,27 +43,27 @@ interface Props {
 const JobsComponent = ({ value, onChange, disabled, className }: Props) => {
   const [jobs, setJobs] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
-    const ref = useRef(null);
+  const ref = useRef(null);
   useEffect(() => {
     setJobs(value);
   }, [value]);
 
   const onSubmit = (e: any) => {
-    if (jobs.some((job)=>job=="")){
-        toast("Enter The Highlighted field")
+    if (jobs.some((job) => job == "")) {
+      toast("Enter The Highlighted field");
     }
     e.preventDefault();
     onChange(jobs);
-    setIsOpen(false)
+    setIsOpen(false);
   };
 
   const handlePaste = (event: React.ClipboardEvent) => {
     const pastedText = event.clipboardData.getData("text");
     const strippedData = pastedText.split("\n");
-    if (strippedData.length==1) return;
+    if (strippedData.length == 1) return;
     event.preventDefault();
     const list = strippedData.map((data) => data);
-    console.log(pastedText, strippedData)
+    console.log(pastedText, strippedData);
     const newList = [...jobs];
     newList.pop();
     setJobs([...newList, ...list]);
@@ -66,10 +72,7 @@ const JobsComponent = ({ value, onChange, disabled, className }: Props) => {
   const handleAddRow = (e) => {
     e.preventDefault();
     // Add new startup to the list
-    setJobs([
-      ...(jobs || []),
-      "",
-    ]);
+    setJobs([...(jobs || []), ""]);
 
     setTimeout(function () {
       if (ref.current) {
@@ -85,16 +88,14 @@ const JobsComponent = ({ value, onChange, disabled, className }: Props) => {
   };
 
   const handleClose = () => {
-
-    if (isOpen && jobs.some((job)=>job=="")){
-        toast("Enter The Highlighted field")
-    }else if (isOpen){
-        onChange(jobs)
-        setIsOpen(false);
-    }else{
-        setIsOpen(true)
+    if (isOpen && jobs.some((job) => job == "")) {
+      toast("Enter The Highlighted field");
+    } else if (isOpen) {
+      onChange(jobs);
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
     }
-   
   };
   useEffect(() => {
     if (jobs && jobs.length == 0) {
@@ -113,7 +114,9 @@ const JobsComponent = ({ value, onChange, disabled, className }: Props) => {
       <DialogContent className="bg-white text-black p-0 overflow-auto w-full">
         <DialogClose className="right-2 top-2" />
         <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">Jobs</DialogTitle>
+          <DialogTitle className="text-2xl text-center font-bold">
+            Jobs
+          </DialogTitle>
           <DialogDescription>
             Paste the table directly to populate the form
           </DialogDescription>

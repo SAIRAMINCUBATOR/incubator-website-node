@@ -168,37 +168,14 @@ const FundingEdit = ({ editModelType }) => {
         <span className=" font-montserrat font-bold text-xl">Funding</span>
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
-        {/* <div className="w-full py-4">
-          <div className="flex gap-20 justify-evenly flex-wrap">
-            <div className="flex flex-col gap-5">
-              <div className="h-full w-full border-2 ">
-                <p className="text-2xl font-semibold text-center">
-                  Fundings
-                </p>
-              </div>
-              <div className="flex gap-5 justify-center">
-                <Button
-                  onClick={() => onOpen("editFunding")}
-                  variant={"ghost"}
-                  className="bg-green-400 w-[100px] text-white shadow-md"
-                >
-                  <Pencil
-                    className="h-4 w-4 mr-2 fill-green-800"
-                    stroke="false"
-                  />
-                  Edit
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div> */}
-        <form onSubmit={onSubmit} className="space-y-8">
+
+        <form  className="space-y-8">
           <div className="flex flex-col items-center w-full">
             <Table onPaste={handlePaste} ref={ref} className="relative">
               <TableHeader className="sticky top-0">
                 <TableRow>
                   <TableHead className="border-0">S. No. </TableHead>
-                  <TableHead className="border-0">Name</TableHead>
+                  <TableHead className="border-0 w-1/4">Name</TableHead>
                   <TableHead className="border-0">
                     CORPORATE IDENTIFICATION NUMBER (CIN) / REGISTRATION NUMBER
                   </TableHead>
@@ -298,8 +275,8 @@ const FundingEdit = ({ editModelType }) => {
               </Button>
             </div>
           </div>
-          <div className="flex justify-end">
-            <Button variant="primary" disabled={isLoading}>
+          <div className="px-6">
+            <Button variant="primary" disabled={isLoading} onClick={onSubmit}>
               Save
             </Button>
           </div>

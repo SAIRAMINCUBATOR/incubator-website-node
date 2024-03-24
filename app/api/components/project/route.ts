@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
+import { imageDb } from "@/lib/firebase";
 import { getUser } from "@/lib/get-user";
+import { ref, deleteObject } from "firebase/storage";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -107,6 +109,19 @@ export async function DELETE(
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
+    const data = await db.project.findFirst({
+      where: {
+        id,
+      },
+    });
+    if (!data) {
+      return new NextResponse("Data Not Found", { status: 404 });
+    }
+    data.image.forEach(async (img) => {
+      const url = img.substring(img.indexOf("files") + 8, img.lastIndexOf("?"));
+      const imgRef = ref(imageDb, "files/" + url);
+      await deleteObject(imgRef);
+    });
 
     await db.project.delete({
       where: {

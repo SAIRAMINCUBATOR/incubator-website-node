@@ -99,7 +99,6 @@ export const MultipleFileUpload = ({
 
   const handleDelete = async (val: string) => {
     const url = val.substring(val.indexOf("files") + 8, val.lastIndexOf("?"));
-    console.log(url);
     try {
       await axios.delete("/api/firebase?id=" + url, {
         headers: { Authorization: "Bearer " + token },

@@ -1,5 +1,8 @@
 import { db } from "@/lib/db";
+import { imageDb } from "@/lib/firebase";
 import { getUser } from "@/lib/get-user";
+import { Category, MainGallery } from "@prisma/client";
+import { ref, deleteObject } from "firebase/storage";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -35,8 +38,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-   
-    const response = await db.mainGallery.findMany();
+    const { searchParams } = new URL(req.url);
+    const category = searchParams.get("category") as string;
+    let response: MainGallery[];
+    if (category) {
+      response = await db.mainGallery.findMany({
+        where: {
+          categoryId: category,
+        },
+      });
+    }else{
+      response = await db.mainGallery.findMany();
+    }
     return NextResponse.json({ response });
   } catch (error) {
     console.log("MAIN GALLERY GET", error);
@@ -93,6 +106,17 @@ export async function DELETE(
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
+    const data = await db.mainGallery.findFirst({
+      where: {
+        id,
+      },
+    });
+    if (!data) {
+      return new NextResponse("Data Not Found", { status: 404 });
+    }
+    const url = data.image.substring(data.image.indexOf("files") + 8, data.image.lastIndexOf("?"));
+    const imgRef = ref(imageDb, "files/" + url);
+    await deleteObject(imgRef);
 
     await db.mainGallery.delete({
       where: {
