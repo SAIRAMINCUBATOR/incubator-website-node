@@ -1,8 +1,48 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
 import * as React from "react";
-
+import { useEffect, useState } from "react";
+import { Funding } from "@prisma/client";
 export const Funds = () => {
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [startUpCount,setStartUpCount]=useState(0);
+  const getFundingData = async () => {
+    try {
+      const response = await axios.get("/api/components/funding");
+
+      // Calculate the total amount
+      const sum = response.data.response.reduce((total, item) => {
+        // Convert amount strings to numbers and sum them up
+        return total + parseFloat(item.amount);
+      }, 0);
+
+      // Update the state with the total amount
+      setTotalAmount(sum);
+
+      console.log(response.data.response);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  const getStartUpData = async () => {
+    try {
+      const response = await axios.get("/api/components/startup");
+      const totalLength = response.data.response.reduce((total, item) => {
+        // Add the length of each 'list' field to the accumulator
+        return total + item.list.length;
+      }, 0);
+      setStartUpCount(totalLength);
+
+      console.log(response.data.response.length);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    getFundingData();
+    getStartUpData();
+  }, []);
   return (
     <section
       id="fund"
@@ -35,7 +75,7 @@ export const Funds = () => {
             className="h-[200px] filter brightness-75 hue-rotate-180"
           />
           <h3 id="fund-countup" className="our-projects">
-            1.01 Cr+
+            {totalAmount} INR
           </h3>
           <p className="ml-2">Funds</p>
         </div>
@@ -48,7 +88,7 @@ export const Funds = () => {
             className="h-[200px] filter brightness-50 hue-rotate-180"
           />
           <h3 id="company-countup" className="our-projects">
-            85+
+            {startUpCount}
           </h3>
           <p className="ml-2">Startups incubated</p>
         </div>

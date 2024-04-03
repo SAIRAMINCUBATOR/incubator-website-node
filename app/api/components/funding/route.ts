@@ -63,6 +63,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
             name: member.name,
             cin: member.cin,
             contact: member.contact,
+            amount:member.amount
           },
         });
       } else {
@@ -71,6 +72,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
             name: member.name,
             cin: member.cin,
             contact: member.contact,
+            amount:member.amount,
             addedByUserId: user.id,
           },
         });

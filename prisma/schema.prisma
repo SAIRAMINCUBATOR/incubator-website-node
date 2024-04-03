@@ -205,9 +205,11 @@ model Funding {
   name          String
   cin           String
   contact       String
+  amount        String?
   addedByUserId String @db.ObjectId
   addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
+
 
 model Management {
   id            String @id @default(auto()) @map("_id") @db.ObjectId

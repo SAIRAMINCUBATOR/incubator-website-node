@@ -67,6 +67,9 @@ const FundingPage = () => {
               <th className="border px-2 py-2 bg-blue-300 border-blue-400 text-blue-900 min-w-80 text-center">
                 CONTACT PERSON NAME (FOUNDER / COFOUNDER / CEO / DIRECTOR)
               </th>
+              <th className="border px-2 py-2 bg-blue-300 border-blue-400 text-blue-900 min-w-80 text-center">
+                FUNDING AMOUNT RECIEVED
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -83,6 +86,9 @@ const FundingPage = () => {
                 </td>
                 <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-80 text-center">
                   {funding.contact}
+                </td>
+                <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-80 text-center">
+                  {funding.amount}
                 </td>
               </tr>
             ))}

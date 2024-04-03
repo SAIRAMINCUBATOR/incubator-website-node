@@ -65,6 +65,12 @@ const FundingEdit = ({ editModelType }) => {
             { index, fieldName: "contact" },
           ]);
         }
+        if (!obj.amount) {
+          setHighlightedFields((prev) => [
+            ...prev,
+            { index, fieldName: "amount" },
+          ]);
+        }
       });
   }, [funding]);
 
@@ -114,6 +120,7 @@ const FundingEdit = ({ editModelType }) => {
       name: data[data.length == 4 ? 1 : 0],
       cin: data[data.length == 4 ? 2 : 1],
       contact: data[data.length == 4 ? 3 : 2],
+      amount: data[data.length == 5 ? 4 : 3],
       addedByUserId: null,
     }));
 
@@ -132,6 +139,7 @@ const FundingEdit = ({ editModelType }) => {
         name: "",
         cin: "",
         contact: "",
+        amount: "",
         addedByUserId: null,
       },
     ]);
@@ -180,6 +188,9 @@ const FundingEdit = ({ editModelType }) => {
                   </TableHead>
                   <TableHead className="border-0">
                     CONTACT PERSON NAME (FOUNDER / COFOUNDER / CEO / DIRECTOR)
+                  </TableHead>
+                  <TableHead className="border-0">
+                    FUNDING AMOUNT RECIEVED
                   </TableHead>
                   <TableHead className="border-0">Action</TableHead>
                 </TableRow>
@@ -239,6 +250,24 @@ const FundingEdit = ({ editModelType }) => {
                           }
                           onChange={(e) =>
                             handleOnChange(e.target.value, index, "contact")
+                          }
+                          disabled={isLoading}
+                        />
+                      </TableCell>
+                      <TableCell className="border-none">
+                        <Input
+                          value={team.amount}
+                          className={
+                            highlightedFields.some(
+                              (field) =>
+                                field.index === index &&
+                                field.fieldName === "amount"
+                            )
+                              ? "border-2 border-red-700"
+                              : ""
+                          }
+                          onChange={(e) =>
+                            handleOnChange(e.target.value, index, "amount")
                           }
                           disabled={isLoading}
                         />
