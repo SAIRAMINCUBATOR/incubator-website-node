@@ -24,9 +24,10 @@ interface Props {
   editType: ModalType;
   deleteType: ModalType;
   editModelType?: string
-}
+}  
 
 const EditComponent = ({ modelName, addType, editType, deleteType, editModelType }: Props) => {
+
   const [data, setData] = useState<any[]>();
   const [currentType, setCurrentType] = useState(null);
   const [loading, setLoading] = useState(false);

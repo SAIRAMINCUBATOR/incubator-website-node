@@ -16,7 +16,6 @@ import { Funding } from "@prisma/client";
 import axios from "axios";
 import { toast } from "sonner";
 import { useSession } from "../providers/context/SessionContext";
-import { DialogFooter } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { useRouter } from "next/navigation";
 

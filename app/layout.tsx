@@ -6,6 +6,12 @@ import { Toaster } from "sonner";
 import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:"Sairam Techno Incubator",
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -14,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>Sairam Techno Incubator</title>
         <link rel="icon" href="/new-logo-nobg.ico" />
         <link
           rel="stylesheet"

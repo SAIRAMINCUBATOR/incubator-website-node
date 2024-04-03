@@ -37,7 +37,11 @@ const EditPage = () => {
   return (
     <div className="flex items-start w-full gap-5">
       <div className="hidden lg:flex sticky top-1 left-2 flex-col p-3 items-center gap-5 w-[12%] h-[98vh]">
-        <SideBarComponets modelType={modelType} setModelType={setModelType} setSheetOpen={setSheetOpen}/>
+        <SideBarComponets
+          modelType={modelType}
+          setModelType={setModelType}
+          setSheetOpen={setSheetOpen}
+        />
       </div>
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger className="lg:hidden block sticky top-[50%] -translate-y-[50%] left-2 w-fit">
@@ -47,7 +51,11 @@ const EditPage = () => {
           <SheetHeader>
             <SheetTitle>Sairam Techno Incubator</SheetTitle>
           </SheetHeader>
-          <SideBarComponets modelType={modelType} setModelType={setModelType} setSheetOpen={setSheetOpen}/>
+          <SideBarComponets
+            modelType={modelType}
+            setModelType={setModelType}
+            setSheetOpen={setSheetOpen}
+          />
         </SheetContent>
       </Sheet>
 

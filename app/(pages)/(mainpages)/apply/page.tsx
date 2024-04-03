@@ -1,5 +1,9 @@
 import React from "react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Apply | Sairam Techno Incubator",
+};
 const ApplyPage = () => {
   return (
     <div className="w-full flex justify-center py-5">
