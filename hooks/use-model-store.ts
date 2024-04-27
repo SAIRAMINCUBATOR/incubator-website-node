@@ -33,9 +33,9 @@ export type ModalType =
   | "editMainGallery"
   | "deleteMainGallery"
   | "addMainGallery"
-  | "editAuxGallery"
-  | "deleteAuxGallery"
-  | "addAuxGallery"
+  | "editfacilities"
+  | "deletefacilities"
+  | "addfacilities"
   | "editStartUp"
   | "addProject"
   | "deleteProject"
@@ -56,8 +56,7 @@ export type ModalType =
   | "editIPR"
   | "deleteIPR"
   | "editFunding"
-  | "deleteFunding"
-  ;
+  | "deleteFunding";
 
 interface ModalData {
   mainCarousel?: MainCarousel;
@@ -65,16 +64,16 @@ interface ModalData {
   team?: Team;
   lead?: Lead;
   mainGallery?: MainGallery;
-  auxGallery? : AuxilaryGallery;
+  facilities?: AuxilaryGallery;
   startup?: StartUp;
   project?: Project;
   company?: Company;
   collaboration?: Collaboration;
   management?: Management;
-  mentors?:Mentors
-  advisoryBoard?:AdvisoryBoard
-  iPR?:IPR
-  funding?:Funding
+  mentors?: Mentors;
+  advisoryBoard?: AdvisoryBoard;
+  iPR?: IPR;
+  funding?: Funding;
 }
 
 interface ModalStore {

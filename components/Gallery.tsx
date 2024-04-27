@@ -44,7 +44,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
                 width={collab ? 200 : 800}
                 height={collab ? 200 : 800}
                 className={cn(
-                  "object-contain transition-all ease-in duration-200 group-hover:scale-110",
+                  "object-cover transition-all ease-in duration-200 group-hover:scale-110",
                   !collab &&
                     "h-[220px] min-w-[350px] max-w-[350px]  group-hover:shadow-xl group-hover:drop-shadow-xl group-hover:rounded-xl"
                 )}
@@ -112,9 +112,14 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
             {heading || "gallery"}
           </h2>
         </div>
-        {token && (
+        {token && path != "/facilities" && (
           <div className=" justify-end mr-5">
-            <Link href={"/edit?section=mainGallery"}>
+            <Link
+              href={
+                "/edit?section=" +
+                (path == "/facilities" ? "facilities" : "mainGallery")
+              }
+            >
               {path == "/" ? (
                 <Pencil />
               ) : (

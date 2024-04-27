@@ -175,10 +175,10 @@ export const Navbar = () => {
                 </Link>
                 <Link
                   className=" font-semibold"
-                  href="/gallery2"
+                  href="/facilities"
                   onClick={() => setPopOverOpen(false)}
                 >
-                  MAIN-GALLERY
+                  FACILITIES
                 </Link>
                 <Link
                   className=" font-semibold"
@@ -299,10 +299,10 @@ export const Navbar = () => {
             </Link>
             <Link
               className="nav-link font-semibold"
-              href="/gallery2"
+              href="/facilities"
               onClick={() => setOpen(false)}
             >
-              MAIN-GALLERY
+              FACILITIEs
             </Link>
             <Link
               className="nav-link font-semibold"

@@ -23,8 +23,8 @@ export const DeleteAuxGallery = () => {
   const router = useRouter();
   const { isOpen, type, data, onClose } = useModal();
   const { token, isTokenExpired } = useSession();
-  const isModalOpen = isOpen && type === "deleteAuxGallery";
-  const { auxGallery } = data;
+  const isModalOpen = isOpen && type === "deletefacilities";
+  const { facilities } = data;
   const onSubmit = async () => {
     try {
       if (!token && isTokenExpired()) {
@@ -32,9 +32,9 @@ export const DeleteAuxGallery = () => {
         handleClose();
       }
       const url = qs.stringifyUrl({
-        url: "/api/components/auxGallery",
+        url: "/api/components/facilities",
         query: {
-          id: auxGallery?.id,
+          id: facilities?.id,
         },
       });
 

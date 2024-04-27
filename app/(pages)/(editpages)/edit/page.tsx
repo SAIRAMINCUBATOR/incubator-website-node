@@ -117,10 +117,10 @@ const EditPage = () => {
         />
 
         <EditComponent
-          modelName="auxGallery"
-          addType="addAuxGallery"
-          editType="editAuxGallery"
-          deleteType="deleteAuxGallery"
+          modelName="facilities"
+          addType="addfacilities"
+          editType="editfacilities"
+          deleteType="deletefacilities"
           editModelType={modelType}
         />
 

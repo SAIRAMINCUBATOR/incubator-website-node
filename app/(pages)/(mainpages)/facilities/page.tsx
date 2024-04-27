@@ -35,7 +35,7 @@ const GalleryPage = () => {
   };
   const getGallery = async () => {
     try {
-      const response = await axios.get("/api/components/auxGallery");
+      const response = await axios.get("/api/components/facilities");
       setImages(response.data.response);
     } catch (e) {
       console.log(e);
@@ -114,7 +114,7 @@ const GalleryPage = () => {
     return (
       <div className="flex flex-col p-3 items-center gap-5 ">
         {token && (
-          <Link href={"/edit?section=auxGallery"}>
+          <Link href={"/edit?section=facilities"}>
             <Button
               variant={"ghost"}
               className="bg-green-400 w-[100px] text-white shadow-md"

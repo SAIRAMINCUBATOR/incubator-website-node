@@ -47,7 +47,7 @@ export const AddAuxGalleryComponent = () => {
   const { token, isTokenExpired } = useSession();
   const [categories, setCategories] = useState<Category[]>();
   const router = useRouter();
-  const isModalOpen = isOpen && type === "addAuxGallery";
+  const isModalOpen = isOpen && type === "addfacilities";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -74,7 +74,7 @@ export const AddAuxGalleryComponent = () => {
         handleClose();
       }
 
-      await axios.post("/api/components/auxGallery", values, {
+      await axios.post("/api/components/facilities", values, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -109,7 +109,7 @@ export const AddAuxGalleryComponent = () => {
       <DialogContent className="bg-white text-black p-0  w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Add Gallery 2 Image
+            Add Facilites
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>

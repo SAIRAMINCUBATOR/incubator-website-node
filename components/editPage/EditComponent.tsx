@@ -17,24 +17,32 @@ interface Props {
     | "testimony"
     | "mainCarousel"
     | "project"
-    | "auxGallery"
+    | "facilities"
     | "startup"
     | "collaboration";
   addType: ModalType;
   editType: ModalType;
   deleteType: ModalType;
-  editModelType?: string
-}  
+  editModelType?: string;
+}
 
-const EditComponent = ({ modelName, addType, editType, deleteType, editModelType }: Props) => {
-
+const EditComponent = ({
+  modelName,
+  addType,
+  editType,
+  deleteType,
+  editModelType,
+}: Props) => {
   const [data, setData] = useState<any[]>();
   const [currentType, setCurrentType] = useState(null);
   const [loading, setLoading] = useState(false);
   const { onOpen, isOpen, type } = useModal();
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    setVisible(modelName == editModelType || (modelName=="lead" && editModelType=="team"))
+    setVisible(
+      modelName == editModelType ||
+        (modelName == "lead" && editModelType == "team")
+    );
   }, [editModelType]);
 
   const getData = async () => {
@@ -59,6 +67,7 @@ const EditComponent = ({ modelName, addType, editType, deleteType, editModelType
       getData();
       setCurrentType(null);
     }
+    console.log(isOpen, type);
   }, [isOpen, type]);
 
   useEffect(() => {
@@ -68,7 +77,10 @@ const EditComponent = ({ modelName, addType, editType, deleteType, editModelType
   return (
     <div
       id={modelName}
-      className={cn(" flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4", visible?"block": "hidden")}
+      className={cn(
+        " flex flex-col p-3 m-3 border-2 rounded-lg bg-slate-200 gap-4",
+        visible ? "block" : "hidden"
+      )}
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl capitalize">

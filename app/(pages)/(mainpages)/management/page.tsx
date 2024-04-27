@@ -78,20 +78,20 @@ const ManagementPage = () => {
             OUR MANAGEMENT TEAM
           </h2>
           <div className="absolute right-10">
-          {token && (
-            <Link href={"/edit?section=auxGallery"}>
-              <Button
-                variant={"ghost"}
-                className="bg-green-400 w-[100px] text-white shadow-md"
-              >
-                <Pencil
-                  className="h-4 w-4 mr-2 fill-green-800"
-                  stroke="false"
-                />
-                Edit
-              </Button>
-            </Link>
-          )}
+            {token && (
+              <Link href={"/edit?section=facilities"}>
+                <Button
+                  variant={"ghost"}
+                  className="bg-green-400 w-[100px] text-white shadow-md"
+                >
+                  <Pencil
+                    className="h-4 w-4 mr-2 fill-green-800"
+                    stroke="false"
+                  />
+                  Edit
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
         <table className="table-auto self-center w-full">

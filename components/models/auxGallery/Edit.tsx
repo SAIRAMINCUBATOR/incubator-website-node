@@ -49,14 +49,15 @@ export const EditAuxGallery = () => {
 
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "editAuxGallery";
-  const { auxGallery } = data;
+  const isModalOpen = isOpen && type === "editfacilities";
+  const { facilities } = data;
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: auxGallery?.name,
-      image: auxGallery?.image,
-      category: auxGallery?.categoryId,
+      name: facilities?.name,
+      image: facilities?.image,
+      category: facilities?.categoryId,
     },
   });
   const getCatagories = async () => {
@@ -67,11 +68,11 @@ export const EditAuxGallery = () => {
   };
 
   useEffect(() => {
-    if (auxGallery?.name) form.setValue("name", auxGallery.name);
-    if (auxGallery?.image) form.setValue("image", auxGallery.image);
-    if (auxGallery?.categoryId)
-      form.setValue("category", auxGallery.categoryId);
-  }, [auxGallery, form]);
+    if (facilities?.name) form.setValue("name", facilities.name);
+    if (facilities?.image) form.setValue("image", facilities.image);
+    if (facilities?.categoryId)
+      form.setValue("category", facilities.categoryId);
+  }, [facilities, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -83,8 +84,8 @@ export const EditAuxGallery = () => {
       }
 
       await axios.put(
-        "/api/components/auxGallery",
-        { ...values, id: auxGallery?.id },
+        "/api/components/facilities",
+        { ...values, id: facilities?.id },
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -120,7 +121,7 @@ export const EditAuxGallery = () => {
       <DialogContent className="bg-white text-black p-0  w-full">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit Gallery 2 Image
+            Edit Facilities
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
