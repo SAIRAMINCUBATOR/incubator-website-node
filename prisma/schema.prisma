@@ -1,0 +1,221 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberRole {
+  ADMIN
+  USER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum CategoryType {
+  MainGallery
+  AuxilaryGallery
+  Collaboration
+}
+
+model User {
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  email             String
+  password          String
+  isPasswordDefault Boolean
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  role              MemberRole        @default(USER)
+  gender            Gender
+  MainCarousel      MainCarousel[]
+  Testimony         Testimony[]
+  Team              Team[]
+  Lead              Lead[]
+  StartUp           StartUp[]
+  Project           Project[]
+  Company           Company[]
+  MainGallery       MainGallery[]
+  AuxilaryGallery   AuxilaryGallery[]
+  Mentor            Mentors[]
+  AdvisoryBoard     AdvisoryBoard[]
+  IPR               IPR[]
+  Collaboration     Collaboration[]
+  Category          Category[]
+  Funding           Funding[]
+  Management        Management[]
+}
+
+model MainCarousel {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Testimony {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  companyName   String
+  Designation   String
+  description   String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Team {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  designation   String
+  facebook      String?
+  twitter       String?
+  instagram     String?
+  linkedin      String?
+  experience    String?
+  addedByUserId String  @db.ObjectId
+  addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Lead {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  designation   String
+  facebook      String?
+  twitter       String?
+  instagram     String?
+  linkedin      String?
+  experience    String?
+  addedByUserId String  @db.ObjectId
+  addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  MainGallery     MainGallery[]
+  AuxilaryGallery AuxilaryGallery[]
+  type            CategoryType
+  addedByUserId   String            @db.ObjectId
+  addedByUser     User              @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  Collaboration   Collaboration[]
+}
+
+model MainGallery {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  categoryId    String   @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model AuxilaryGallery {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  categoryId    String   @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Company {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  image         String
+  name          String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model StartUp {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  list          String[]
+  addedByUserId String?   @db.ObjectId
+  addedByUser   User?     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  image         String[]
+  description   String
+  content       String?
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Mentors {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  organization  String
+  designation   String
+  expertise     String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model AdvisoryBoard {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  organization  String
+  designation   String
+  expertise     String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model IPR {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  jobs          String[]
+  designation   String
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Collaboration {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  image         String
+  categoryId    String   @db.ObjectId
+  category      Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  addedByUserId String   @db.ObjectId
+  addedByUser   User     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Funding {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  cin           String
+  contact       String
+  amount        String?
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+
+model Management {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  designation   String
+  experience    String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}

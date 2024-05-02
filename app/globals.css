@@ -1,0 +1,403 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.nav-main {
+  transition: transform 0.3s ease;
+  width: 100%;
+  /* transform: translateY(100px); */
+}
+
+.nav-main-hide {
+  transform: translateY(-100px);
+}
+
+.nav-btns > a {
+  text-decoration: none;
+  color: rgb(69, 69, 69);
+  position: relative;
+  transition: transform 0.25s linear, opacity 0.25s ease;
+  /* outline: 1px solid red; */
+}
+
+.nav-btns:hover a:not(:hover) {
+  opacity: 0.5;
+}
+
+.nav-btns > a:hover {
+  opacity: 1;
+}
+h2.splitting .char {
+  transition: transform 0.3s cubic-bezier(0.3, 0, 0.3, 1), opacity 0.3s linear;
+  transition-delay: calc(50ms * var(--char-index));
+}
+h2.splitting[data-scroll="out"] .char {
+  opacity: 0.1;
+  transform: translateY(0.25em);
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: translateY(10px);
+  height: 2px;
+  top: -3px;
+  left: 0;
+  background-color: rgba(67, 137, 250, 255);
+  transform-origin: center;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0;
+}
+
+.nav-link:hover::before {
+  transform: translateY(0) scale(1.1);
+  opacity: 1;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: translateY(-10px);
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: rgba(67, 137, 250, 255);
+  transform-origin: center;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0;
+}
+
+.nav-link:hover::after {
+  transform: translateY(0) scale(1.1);
+  opacity: 1;
+}
+
+.projects {
+  width: 100%;
+  padding: 5%;
+  background: linear-gradient(
+    90deg,
+    rgba(173, 204, 233, 0.5) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  box-shadow: inset 0px 0px 15px #adcce9;
+}
+
+.our-projects {
+  font-family: "Montserrat", "sans-serif";
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: rgba(69, 69, 69, 0.8);
+  scroll-snap-align: start;
+  transition: transform 0.5s ease-in-out;
+}
+.our-projects:hover {
+  transform: scale(1.1);
+}
+
+.projects-swiper {
+  width: 95%;
+  height: 75vh;
+  background-color: transparent;
+  padding: 4% 0;
+  padding-bottom: 8%;
+  /* outline: 1px solid red; */
+}
+
+.projects-swiper-wrapper {
+  /* outline: 1px solid red; */
+  overflow-y: visible;
+  padding: 2% 0;
+}
+
+.projects-swiper-slide {
+  width: 54%;
+  /* height: 80%; */
+  /* margin-top: 50px; */
+  background: #fff;
+  border-radius: 10px;
+  overflow-y: visible;
+  transition: transform 0.5s ease;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.3rem;
+  font-size: clamp(
+    1.3rem,
+    0.8608695652173914rem + 0.7826086956521738vw,
+    1.8rem
+  );
+  text-transform: capitalize;
+}
+
+.project-desc {
+  font-size: 1rem;
+  font-size: clamp(1rem, 0.26028880866425974rem + 0.8664259927797836vw, 1.3rem);
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+.project-info .apply-now:hover {
+  transform: scale(1.05);
+}
+
+.apply-banner .apply-now:hover {
+  transform: scale(1.05);
+}
+
+.projects-swiper-slide ~ .swiper-slide-active {
+  background: white;
+  z-index: 100;
+  transform: scale(1.075);
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.226);
+}
+
+.project-image-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-image-wrapper .project-image {
+  width: 107%;
+  object-fit: cover;
+}
+
+.project-info {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  padding: 15px;
+  height: 100%;
+  width: 70%;
+  gap: 1vw;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    270deg,
+    rgba(0, 0, 0, 0.692) 0%,
+    rgba(36, 36, 36, 0.493) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  padding-left: 15%;
+}
+
+.carousel {
+  mask: linear-gradient(90deg, transparent, white 15%, white 80%, transparent);
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    red 10%,
+    white 80%,
+    transparent
+  );
+}
+
+.gradient-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.802) 10%, transparent);
+}
+@media screen and (max-width: 800px) {
+  .footer {
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    padding: 8% 5%;
+  }
+}
+.sairam-footer {
+  width: 50%;
+  object-fit: cover;
+  margin-left: auto;
+}
+
+.incub-footer {
+  object-fit: cover;
+  width: 80%;
+}
+
+.footillus {
+  position: absolute;
+  height: auto;
+  width: auto;
+  width: 68%;
+  left: 50%;
+  bottom: -140%;
+  transform: translateX(-50%);
+  z-index: -10;
+}
+
+.footer > div {
+  flex: 0 1 33%;
+  /* outline: 1px solid red; */
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: row wrap;
+  width: 100%;
+  /* background: linear-gradient(90deg, rgba(173, 204, 233, 0.5) 0%, rgba(255, 255, 255, 0) 100%); */
+  background: linear-gradient(
+    180deg,
+    rgba(173, 204, 233, 0.5) 0%,
+    rgba(255, 255, 255, 0) 51.04%,
+    rgba(236, 243, 250, 0.117021) 62.5%,
+    rgba(173, 204, 233, 0.5) 100%
+  );
+  box-shadow: inset 0px 0px 30px #adcce9;
+  padding: 5% 8%;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-overlay2 {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.792) 15%,
+    rgba(0, 0, 0, 0.292) 80%,
+    transparent
+  );
+}
+
+.editor table {
+  width: 100%; /* Make the table fill its container */
+  border-collapse: collapse; /* Collapse the borders into a single border */
+  border-spacing: 0; /* Ensure no space between cells */
+  margin: auto; /* Center the table horizontally */
+}
+
+/* Table header styles */
+.editor th {
+  background-color: #f2f2f2; /* Light gray background */
+  border: 1px solid #ddd; /* Gray border */
+  padding: 8px; /* Padding around the content */
+  text-align: left; /* Align text to the left */
+}
+
+/* Table body cell styles */
+.editor td {
+  border: 1px solid #ddd; /* Gray border */
+  padding: 8px; /* Padding around the content */
+}
+
+/* Optional: Alternate row background color */
+.editor tr:nth-child(even) {
+  background-color: #f9f9f9; /* Lighter gray background for even rows */
+}
+.editor tr:nth-child(odd) {
+  background-color: #f0f0f0; /* Lighter gray background for even rows */
+}
+
+/* Specific color for the first row */
+.editor tr:first-child {
+  background-color: #c0c0c0; /* Different color for the first row */
+}
+
+.points {
+  background: linear-gradient(
+    270deg,
+    rgba(173, 204, 233, 0.5) 0%,
+    rgba(173, 204, 233, 0) 61.46%
+  );
+}
+
+.why {
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(173, 204, 233, 0.5) 100%
+  );
+}
