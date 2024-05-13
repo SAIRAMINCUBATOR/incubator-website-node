@@ -3,10 +3,21 @@ import axios from "axios";
 import Link from "next/link";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { Funding } from "@prisma/client";
+function formatNumberToCr(number: number) {
+  const crore = Math.floor(number / 10000000); // Divide by 10^7 to get crore
+  const remainder = number % 10000000; // Remainder after getting crore
+
+  if (remainder === 0) {
+    return `${crore} Cr`;
+  } else {
+    const croreFraction = Math.floor((remainder / 10000000) * 10) / 10; // Get the first decimal place
+    return `${crore + croreFraction} Cr`;
+  }
+}
+
 export const Funds = () => {
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [startUpCount,setStartUpCount]=useState(0);
+  const [totalAmount, setTotalAmount] = useState("");
+  const [startUpCount, setStartUpCount] = useState(0);
   const getFundingData = async () => {
     try {
       const response = await axios.get("/api/components/funding");
@@ -16,13 +27,12 @@ export const Funds = () => {
         // Convert amount strings to numbers and sum them up
         return total + parseFloat(item.amount);
       }, 0);
+      console.log(String(sum).toLocaleString());
 
       // Update the state with the total amount
-      setTotalAmount(sum);
-
-      console.log(response.data.response);
+      setTotalAmount(formatNumberToCr(sum));
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
   const getStartUpData = async () => {
@@ -33,10 +43,8 @@ export const Funds = () => {
         return total + item.list.length;
       }, 0);
       setStartUpCount(totalLength);
-
-      console.log(response.data.response.length);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
   useEffect(() => {
