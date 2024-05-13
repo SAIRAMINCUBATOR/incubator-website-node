@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const ACCEPTED_IMAGE_MIME_TYPES = {
   "image/jpeg": [],
   "image/png": [],
@@ -34,59 +34,64 @@ import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { useSession } from "./providers/context/SessionContext";
 import axios from "axios";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import { imageDb } from "@/lib/firebase";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
-  disabled? :boolean
+  disabled?: boolean;
 }
 
 export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
-  const [file, setFile] = useState<Blob>();
+  const [file, setFile] = useState<FileList>();
   const [uploading, setUploading] = useState(false);
   const { token, isTokenExpired } = useSession();
   const [alertOpen, setAlertOpen] = useState(false);
 
   const onDrop = (files: any) => {
-    setFile(files[0]);
+    setFile(files);
   };
 
-  const handleUpload = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleUpload = async () => {
     setUploading(true);
     try {
-      if (token && !isTokenExpired()) {
-        const formData = new FormData();
-        if (!file) {
-          toast(
-            <>
-              <AlertTriangle className="mr-2" /> File Not Found
-            </>
-          );
-          return;
-        }
-        formData.append("image", file);
-        const response = await axios.post("/api/firebase", formData, {
-          headers: { Authorization: "Bearer " + token },
-        });
-        onChange(response.data.url);
-        setUploading(false);
+      if (!file) {
+        toast(
+          <>
+            <AlertTriangle className="mr-2" /> File Not Found
+          </>
+        );
+        return;
       }
+      const imageRef = ref(imageDb, "files/" + file[0].name);
+      await uploadBytes(imageRef, file[0]);
+      const url = await getDownloadURL(imageRef);
+      onChange(url);
+      setUploading(false);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const handleDelete = async () => {
-    const url = value.substring(
-      value.indexOf("files") + 8,
-      value.lastIndexOf("?")
-    );
-    await axios.delete("/api/firebase?id="+url, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    onChange("");
+  useEffect(() => {
+    if (file?.length) {
+      handleUpload();
+    }
+  }, [file]);
 
+  const handleDelete = async () => {
+    const url = value
+      .substring(value.indexOf("files") + 8, value.lastIndexOf("?"))
+      .replaceAll("%20", " ");
+    const imgRef = ref(imageDb, "files/" + url);
+    await deleteObject(imgRef);
+    onChange("");
     setFile(undefined);
   };
 
@@ -94,20 +99,17 @@ export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
     return (
       <div className="relative h-fit w-full flex justify-center">
         <div className="relative">
-        <Image src={value} alt="Upload" width={200} height={100} />
-        <Button
-          onClick={() => setAlertOpen(true)}
-          disabled={disabled}
-          className="bg-rose-500 text-white p-1 rounded-full absolute -top-4 -right-4 shadow-sm h-fit"
-          type="button"
-        >
-          <X className="h-4 w-4" />
-        </Button>
+          <Image src={value} alt="Upload" width={200} height={100} />
+          <Button
+            onClick={() => setAlertOpen(true)}
+            disabled={disabled}
+            className="bg-rose-500 text-white p-1 rounded-full absolute -top-4 -right-4 shadow-sm h-fit"
+            type="button"
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </div>
-        <AlertDialog
-          open={alertOpen}
-          onOpenChange={setAlertOpen}
-        >
+        <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

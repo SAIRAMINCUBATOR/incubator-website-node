@@ -34,6 +34,14 @@ import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { useSession } from "./providers/context/SessionContext";
 import axios from "axios";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { imageDb } from "@/lib/firebase";
 
 interface FileUploadProps {
   onChange: (url?: string[]) => void;
@@ -46,85 +54,74 @@ export const MultipleFileUpload = ({
   value,
   disabled,
 }: FileUploadProps) => {
-  const [file, setFile] = useState<Blob[]>();
+  const [file, setFile] = useState<FileList>();
   const [uploading, setUploading] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const { token, isTokenExpired } = useSession();
   const [alertOpen, setAlertOpen] = useState<boolean[]>([]);
-  const [fileNames, setFileNames] = useState<string[]>([]);
 
   const onDrop = (files: any) => {
     setFile(files);
-    setFileNames([]);
   };
-  useEffect(() => {
-    file &&
-      file.map((file, index) => {
-        const name = getFileNameFromBlob(file).then((res) =>
-          //@ts-ignore
-          setFileNames((prev) => [...prev, res])
-        );
-        console.log(name);
-      });
-  }, [file]);
 
-  const handleUpload = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  async function uploadFile(uploadedImage: any) {
+    const imageRef = ref(imageDb, `files/${uploadedImage.name}`);
+    await uploadBytes(imageRef, uploadedImage);
+
+    return new Promise(async (resolve, reject) => {
+      const url: string = await getDownloadURL(imageRef);
+      resolve(url);
+    });
+  }
+
+  const handleUpload = async () => {
     setUploading(true);
     try {
-      if (token && !isTokenExpired()) {
-        const formData = new FormData();
-        if (!file) {
-          toast(
-            <>
-              <AlertTriangle className="mr-2" /> File Not Found
-            </>
-          );
-          return;
-        }
-        for (let i = 0; i < file.length; i++) {
-          formData.append("image", file[i]);
-        }
-        const response = await axios.post("/api/firebase", formData, {
-          headers: { Authorization: "Bearer " + token },
-        });
-        onChange([...value, ...response.data.url]);
-        setUploading(false);
-        setFile(undefined);
-        setFileNames([]);
+      if (!file) {
+        toast(
+          <>
+            <AlertTriangle className="mr-2" /> File Not Found
+          </>
+        );
+        return;
       }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const handleDelete = async (val: string) => {
-    const url = val.substring(val.indexOf("files") + 8, val.lastIndexOf("?"));
-    try {
-      await axios.delete("/api/firebase?id=" + url, {
-        headers: { Authorization: "Bearer " + token },
-      });
-      const updatedList = [...value];
-      updatedList.pop();
-      onChange(updatedList);
+      for (let i = 0; i < file.length; i++) {
+        //@ts-ignore
+        const url: string = await uploadFile(file[i]);
+        setUploadedFiles((prev) => [...prev, url]);
+      }
+      setUploading(false);
       setFile(undefined);
     } catch (e) {
       console.log(e);
     }
   };
 
-  function getFileNameFromBlob(blob) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const fileName = blob.name || "Untitled"; // Get file name or set a default value
-        resolve(fileName);
-      };
-      reader.onerror = () => {
-        reject(new Error("Failed to read Blob data"));
-      };
-      reader.readAsArrayBuffer(blob);
-    });
-  }
+  useEffect(() => {
+    onChange(uploadedFiles);
+  }, [uploadedFiles]);
+
+  useEffect(() => {
+    if (file?.length > 0) handleUpload();
+  }, [file]);
+
+  const handleDelete = async (val: string) => {
+    console.log(val);
+
+    const url = val
+      .substring(val.indexOf("files") + 8, val.lastIndexOf("?"))
+      .replaceAll("%20", " ");
+    try {
+      const imgRef = ref(imageDb, "files/" + url);
+      await deleteObject(imgRef);
+      const updatedList = value.filter((vals) => vals !== val);
+      console.log(value, url, updatedList);
+      onChange(updatedList);
+      setFile(undefined);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleError = (e: { errors: { code: string }[] }[]) => {
     if (e[0].errors[0].code == "file-too-large")
@@ -222,8 +219,7 @@ export const MultipleFileUpload = ({
         {file && file.length > 0 && (
           <div className="flex flex-col gap-3 items-center">
             <span className=" text-sm text-gray-500 text-center">
-              {fileNames.join(",  ")} <br />
-              {fileNames.length} files added
+              {file.length} files added
             </span>
             <Button
               onClick={handleUpload}

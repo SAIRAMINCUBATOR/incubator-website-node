@@ -11,7 +11,6 @@ import { v4 } from "uuid";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    console.log("firebase");
     const headers = req.headers;
     const token = headers.get("Authorization");
     const user = await getUser(token);
