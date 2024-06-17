@@ -177,7 +177,7 @@ export default function Home() {
 
       <TeamComponent row0={LeadMembers} rowN={TeamMembers} />
       <HaveAProject />
-      <GalleryComponent images={GalleryImages} id="gallery"/>
+      <GalleryComponent images={GalleryImages} id="gallery" />
       <TestimonialSlider testimonycontent={Testimony} />
     </div>
   );
