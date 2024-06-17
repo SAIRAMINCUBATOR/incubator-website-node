@@ -105,22 +105,24 @@ export const EditManagementTable = ({ type }) => {
   };
 
   const handlePaste = (event) => {
-    event.preventDefault();
     const pastedText = event.clipboardData.getData("text");
-    const strippedData = pastedText
-      .split("\n")
-      .map((text: string) => text.split("\t"));
-    const list = strippedData.map((data) => ({
-      id: null,
-      name: data[data.length == 4 ? 1 : 0],
-      designation: data[data.length == 4 ? 2 : 1],
-      experience: data[data.length == 4 ? 3 : 2],
-      addedByUserId: null,
-    }));
+    if (pastedText.includes("\t") || pastedText.includes("\n")) {
+      event.preventDefault();
+      const strippedData = pastedText
+        .split("\n")
+        .map((text: string) => text.split("\t"));
+      const list = strippedData.map((data) => ({
+        id: null,
+        name: data[data.length == 4 ? 1 : 0],
+        designation: data[data.length == 4 ? 2 : 1],
+        experience: data[data.length == 4 ? 3 : 2],
+        addedByUserId: null,
+      }));
 
-    const newList = [...management];
-    newList.pop();
-    setManagement([...newList, ...list]);
+      const newList = [...management];
+      newList.pop();
+      setManagement([...newList, ...list]);
+    }
   };
 
   const handleAddRow = (e) => {
@@ -163,7 +165,9 @@ export const EditManagementTable = ({ type }) => {
       onSubmit={onSubmit}
       className={cn("space-y-8", type == "team" ? "block" : "hidden")}
     >
-      <span className="p-2 font-montserrat font-bold text-xl">Edit Management Team</span>
+      <span className="p-2 font-montserrat font-bold text-xl">
+        Edit Management Team
+      </span>
 
       <div className="flex flex-col items-center w-full">
         <Table onPaste={handlePaste} className="relative">
