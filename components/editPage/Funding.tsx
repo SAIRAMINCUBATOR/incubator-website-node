@@ -110,23 +110,26 @@ const FundingEdit = ({ editModelType }) => {
   };
 
   const handlePaste = (event) => {
-    event.preventDefault();
     const pastedText = event.clipboardData.getData("text");
-    const strippedData = pastedText
-      .split("\n")
-      .map((text: string) => text.split("\t"));
-    const list = strippedData.map((data) => ({
-      id: null,
-      name: data[data.length == 4 ? 1 : 0],
-      cin: data[data.length == 4 ? 2 : 1],
-      contact: data[data.length == 4 ? 3 : 2],
-      amount: data[data.length == 5 ? 4 : 3],
-      addedByUserId: null,
-    }));
+    console.log(pastedText);
+    if (pastedText.includes("\t") || pastedText.includes("\n")) {
+      event.preventDefault();
+      const strippedData = pastedText
+        .split("\n")
+        .map((text: string) => text.split("\t"));
+      const list = strippedData.map((data) => ({
+        id: null,
+        name: data[data.length == 5 ? 1 : 0],
+        cin: data[data.length == 5 ? 2 : 1],
+        contact: data[data.length == 5 ? 3 : 2],
+        amount: data[data.length == 5 ? 4 : 3],
+        addedByUserId: null,
+      }));
 
-    const newList = [...funding];
-    newList.pop();
-    setFunding([...newList, ...list]);
+      const newList = [...funding];
+      newList.pop();
+      setFunding([...newList, ...list]);
+    }
   };
 
   const handleAddRow = (e) => {
@@ -175,8 +178,7 @@ const FundingEdit = ({ editModelType }) => {
         <span className=" font-montserrat font-bold text-xl">Funding</span>
       </div>
       <div className="min-h-[100px] w-full flex justify-center items-center">
-
-        <form  className="space-y-8">
+        <form className="space-y-8">
           <div className="flex flex-col items-center w-full">
             <Table onPaste={handlePaste} ref={ref} className="relative">
               <TableHeader className="sticky top-0">

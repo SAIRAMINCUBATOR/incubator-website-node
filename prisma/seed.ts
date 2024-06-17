@@ -11,8 +11,8 @@ async function main() {
     const password = await getDefaultPassword();
     await prisma.user.create({
       data: {
-        name: "Jayant",
-        email: "jayant.rd@sairam.edu.in",
+        name: "Jayanth",
+        email: "jayanth.rd@sairam.edu.in",
         password,
         gender: Gender.MALE,
         role: MemberRole.ADMIN,
@@ -20,7 +20,6 @@ async function main() {
       },
     });
     console.log("User Seed Executed");
-
   }
   if (startUps.length == 0) {
     await prisma.startUp.createMany({

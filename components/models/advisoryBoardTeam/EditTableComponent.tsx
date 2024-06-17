@@ -111,23 +111,25 @@ export const EditAdvisoryBoardTable = ({ type }) => {
   };
 
   const handlePaste = (event) => {
-    event.preventDefault();
     const pastedText = event.clipboardData.getData("text");
-    const strippedData = pastedText
-      .split("\n")
-      .map((text: string) => text.split("\t"));
-    const list = strippedData.map((data) => ({
-      id: null,
-      name: data[data.length == 5 ? 1 : 0],
-      organization: data[data.length == 5 ? 2 : 1],
-      designation: data[data.length == 5 ? 3 : 2],
-      expertise: data[data.length == 5 ? 4 : 3],
-      addedByUserId: null,
-    }));
+    if (pastedText.includes("\t") || pastedText.includes("\n")) {
+      event.preventDefault();
+      const strippedData = pastedText
+        .split("\n")
+        .map((text: string) => text.split("\t"));
+      const list = strippedData.map((data) => ({
+        id: null,
+        name: data[data.length == 5 ? 1 : 0],
+        organization: data[data.length == 5 ? 2 : 1],
+        designation: data[data.length == 5 ? 3 : 2],
+        expertise: data[data.length == 5 ? 4 : 3],
+        addedByUserId: null,
+      }));
 
-    const newList = [...advisoryBoard];
-    newList.pop();
-    setAdvisoryBoard([...newList, ...list]);
+      const newList = [...advisoryBoard];
+      newList.pop();
+      setAdvisoryBoard([...newList, ...list]);
+    }
   };
 
   const handleAddRow = (e) => {
