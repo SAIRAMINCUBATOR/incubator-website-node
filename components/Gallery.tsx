@@ -112,7 +112,7 @@ const GalleryComponent = ({ images, id, heading, min, collab }: Props) => {
             {heading || "gallery"}
           </h2>
         </div>
-        {token && path != "/facilities" && (
+        {token && path != "/facilities" && path!="/collaborations" && (
           <div className=" justify-end mr-5">
             <Link
               href={

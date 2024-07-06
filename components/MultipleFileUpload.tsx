@@ -29,6 +29,7 @@ const ACCEPTED_IMAGE_MIME_TYPES = {
   "image/webp": [],
 };
 import Dropzone from "react-dropzone";
+import {v4 as uuid} from "uuid"
 
 import { toast } from "sonner";
 import { Button } from "./ui/button";
@@ -65,7 +66,7 @@ export const MultipleFileUpload = ({
   };
 
   async function uploadFile(uploadedImage: any) {
-    const imageRef = ref(imageDb, `files/${uploadedImage.name}`);
+    const imageRef = ref(imageDb, `files/${uuid()}.jpeg`);
     await uploadBytes(imageRef, uploadedImage);
 
     return new Promise(async (resolve, reject) => {

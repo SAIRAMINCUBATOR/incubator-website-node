@@ -141,6 +141,7 @@ export default function Home() {
 
   useEffect(() => {
     const uniqueCategories = new Set();
+    console.log(TempGalleryImages)
     const filteredImages = TempGalleryImages.filter((image) => {
       if (!uniqueCategories.has(image.categoryId)) {
         uniqueCategories.add(image.categoryId);

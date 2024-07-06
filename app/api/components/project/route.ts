@@ -119,7 +119,7 @@ export async function DELETE(
     }
     data.image.forEach(async (img) => {
       const url = img.substring(img.indexOf("files") + 8, img.lastIndexOf("?"));
-      const imgRef = ref(imageDb, "files/" + url);
+      const imgRef = ref(imageDb, "files/" + url.replaceAll("%20", " "));
       await deleteObject(imgRef);
     });
 

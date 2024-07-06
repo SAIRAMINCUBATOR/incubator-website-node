@@ -20,7 +20,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-
+import {v4 as uuid} from "uuid"
 import Image from "next/image";
 import { useEffect, useState } from "react";
 const ACCEPTED_IMAGE_MIME_TYPES = {
@@ -69,7 +69,7 @@ export const FileUpload = ({ onChange, value, disabled }: FileUploadProps) => {
         );
         return;
       }
-      const imageRef = ref(imageDb, "files/" + file[0].name);
+      const imageRef = ref(imageDb, "files/" + uuid() +".jpeg");
       await uploadBytes(imageRef, file[0]);
       const url = await getDownloadURL(imageRef);
       onChange(url);
