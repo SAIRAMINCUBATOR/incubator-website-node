@@ -5,6 +5,9 @@ const firebaseConfig = {
   authDomain: "sairam-incubation-website.firebaseapp.com",
   projectId: "sairam-incubation-website",
   storageBucket: "sairam-incubation-website.appspot.com",
+  messagingSenderId: "60031340503",
+  appId: "1:60031340503:web:02360684ea916242b2c592",
+  measurementId: "G-6KYGWC44V9"
 };
 
 // Initialize Firebase

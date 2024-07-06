@@ -55,7 +55,6 @@ export const SearchableSelect = ({
 
   const handleCreate = async (inputValue: string) => {
     setIsLoading(true);
-    console.log(type)
     const response = await axios.post(
       "/api/components/category",
       { name: inputValue, type },
