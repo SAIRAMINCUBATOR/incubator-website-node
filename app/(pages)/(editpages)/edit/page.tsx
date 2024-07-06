@@ -132,10 +132,18 @@ const EditPage = () => {
           editModelType={modelType}
         />
 
+
         <ManagementEdit editModelType={modelType} />
 
         <IPREdit editModelType={modelType} />
         <FundingEdit editModelType={modelType} />
+        <EditComponent
+          modelName="assesment"
+          addType="addAssesment"
+          editType="editAssesment"
+          deleteType="deleteAssesment"
+          editModelType={modelType}
+        />
       </div>
     </div>
   );

@@ -187,6 +187,13 @@ export const Navbar = () => {
                 >
                   APPLY
                 </Link>
+                <Link
+                  className="nav-link font-semibold"
+                  href="/assesment"
+                  onClick={() => setOpen(false)}
+                >
+                  ASSESMENT FRAMEWORK
+                </Link>
                 {(!token || isTokenExpired()) && (
                   <Link
                     className=" font-semibold"
@@ -310,6 +317,13 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
             >
               APPLY
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              href="/apply"
+              onClick={() => setOpen(false)}
+            >
+              ASSESMENT FRAMEWORk
             </Link>
             {(!token || isTokenExpired()) && (
               <Link

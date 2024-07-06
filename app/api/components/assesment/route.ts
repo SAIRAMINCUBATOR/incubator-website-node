@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { imageDb } from "@/lib/firebase";
 import { getUser } from "@/lib/get-user";
-import { Category, MainGallery } from "@prisma/client";
 import { ref, deleteObject } from "firebase/storage";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -13,53 +12,33 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const { name, image, category } = await req.json();
-
-    if (!name || !image || !category) {
-      return new NextResponse("Image or Name or Category is missing", {
+    const { file, description } = await req.json();
+    if (!file || !description) {
+      return new NextResponse("File or Description is missing", {
         status: 404,
       });
     }
 
-    await db.mainGallery.create({
+    await db.assesment.create({
       data: {
-        name,
-        image,
-        categoryId: category,
+        file,
+        description,
         addedByUserId: user.id,
       },
     });
     return NextResponse.json("Added");
   } catch (error) {
-    console.log("MAIN GALLERY POST", error);
+    console.log("ASSESMENT POST", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const { searchParams } = new URL(req.url);
-    const category = searchParams.get("category") as string;
-    let response: MainGallery[];
-    if (category) {
-      response = await db.mainGallery.findMany({
-        where: {
-          categoryId: category,
-        },
-        include: {
-          category: true,
-        },
-      });
-    } else {
-      response = await db.mainGallery.findMany({
-        include: {
-          category: true,
-        },
-      });
-    }
+    const response = await db.assesment.findMany();
     return NextResponse.json({ response });
   } catch (error) {
-    console.log("MAIN GALLERY GET", error);
+    console.log("ASSESMENT GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -72,27 +51,26 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const { name, image, id, category } = await req.json();
-    if (!name || !image || !id || !category) {
-      return new NextResponse("Image or Name or ID or Category is missing", {
+    const { file, description, id } = await req.json();
+    if (!file || !id || !description) {
+      return new NextResponse("File or ID or description is missing", {
         status: 404,
       });
     }
 
-    await db.mainGallery.update({
+    await db.assesment.update({
       where: {
         id,
       },
       data: {
-        name,
-        image,
-        categoryId: category,
+        file,
+        description,
         addedByUserId: user.id,
       },
     });
     return NextResponse.json("Updated");
   } catch (error) {
-    console.log("MAIN GALLERY PUT", error);
+    console.log("ASSESMENT PUT", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -113,7 +91,8 @@ export async function DELETE(
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
     }
-    const data = await db.mainGallery.findFirst({
+
+    const data = await db.assesment.findFirst({
       where: {
         id,
       },
@@ -121,21 +100,20 @@ export async function DELETE(
     if (!data) {
       return new NextResponse("Data Not Found", { status: 404 });
     }
-    const url = data.image.substring(
-      data.image.indexOf("files") + 8,
-      data.image.lastIndexOf("?")
+    const url = data.file.substring(
+      data.file.indexOf("files") + 8,
+      data.file.lastIndexOf("?")
     );
     const imgRef = ref(imageDb, "files/" + url.replaceAll("%20", " "));
     await deleteObject(imgRef);
-
-    await db.mainGallery.delete({
+    await db.assesment.delete({
       where: {
         id,
       },
     });
     return NextResponse.json("Deleted");
   } catch (error) {
-    console.log("MAIN GALLERY DELETE", error);
+    console.log("ASSESMENT DELETE", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

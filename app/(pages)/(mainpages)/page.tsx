@@ -6,7 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import * as React from "react";
 import { Projects } from "@/components/Projects";
 
-import { ImageData } from "@/schema";
+import { ImageData, MainGalleryWithCategory } from "@/schema";
 import { Startup } from "@/components/Startup";
 
 import { TeamComponent } from "@/components/Team";
@@ -26,8 +26,6 @@ import {
   Testimony,
   Project,
   Company,
-  Category,
-  CategoryType,
 } from "@prisma/client";
 import axios from "axios";
 import { CompanyComponent } from "@/components/Companys";
@@ -36,8 +34,8 @@ export default function Home() {
   const [Testimony, setTestimony] = useState<Testimony[]>([]);
   const [TeamMembers, setTeamMembers] = useState<Team[]>([]);
   const [LeadMembers, setLeadMembers] = useState<Lead[]>([]);
-  const [GalleryImages, setGalleryImages] = useState<MainGallery[]>([]);
-  const [TempGalleryImages, setTempGalleryImages] = useState<MainGallery[]>([]);
+  const [GalleryImages, setGalleryImages] = useState<MainGalleryWithCategory[]>([]);
+  const [TempGalleryImages, setTempGalleryImages] = useState<MainGalleryWithCategory[]>([]);
   const [StrtUpData, setStrtUpData] = useState<StartUp[]>([]);
   const [ProjectContent, setProjectContent] = useState<Project[]>([]);
   const [Companies, setCompanies] = useState<ImageData[]>([]);
@@ -141,7 +139,6 @@ export default function Home() {
 
   useEffect(() => {
     const uniqueCategories = new Set();
-    console.log(TempGalleryImages)
     const filteredImages = TempGalleryImages.filter((image) => {
       if (!uniqueCategories.has(image.categoryId)) {
         uniqueCategories.add(image.categoryId);

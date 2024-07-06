@@ -39,6 +39,9 @@ import { EditIPR } from "@/components/models/ipr/Edit";
 import DeleteIPR from "@/components/models/ipr/Delete";
 import { EditFunding } from "@/components/models/fundings/Edit";
 import DeleteFunding from "@/components/models/fundings/Delete";
+import { AddAssesment } from "../models/Assesment/Add";
+import { EditAssesmentModal } from "../models/Assesment/Edit";
+import DeleteAssesment from "../models/Assesment/Delete";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -90,6 +93,9 @@ export const ModalProvider = () => {
       <DeleteIPR/>
       <EditFunding/>
       <DeleteFunding/>
+      <AddAssesment/>
+      <EditAssesmentModal/>
+      <DeleteAssesment/>
     </>
   );
 };

@@ -19,7 +19,8 @@ interface Props {
     | "project"
     | "facilities"
     | "startup"
-    | "collaboration";
+    | "collaboration"
+    | "assesment";
   addType: ModalType;
   editType: ModalType;
   deleteType: ModalType;
@@ -101,18 +102,23 @@ const EditComponent = ({
               <div className="flex flex-wrap gap-10 m-4 justify-evenly">
                 {data.map((datum, index) => (
                   <div className="flex flex-col gap-5">
-                    <Image
-                      className="object-contain rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
-                      src={
-                        Array.isArray(datum.image)
-                          ? datum.image[0]
-                          : datum.image
-                      }
-                      alt={`${datum.name}`}
-                      key={index}
-                      width={200}
-                      height={105}
-                    />
+                    {datum.image ? (
+                      <Image
+                        className="object-contain rounded-xl w-[250px] h-[150px] shadow bg-slate-100"
+                        src={
+                          Array.isArray(datum.image)
+                            ? datum.image[0]
+                            : datum.image
+                        }
+                        alt={`${datum.name}`}
+                        key={index}
+                        width={200}
+                        height={105}
+                      />
+                    ) : (
+                      <a href={datum.file} target="_blank" className="w-full text-center">View File</a>
+                    )}
+
                     <div className="flex gap-5 justify-center">
                       <Button
                         onClick={() => onOpen(editType, { [modelName]: datum })}

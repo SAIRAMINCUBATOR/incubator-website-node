@@ -90,7 +90,7 @@ const UserButton = ({ setClose }: { setClose?: () => void }) => {
           <PopoverContent>
             <div className="w-full flex flex-col gap-3 items-center">
               <div>
-                <span>{response?.name}</span> -
+                <span>{response?.name}</span>{" - "}
                 <span className=" text-sm text-gray-400">
                   {response?.email}
                 </span>

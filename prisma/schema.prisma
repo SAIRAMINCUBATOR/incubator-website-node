@@ -55,6 +55,7 @@ model User {
   Category          Category[]
   Funding           Funding[]
   Management        Management[]
+  Assesment         Assesment[]
 }
 
 model MainCarousel {
@@ -147,8 +148,8 @@ model StartUp {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   list          String[]
-  addedByUserId String?   @db.ObjectId
-  addedByUser   User?     @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  addedByUserId String?  @db.ObjectId
+  addedByUser   User?    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
 
 model Project {
@@ -201,15 +202,14 @@ model Collaboration {
 }
 
 model Funding {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   cin           String
   contact       String
   amount        String?
-  addedByUserId String @db.ObjectId
-  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  addedByUserId String  @db.ObjectId
+  addedByUser   User    @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }
-
 
 model Management {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
@@ -218,4 +218,12 @@ model Management {
   experience    String
   addedByUserId String @db.ObjectId
   addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Assesment {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  description   String
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+  file          String
 }
