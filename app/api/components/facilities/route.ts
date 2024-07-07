@@ -103,10 +103,14 @@ export async function DELETE(
     if (!data) {
       return new NextResponse("Data Not Found", { status: 404 });
     }
-    const url = data.image.substring(data.image.indexOf("files") + 8, data.image.lastIndexOf("?"));
+    const url = data.image.substring(
+      data.image.indexOf("files") + 8,
+      data.image.lastIndexOf("?")
+    );
     const imgRef = ref(imageDb, "files/" + url.replaceAll("%20", " "));
-    await deleteObject(imgRef);
-
+    try {
+      await deleteObject(imgRef);
+    } catch (err) {}
     await db.auxilaryGallery.delete({
       where: {
         id,

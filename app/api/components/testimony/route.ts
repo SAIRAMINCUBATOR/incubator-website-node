@@ -12,9 +12,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {name , image, companyName, Designation,description} = await req.json();
+    const { name, image, companyName, Designation, description } =
+      await req.json();
     if (!name || !image || !companyName || !Designation || !description) {
-      return new NextResponse("Image or Name or CompanyName or Designation or Description is missing", { status: 404 });
+      return new NextResponse(
+        "Image or Name or CompanyName or Designation or Description is missing",
+        { status: 404 }
+      );
     }
 
     await db.testimony.create({
@@ -36,16 +40,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-  
-
     const response = await db.testimony.findMany();
-    return NextResponse.json({response});
+    return NextResponse.json({ response });
   } catch (error) {
     console.log("TESTIMONY GET", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
-
 
 export async function PUT(req: NextRequest, res: NextResponse) {
   try {
@@ -55,14 +56,24 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {name , image,companyName,Designation, description,id} = await req.json();
-    if (!name || !image || !companyName || !Designation || !id || !description) {
-      return new NextResponse("Image or Name or ID or description is missing", { status: 404 });
+    const { name, image, companyName, Designation, description, id } =
+      await req.json();
+    if (
+      !name ||
+      !image ||
+      !companyName ||
+      !Designation ||
+      !id ||
+      !description
+    ) {
+      return new NextResponse("Image or Name or ID or description is missing", {
+        status: 404,
+      });
     }
 
     await db.testimony.update({
-      where:{
-        id
+      where: {
+        id,
       },
       data: {
         name,
@@ -80,8 +91,10 @@ export async function PUT(req: NextRequest, res: NextResponse) {
   }
 }
 
-export async function DELETE(req: NextRequest,
-  {params}:{params: {id:string}}) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const headers = req.headers;
     const token = headers.get("Authorization");
@@ -89,7 +102,7 @@ export async function DELETE(req: NextRequest,
     if (!user) {
       return new NextResponse("User Not Found", { status: 404 });
     }
-    const {searchParams} = new URL(req.url);
+    const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     if (!id) {
       return new NextResponse("ID is missing", { status: 404 });
@@ -103,14 +116,18 @@ export async function DELETE(req: NextRequest,
     if (!data) {
       return new NextResponse("Data Not Found", { status: 404 });
     }
-    const url = data.image.substring(data.image.indexOf("files") + 8, data.image.lastIndexOf("?"));
+    const url = data.image.substring(
+      data.image.indexOf("files") + 8,
+      data.image.lastIndexOf("?")
+    );
     const imgRef = ref(imageDb, "files/" + url.replaceAll("%20", " "));
-    await deleteObject(imgRef);
+    try {
+      await deleteObject(imgRef);
+    } catch (err) {}
     await db.testimony.delete({
-      where:{
-        id
+      where: {
+        id,
       },
-      
     });
     return NextResponse.json("Deleted");
   } catch (error) {

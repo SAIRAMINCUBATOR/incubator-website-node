@@ -194,6 +194,13 @@ export const Navbar = () => {
                 >
                   ASSESMENT FRAMEWORK
                 </Link>
+                <Link
+                  className="nav-link font-semibold"
+                  href="/startups"
+                  onClick={() => setOpen(false)}
+                >
+                  START UP DATABASE
+                </Link>
                 {(!token || isTokenExpired()) && (
                   <Link
                     className=" font-semibold"
@@ -324,6 +331,13 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
             >
               ASSESMENT FRAMEWORk
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              href="/startups"
+              onClick={() => setOpen(false)}
+            >
+              START UP DATABASE
             </Link>
             {(!token || isTokenExpired()) && (
               <Link

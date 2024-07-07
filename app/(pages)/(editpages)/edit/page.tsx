@@ -144,6 +144,13 @@ const EditPage = () => {
           deleteType="deleteAssesment"
           editModelType={modelType}
         />
+         <EditComponent
+          modelName="startupData"
+          addType="addStartupData"
+          editType="editStartupData"
+          deleteType="deleteStartupData"
+          editModelType={modelType}
+        />
       </div>
     </div>
   );

@@ -56,6 +56,7 @@ model User {
   Funding           Funding[]
   Management        Management[]
   Assesment         Assesment[]
+  StartUpData       StartUpData[]
 }
 
 model MainCarousel {
@@ -226,4 +227,76 @@ model Assesment {
   addedByUserId String @db.ObjectId
   addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
   file          String
+}
+
+model StartUpData {
+  id                           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name                         String?
+  dateOfRegistration           DateTime?
+  dateOfIncorporation          DateTime?
+  isOperational                Boolean?
+  yearsOfIncorporation         Int?
+  RegistrationNo               String?
+  ContactPerson                String?
+  email                        String?
+  mobile                       String?
+  website                      String?
+  isGraduatedFromIncubation    Boolean?
+  dateOfGraduation             DateTime?
+  isSignedInvestment           Boolean?
+  investmentFile               String?
+  isInvestedInIncubation       Boolean?
+  investedInIncubationFile     String?
+  quantumOfInvestment          Float?
+  quantumOfInvestmentFile      String?
+  sourceOfInvestment           String?
+  sourceOfInvestmentFile       String?
+  hasRaisedFollowingAmount     Boolean?
+  hasRaisedFollowingAmountFile String?
+  quantumOfRaisedAmount        Float?
+  quantumOfRaisedAmountFile    String?
+  hasCrossed1CrAmount          Boolean?
+  hasCrossed1CrAmountFile      String?
+  FinancialYear                String?
+  Institute                    String?
+  Role                         String?
+  address                      String?
+  sector                       String?
+  sdgGoal                      String[]
+  incorporationCertificate     String?
+  udayamCertificate            String?
+  MOU                          String?
+  ITR                          String?
+  DPIIT                        String?
+
+  CopyRights CopyRight[]
+  Patents    Patent[]
+  TradeMarks TradeMark[]
+
+  addedByUserId String @db.ObjectId
+  addedByUser   User   @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model Patent {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  file          String?
+  StartUpData   StartUpData? @relation(fields: [startUpDataId], references: [id])
+  startUpDataId String?      @db.ObjectId
+}
+
+model CopyRight {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  file          String?
+  StartUpData   StartUpData? @relation(fields: [startUpDataId], references: [id])
+  startUpDataId String?      @db.ObjectId
+}
+
+model TradeMark {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  file          String?
+  StartUpData   StartUpData? @relation(fields: [startUpDataId], references: [id])
+  startUpDataId String?      @db.ObjectId
 }

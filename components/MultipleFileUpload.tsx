@@ -29,7 +29,7 @@ const ACCEPTED_IMAGE_MIME_TYPES = {
   "image/webp": [],
 };
 import Dropzone from "react-dropzone";
-import {v4 as uuid} from "uuid"
+import { v4 as uuid } from "uuid";
 
 import { toast } from "sonner";
 import { Button } from "./ui/button";
@@ -114,7 +114,9 @@ export const MultipleFileUpload = ({
       .replaceAll("%20", " ");
     try {
       const imgRef = ref(imageDb, "files/" + url);
-      await deleteObject(imgRef);
+      try {
+        await deleteObject(imgRef);
+      } catch (err) {}
       const updatedList = value.filter((vals) => vals !== val);
       console.log(value, url, updatedList);
       onChange(updatedList);

@@ -62,8 +62,9 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
       return new NextResponse("id is missing", { status: 404 });
     }
     const imgRef = ref(imageDb, "files/" + id);
-    await deleteObject(imgRef);
-
+    try {
+      await deleteObject(imgRef);
+    } catch (err) {}
     return NextResponse.json("Deleted");
   } catch (error) {
     console.log("FIREBASE IMAGE DELETE", error);

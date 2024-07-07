@@ -105,7 +105,9 @@ export async function DELETE(
       data.file.lastIndexOf("?")
     );
     const imgRef = ref(imageDb, "files/" + url.replaceAll("%20", " "));
-    await deleteObject(imgRef);
+    try {
+      await deleteObject(imgRef);
+    } catch (err) {}
     await db.assesment.delete({
       where: {
         id,

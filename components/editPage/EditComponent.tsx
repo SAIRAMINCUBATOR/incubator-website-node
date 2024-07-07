@@ -20,7 +20,8 @@ interface Props {
     | "facilities"
     | "startup"
     | "collaboration"
-    | "assesment";
+    | "assesment"
+    | "startupData";
   addType: ModalType;
   editType: ModalType;
   deleteType: ModalType;
@@ -65,10 +66,10 @@ const EditComponent = ({
         .toLocaleLowerCase()
         .endsWith(modelName.toLocaleLowerCase())
     ) {
-      getData();
+      setTimeout(getData, 500);
+      // getData();
       setCurrentType(null);
     }
-    console.log(isOpen, type);
   }, [isOpen, type]);
 
   useEffect(() => {
@@ -116,7 +117,14 @@ const EditComponent = ({
                         height={105}
                       />
                     ) : (
-                      <a href={datum.file} target="_blank" className="w-full text-center">View File</a>
+                      <a
+                        href={datum.file}
+                        target="_blank"
+                        className="w-full text-center"
+                      >
+                        {datum.file ?? datum.name}
+                        
+                      </a>
                     )}
 
                     <div className="flex gap-5 justify-center">

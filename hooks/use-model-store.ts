@@ -15,6 +15,7 @@ import {
   IPR,
   Funding,
   Assesment,
+  StartUpData,
 } from "@prisma/client";
 import { create } from "zustand";
 
@@ -60,10 +61,13 @@ export type ModalType =
   | "deleteFunding"
   | "addAssesment"
   | "editAssesment"
-  | "deleteAssesment";
+  | "deleteAssesment"
+  | "addStartupData"
+  | "editStartupData"
+  | "deleteStartupData";
 
 interface ModalData {
-  assesment ? : Assesment
+  assesment?: Assesment;
   mainCarousel?: MainCarousel;
   testimony?: Testimony;
   team?: Team;
@@ -79,6 +83,7 @@ interface ModalData {
   advisoryBoard?: AdvisoryBoard;
   iPR?: IPR;
   funding?: Funding;
+  startupData?: StartUpData;
 }
 
 interface ModalStore {

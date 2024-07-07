@@ -92,7 +92,9 @@ export const PDFFileUpload = ({
       .substring(value.indexOf("files") + 8, value.lastIndexOf("?"))
       .replaceAll("%20", " ");
     const imgRef = ref(imageDb, "files/" + url);
-    await deleteObject(imgRef);
+    try {
+      await deleteObject(imgRef);
+    } catch (err) {}
     onChange("");
     setFile(undefined);
   };
@@ -101,7 +103,7 @@ export const PDFFileUpload = ({
     return (
       <div className="relative h-fit w-full flex justify-center">
         <div className="relative">
-          <iframe src={`${value}#toolbar=0`} width={400} height={300}/>
+          <iframe src={`${value}#toolbar=0`} width={400} height={300} />
           {/* <Image src={value} alt="Upload" width={200} height={100} /> */}
           <Button
             onClick={() => setAlertOpen(true)}
