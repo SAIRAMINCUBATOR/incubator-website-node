@@ -48,11 +48,6 @@ export const AddStartupData = () => {
 
   const form = useForm<z.infer<typeof StartUpDataFormSchema>>({
     resolver: zodResolver(StartUpDataFormSchema),
-    defaultValues:{
-      patents: [{name: "", file : ""}],
-      copyrights: [],
-      trademarks: [],
-    }
   });
 
   const isLoading = form.formState.isSubmitting;
@@ -132,7 +127,7 @@ export const AddStartupData = () => {
   };
 
   useEffect(() => {
-    console.log(form.getValues("patents"))
+    console.log(form.getValues("patents"));
   }, [form.watch("patents")]);
 
   const handleClose = () => {
@@ -154,7 +149,7 @@ export const AddStartupData = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 w-full"
           >
-            <ScrollArea className="h-[65vh] py-2">
+            <ScrollArea className="h-[65vh]">
               <div className="space-y-8 px-6">
                 <FormField
                   control={form.control}
@@ -208,7 +203,17 @@ export const AddStartupData = () => {
                     <FormItem>
                       <FormLabel>Years of Incorporation</FormLabel>
                       <FormControl>
-                        <Input type="number" disabled={isLoading} {...field} onChange={(e) => form.setValue("yearsOfIncorporation", Number(e.target.value))} />
+                        <Input
+                          type="number"
+                          disabled={isLoading}
+                          {...field}
+                          onChange={(e) =>
+                            form.setValue(
+                              "yearsOfIncorporation",
+                              Number(e.target.value)
+                            )
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -278,7 +283,7 @@ export const AddStartupData = () => {
                     <FormItem>
                       <FormLabel>Website</FormLabel>
                       <FormControl>
-                        <Input  disabled={isLoading} {...field} />
+                        <Input disabled={isLoading} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -391,7 +396,14 @@ export const AddStartupData = () => {
                     <FormItem>
                       <FormLabel>Quantum of Investment</FormLabel>
                       <FormControl>
-                        <Input type="number" disabled={isLoading} {...field} onChange={(e)=>field.onChange(parseFloat(e.target.value))} />
+                        <Input
+                          type="number"
+                          disabled={isLoading}
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseFloat(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -492,7 +504,14 @@ export const AddStartupData = () => {
                     <FormItem>
                       <FormLabel>Quantum of Raised Amount</FormLabel>
                       <FormControl>
-                        <Input type="number" disabled={isLoading} {...field} onChange={(e)=>field.onChange(parseFloat(e.target.value))} />
+                        <Input
+                          type="number"
+                          disabled={isLoading}
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseFloat(e.target.value))
+                          }
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -731,24 +750,20 @@ export const AddStartupData = () => {
                   )}
                 />
 
-                {/* <FormField
+                <FormField
                   control={form.control}
                   name="patents"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Patents</FormLabel>
                       <FormControl>
-                        {Array(field.value).map ( (patent, index) => (
-                          
                         
-                          <span>Add Patents</span>
-                        ))}
-                        { field.value.map((patent, index) => (
+                        {field.value.map((patent, index) => (
                           <div key={index} className="flex items-center gap-2">
-                            
-                            <Input
+                            {patent}
+                            {/* <Input
                               disabled={isLoading}
-                              value={patent.name}
+                              value={patent}
                               onChange={(e) => {
                                 const newPatents = [...field.value];
                                 newPatents[index] = {
@@ -757,8 +772,8 @@ export const AddStartupData = () => {
                                 };
                                 field.onChange(newPatents);
                               }}
-                            />
-                            <PDFFileUpload
+                            /> */}
+                            {/* <PDFFileUpload
                               disabled={isLoading}
                               value={patent.file}
                               onChange={(e) => {
@@ -769,15 +784,15 @@ export const AddStartupData = () => {
                                 };
                                 field.onChange(newPatents);
                               }}
-                            />
+                            /> */}
                           </div>
-                        ))} 
+                        ))}
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                 <FormField
+                {/* <FormField
                   control={form.control}
                   name="patents"
                   render={({ field }) => (
@@ -819,7 +834,9 @@ export const AddStartupData = () => {
                 /> */}
               </div>
 
-              <DialogFooter className="px-6 py-4  bg-gray-100">
+              
+            </ScrollArea>
+            <DialogFooter className="px-6 py-4  bg-gray-100">
                 <Button
                   variant="primary"
                   disabled={isLoading}
@@ -828,7 +845,6 @@ export const AddStartupData = () => {
                   Add
                 </Button>
               </DialogFooter>
-            </ScrollArea>
           </form>
         </Form>
       </DialogContent>
