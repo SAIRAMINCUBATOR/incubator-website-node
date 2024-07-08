@@ -188,16 +188,16 @@ export const Navbar = () => {
                   APPLY
                 </Link>
                 <Link
-                  className="nav-link font-semibold"
+                  className=" font-semibold"
                   href="/assesment"
-                  onClick={() => setOpen(false)}
+                  onClick={() => setPopOverOpen(false)}
                 >
                   ASSESMENT FRAMEWORK
                 </Link>
                 <Link
-                  className="nav-link font-semibold"
+                  className="font-semibold"
                   href="/startups"
-                  onClick={() => setOpen(false)}
+                  onClick={() => setPopOverOpen(false)}
                 >
                   START UP DATABASE
                 </Link>
