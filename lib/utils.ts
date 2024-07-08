@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-export function FormatDate(date: Date) {
+export function FormatDate(dateS: Date) {
   // Function to add ordinal suffix to the day
   function addOrdinalSuffix(day) {
     if (day >= 11 && day <= 13) {
@@ -38,7 +38,9 @@ export function FormatDate(date: Date) {
     "November",
     "December",
   ];
-  if (date) {
+  if (dateS) {
+    const date = new Date(dateS);
+
     // Format the date
     const formattedDate = `${addOrdinalSuffix(date?.getDate())} ${
       monthNames[date?.getMonth()]

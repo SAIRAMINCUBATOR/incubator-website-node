@@ -1,3 +1,4 @@
+import { RequestData } from "@/schema";
 import {
   MainGallery,
   Lead,
@@ -83,7 +84,7 @@ interface ModalData {
   advisoryBoard?: AdvisoryBoard;
   iPR?: IPR;
   funding?: Funding;
-  startupData?: StartUpData;
+  startupData?: RequestData;
 }
 
 interface ModalStore {

@@ -1,4 +1,4 @@
-import { Gender } from "@prisma/client";
+import { CopyRight, Gender, Patent, TradeMark } from "@prisma/client";
 import { z } from "zod";
 
 export interface ImageData {
@@ -13,6 +13,7 @@ export interface UserData {
 }
 
 export const StartUpDataFormSchema = z.object({
+  id:z.string().nullable().default(""),
   name: z.string().nullable().default(""),
   dateOfRegistration: z.date().nullable().default(null),
   dateOfIncorporation: z.date().nullable().default(null),
@@ -50,33 +51,75 @@ export const StartUpDataFormSchema = z.object({
   MOU: z.string().nullable().default(""),
   ITR: z.string().nullable().default(""),
   DPIIT: z.string().nullable().default(""),
-  patents: z
+  Patents: z
     .array(
       z.object({
-        id: z.string().optional(),
+        id: z.string().optional().nullable(),
         name: z.string().optional(),
         file: z.string().optional(),
       })
     )
     .nullable(),
-  copyrights: z
+  CopyRights: z
     .array(
       z.object({
-        id: z.string().optional().default(""),
-        name: z.string().optional().default(""),
-        file: z.string().optional().default(""),
+        id: z.string().optional().nullable(),
+        name: z.string().optional(),
+        file: z.string().optional(),
       })
     )
-    .nullable()
-    .default([]),
-  trademarks: z
+    .nullable(),
+  TradeMarks: z
     .array(
       z.object({
-        id: z.string().optional().default(""),
-        name: z.string().optional().default(""),
-        file: z.string().optional().default(""),
+        id: z.string().optional().nullable(),
+        name: z.string().optional(),
+        file: z.string().optional(),
       })
     )
-    .nullable()
-    .default([]),
+    .nullable(),
 });
+
+export interface RequestData {
+  id: string | null;
+  name: string | null;
+  dateOfRegistration: Date | null;
+  dateOfIncorporation: Date | null;
+  isOperational: boolean | null;
+  yearsOfIncorporation: number | null;
+  RegistrationNo: string | null;
+  ContactPerson: string | null;
+  email: string | null;
+  mobile: string | null;
+  website: string | null;
+  isGraduatedFromIncubation: boolean | null;
+  dateOfGraduation: Date | null;
+  isSignedInvestment: boolean | null;
+  investmentFile: string | null;
+  isInvestedInIncubation: boolean | null;
+  investedInIncubationFile: string | null;
+  quantumOfInvestment: number | null;
+  quantumOfInvestmentFile: string | null;
+  sourceOfInvestment: string | null;
+  sourceOfInvestmentFile: string | null;
+  hasRaisedFollowingAmount: boolean | null;
+  hasRaisedFollowingAmountFile: string | null;
+  quantumOfRaisedAmount: number | null;
+  quantumOfRaisedAmountFile: string | null;
+  hasCrossed1CrAmount: boolean | null;
+  hasCrossed1CrAmountFile: string | null;
+  FinancialYear: string | null;
+  Institute: string | null;
+  Role: string | null;
+  address: string | null;
+  sector: string | null;
+  sdgGoal: string[] | null;
+  incorporationCertificate: string | null;
+  udayamCertificate: string | null;
+  MOU: string | null;
+  ITR: string | null;
+  DPIIT: string | null;
+  Patents: Patent[];
+  CopyRights: CopyRight[];
+  TradeMarks: TradeMark[];
+}

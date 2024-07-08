@@ -43,8 +43,8 @@ import { AddAssesment } from "../models/Assesment/Add";
 import { EditAssesmentModal } from "../models/Assesment/Edit";
 import DeleteAssesment from "../models/Assesment/Delete";
 import { AddStartupData } from "../models/startupData/Add";
-import { EditStartupData } from "../models/startupData/Edit";
 import DeleteStartupData from "../models/startupData/Delete";
+import { EditStartupData } from "../models/startupData/Edit";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 

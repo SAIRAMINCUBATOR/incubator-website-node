@@ -23,74 +23,58 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useEffect, useState } from "react";
 
-const FormSchema = z.object({
-  date: z.date().nullable().default(new Date()),
-});
+// const FormSchema = z.object({
+//   date: z.date().nullable().default(new Date()),
+// });
 
 interface Props {
   value: Date;
-  name: string;
   disabled: boolean;
   onChange: (value: Date) => void;
 }
 
 export function DatePicker(props: Props) {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  });
+  // const form = useForm<z.infer<typeof FormSchema>>({
+  //   resolver: zodResolver(FormSchema),
+  // });
+  // const [date, setDate] = useState<Date>(props.value);
+  // useEffect(() => {
+  //   setDate(props.value);
+  //   // form.setValue("date", props.value);
+  // }, [props.value]);
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    props.onChange(data.date);
-  }
+  // useEffect(() => {
+  //   props.onChange(form.getValues("date"));
+  // }, [form.watch("date")]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="date"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>{props.name}</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      disabled={props.disabled}
-                      variant={"outline"}
-                      className={cn(
-                        " pl-3 text-left font-normal ",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-
-              <FormMessage />
-            </FormItem>
-          )}
+    <Popover>
+      <PopoverTrigger asChild>
+          <Button
+            disabled={props.disabled}
+            variant={"outline"}
+            className={cn(
+              " pl-3 text-left font-normal w-full",
+              !props.value && "text-muted-foreground"
+            )}
+          >
+            {props.value ? format(props.value, "PPP") : <span>Pick a date</span>}
+            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+          </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          selected={props.value}
+          onSelect={props.onChange}
+          disabled={(date) =>
+            date > new Date() || date < new Date("1900-01-01")
+          }
+          initialFocus
         />
-      </form>
-    </Form>
+      </PopoverContent>
+    </Popover>
   );
 }

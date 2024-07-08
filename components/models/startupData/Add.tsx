@@ -28,14 +28,14 @@ import { useModal } from "@/hooks/use-model-store";
 
 import { useSession } from "../../providers/context/SessionContext";
 import { toast } from "sonner";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, PlusCircle, Trash } from "lucide-react";
 import { PDFFileUpload } from "@/components/PDFFileUpload";
 import { StartUpDataFormSchema } from "@/schema";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DatePicker } from "@/components/DataPicker";
 
 import { SearchableMultiSelect } from "@/components/SearchableMultiSelect";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 interface Option {
   label: string;
   value: string;
@@ -45,6 +45,9 @@ export const AddStartupData = () => {
   const { token, isTokenExpired } = useSession();
   const router = useRouter();
   const isModalOpen = isOpen && type === "addStartupData";
+  const patentRef = useRef(null);
+  const copyRightRef = useRef(null);
+  const trademarkRef = useRef(null);
 
   const form = useForm<z.infer<typeof StartUpDataFormSchema>>({
     resolver: zodResolver(StartUpDataFormSchema),
@@ -104,6 +107,7 @@ export const AddStartupData = () => {
         toast("Sesstion Expired");
         handleClose();
       }
+      console.log(values);
 
       await axios.post("/api/components/startupData", values, {
         headers: {
@@ -126,14 +130,66 @@ export const AddStartupData = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(form.getValues("patents"));
-  }, [form.watch("patents")]);
-
   const handleClose = () => {
     form.reset();
     onClose();
   };
+
+  const handleAddPatentRow = (e) => {
+    e.preventDefault();
+    form.setValue("Patents", [
+      ...(form.getValues("Patents") || []),
+      { id: null, name: "", file: "" },
+    ]);
+    // setTimeout(function () {
+    //   if (patentRef.current) {
+    //     const element = patentRef.current;
+    //     element.children[element.children.length - 1].scrollIntoView();
+    //   }
+    // }, 200);
+  };
+  const handleCopyRightAddRow = (e) => {
+    e.preventDefault();
+    form.setValue("CopyRights", [
+      ...(form.getValues("CopyRights") || []),
+      { id: null, name: "", file: "" },
+    ]);
+    // setTimeout(function () {
+    //   if (copyRightRef.current) {
+    //     const element = copyRightRef.current;
+    //     element.children[element.children.length - 1].scrollIntoView();
+    //   }
+    // }, 200);
+  };
+  const handleTradeMarkAddRow = (e) => {
+    e.preventDefault();
+    form.setValue("TradeMarks", [
+      ...(form.getValues("TradeMarks") || []),
+      { id: null, name: "", file: "" },
+    ]);
+    // setTimeout(function () {
+    //   if (trademarkRef.current) {
+    //     const element = trademarkRef.current;
+    //     element.children[element.children.length - 1].scrollIntoView();
+    //   }
+    // }, 200);
+  };
+
+  useEffect(() => {
+    if (form.watch("Patents", []).length == 0) {
+      handleAddPatentRow(new Event("Onclick"));
+    }
+  }, [form.watch("Patents")]);
+  useEffect(() => {
+    if (form.watch("CopyRights", []).length == 0) {
+      handleCopyRightAddRow(new Event("Onclick"));
+    }
+  }, [form.watch("CopyRights")]);
+  useEffect(() => {
+    if (form.watch("TradeMarks", []).length == 0) {
+      handleTradeMarkAddRow(new Event("Onclick"));
+    }
+  }, [form.watch("TradeMarks")]);
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -164,17 +220,40 @@ export const AddStartupData = () => {
                     </FormItem>
                   )}
                 />
-                <DatePicker
-                  disabled={isLoading}
-                  value={form.getValues("dateOfRegistration")}
-                  onChange={(v) => form.setValue("dateOfRegistration", v)}
-                  name="Date of Registration"
+                <FormField
+                  control={form.control}
+                  name="dateOfRegistration"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Date of Registration</FormLabel>
+                      <FormControl>
+                        <DatePicker
+                          disabled={isLoading}
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-                <DatePicker
-                  disabled={isLoading}
-                  value={form.getValues("dateOfIncorporation")}
-                  onChange={(v) => form.setValue("dateOfIncorporation", v)}
-                  name="Date of Incorporation"
+
+                <FormField
+                  control={form.control}
+                  name="dateOfIncorporation"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Date of Incorporation</FormLabel>
+                      <FormControl>
+                        <DatePicker
+                          disabled={isLoading}
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
 
                 <FormField
@@ -308,13 +387,25 @@ export const AddStartupData = () => {
                     </FormItem>
                   )}
                 />
-                <DatePicker
-                  disabled={isLoading}
-                  value={form.getValues("dateOfGraduation")}
-                  onChange={(v) => form.setValue("dateOfGraduation", v)}
-                  name="Date of Graduation"
+                <FormField
+                  control={form.control}
+                  name="dateOfGraduation"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Date of Graduation</FormLabel>
+                      <FormControl>
+                        <DatePicker
+                          disabled={isLoading}
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
 
+                
                 <FormField
                   control={form.control}
                   name="isSignedInvestment"
@@ -752,99 +843,241 @@ export const AddStartupData = () => {
 
                 <FormField
                   control={form.control}
-                  name="patents"
+                  name="Patents"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Patents</FormLabel>
                       <FormControl>
-                        
-                        {field.value.map((patent, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            {patent}
-                            {/* <Input
-                              disabled={isLoading}
-                              value={patent}
-                              onChange={(e) => {
-                                const newPatents = [...field.value];
-                                newPatents[index] = {
-                                  ...newPatents[index],
-                                  name: e.target.value,
-                                };
-                                field.onChange(newPatents);
-                              }}
-                            /> */}
-                            {/* <PDFFileUpload
-                              disabled={isLoading}
-                              value={patent.file}
-                              onChange={(e) => {
-                                const newPatents = [...field.value];
-                                newPatents[index] = {
-                                  ...newPatents[index],
-                                  file: e,
-                                };
-                                field.onChange(newPatents);
-                              }}
-                            /> */}
-                          </div>
-                        ))}
+                        <div
+                          className="w-full flex flex-col gap-2 items-end"
+                          ref={patentRef}
+                        >
+                          {Array.isArray(field.value) &&
+                            field.value.map((patent, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-2 w-full"
+                              >
+                                {index + 1}
+                                <div className="flex flex-col w-full gap-2">
+                                  <Input
+                                    placeholder={`Enter Patent ${
+                                      index + 1
+                                    } Name`}
+                                    disabled={isLoading}
+                                    value={patent.name}
+                                    onChange={(e) => {
+                                      const newPatents = [...field.value];
+                                      newPatents[index] = {
+                                        ...newPatents[index],
+                                        name: e.target.value,
+                                      };
+                                      field.onChange(newPatents);
+                                    }}
+                                  />
+                                  <PDFFileUpload
+                                    disabled={isLoading}
+                                    value={patent.file}
+                                    onChange={(e) => {
+                                      const newPatents = [...field.value];
+                                      newPatents[index] = {
+                                        ...newPatents[index],
+                                        file: e,
+                                      };
+                                      field.onChange(newPatents);
+                                    }}
+                                  />
+                                </div>
+                                {form.watch("Patents").length > 1 && (
+                                  <Button
+                                    variant="destructive"
+                                    onClick={() => {
+                                      field.onChange(
+                                        field.value.filter(
+                                          (_, i) => i !== index
+                                        )
+                                      );
+                                    }}
+                                  >
+                                    <Trash />
+                                  </Button>
+                                )}
+                              </div>
+                            ))}
+                          <Button
+                            variant="primary"
+                            onClick={handleAddPatentRow}
+                          >
+                            <PlusCircle /> Add Patent
+                          </Button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                {/* <FormField
+
+                <FormField
                   control={form.control}
-                  name="patents"
+                  name="CopyRights"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Patents</FormLabel>
+                      <FormLabel>Copy Rights</FormLabel>
                       <FormControl>
-                        {Array.isArray(field.value) && field.value.map((patent, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <Input
-                              disabled={isLoading}
-                              value={patent.name}
-                              onChange={(e) => {
-                                const newPatents = [...field.value];
-                                newPatents[index] = {
-                                  ...newPatents[index],
-                                  name: e.target.value,
-                                };
-                                field.onChange(newPatents);
-                              }}
-                            />
-                            <PDFFileUpload
-                              disabled={isLoading}
-                              value={patent.file}
-                              onChange={(e) => {
-                                const newPatents = [...field.value];
-                                newPatents[index] = {
-                                  ...newPatents[index],
-                                  file: e,
-                                };
-                                field.onChange(newPatents);
-                              }}
-                            />
-                          </div>
-                        ))}
+                        <div
+                          className="w-full flex flex-col gap-2 items-end"
+                          ref={copyRightRef}
+                        >
+                          {Array.isArray(field.value) &&
+                            field.value.map((copyRight, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-2 w-full"
+                              >
+                                {index + 1}
+                                <div className="flex flex-col w-full gap-2">
+                                  <Input
+                                    placeholder={`Enter CopyRight ${
+                                      index + 1
+                                    } Name`}
+                                    disabled={isLoading}
+                                    value={copyRight.name}
+                                    onChange={(e) => {
+                                      const newCopyRights = [...field.value];
+                                      newCopyRights[index] = {
+                                        ...newCopyRights[index],
+                                        name: e.target.value,
+                                      };
+                                      field.onChange(newCopyRights);
+                                    }}
+                                  />
+                                  <PDFFileUpload
+                                    disabled={isLoading}
+                                    value={copyRight.file}
+                                    onChange={(e) => {
+                                      const newCopyRights = [...field.value];
+                                      newCopyRights[index] = {
+                                        ...newCopyRights[index],
+                                        file: e,
+                                      };
+                                      field.onChange(newCopyRights);
+                                    }}
+                                  />
+                                </div>
+                                {form.watch("CopyRights").length > 1 && (
+                                  <Button
+                                    variant="destructive"
+                                    onClick={() => {
+                                      field.onChange(
+                                        field.value.filter(
+                                          (_, i) => i !== index
+                                        )
+                                      );
+                                    }}
+                                  >
+                                    <Trash />
+                                  </Button>
+                                )}
+                              </div>
+                            ))}
+                          <Button
+                            variant="primary"
+                            onClick={handleCopyRightAddRow}
+                          >
+                            <PlusCircle /> Add CopyRight
+                          </Button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
-                /> */}
+                />
+                <FormField
+                  control={form.control}
+                  name="TradeMarks"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Trade Marks</FormLabel>
+                      <FormControl>
+                        <div
+                          className="w-full flex flex-col gap-2 items-end"
+                          ref={trademarkRef}
+                        >
+                          {Array.isArray(field.value) &&
+                            field.value.map((tradeMark, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center gap-2 w-full"
+                              >
+                                {index + 1}
+                                <div className="flex flex-col w-full gap-2">
+                                  <Input
+                                    placeholder={`Enter TradeMark ${
+                                      index + 1
+                                    } Name`}
+                                    disabled={isLoading}
+                                    value={tradeMark.name}
+                                    onChange={(e) => {
+                                      const newTradeMarks = [...field.value];
+                                      newTradeMarks[index] = {
+                                        ...newTradeMarks[index],
+                                        name: e.target.value,
+                                      };
+                                      field.onChange(newTradeMarks);
+                                    }}
+                                  />
+                                  <PDFFileUpload
+                                    disabled={isLoading}
+                                    value={tradeMark.file}
+                                    onChange={(e) => {
+                                      const newTradeMarks = [...field.value];
+                                      newTradeMarks[index] = {
+                                        ...newTradeMarks[index],
+                                        file: e,
+                                      };
+                                      field.onChange(newTradeMarks);
+                                    }}
+                                  />
+                                </div>
+                                {form.watch("TradeMarks").length > 1 && (
+                                  <Button
+                                    variant="destructive"
+                                    onClick={() => {
+                                      field.onChange(
+                                        field.value.filter(
+                                          (_, i) => i !== index
+                                        )
+                                      );
+                                    }}
+                                  >
+                                    <Trash />
+                                  </Button>
+                                )}
+                              </div>
+                            ))}
+                          <Button
+                            variant="primary"
+                            onClick={handleTradeMarkAddRow}
+                          >
+                            <PlusCircle /> Add TradeMark
+                          </Button>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
-
-              
             </ScrollArea>
             <DialogFooter className="px-6 py-4  bg-gray-100">
-                <Button
-                  variant="primary"
-                  disabled={isLoading}
-                  className="w-[100px]"
-                >
-                  Add
-                </Button>
-              </DialogFooter>
+              <Button
+                variant="primary"
+                disabled={isLoading}
+                className="w-[100px]"
+              >
+                Add
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>
