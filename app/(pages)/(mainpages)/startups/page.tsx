@@ -53,9 +53,9 @@ const StartupPage = () => {
             )}
           </div>
         </div>
-        <ScrollArea className="md:w-[85vw] w-[90vw] p-2">
-          <table className="table-auto self-center ">
-            <thead>
+        <ScrollArea className="md:w-[85vw] w-[90vw] h-[70vh] p-2">
+          <table className="table-auto self-center">
+            <thead className=" sticky top-0">
               <tr>
                 <th
                   className="border px-2 py-2 bg-blue-300 border-blue-400 text-blue-900"

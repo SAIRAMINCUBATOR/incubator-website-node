@@ -7,10 +7,13 @@ import {
   CarouselApi,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import { useEffect } from "react";
 import { ImageData } from "@/schema";
+import { Pagination } from "./Pagination";
 
 interface Props {
   images: ImageData[];
@@ -61,7 +64,7 @@ export const Slider = ({ images, imagesize }: Props) => {
           images.map((img, index) => (
             <CarouselItem
               key={index}
-              className="md:basis-full lg:basis-full w-full flex justify-center  bg-gray-400 "
+              className="md:basis-full lg:basis-full w-full flex justify-center"
             >
               <Image
                 src={img.image}
@@ -75,6 +78,9 @@ export const Slider = ({ images, imagesize }: Props) => {
             </CarouselItem>
           ))}
       </CarouselContent>
+      <Pagination total={images.length} current={current}/>
+      <CarouselNext className="right-6"/>
+      <CarouselPrevious className="left-6"/>
     </Carousel>
   );
 };
