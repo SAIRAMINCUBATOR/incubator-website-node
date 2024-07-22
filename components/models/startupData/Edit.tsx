@@ -185,7 +185,9 @@ export const EditStartupData = () => {
         toast("Sesstion Expired");
         handleClose();
       }
-
+      values.Patents = values.Patents.filter((p) => p.name != "");
+      values.CopyRights = values.CopyRights.filter((p) => p.name != "");
+      values.TradeMarks = values.TradeMarks.filter((p) => p.name != "");
       await axios.put("/api/components/startupData", values, {
         headers: {
           Authorization: "Bearer " + token,

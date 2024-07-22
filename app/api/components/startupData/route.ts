@@ -99,28 +99,34 @@ export async function POST(req: NextRequest, res: NextResponse) {
         ITR,
         DPIIT,
         Patents: {
-          createMany: {
-            data: Patents.map((patent) => ({
-              name: patent.name,
-              file: patent.file,
-            })),
-          },
+          ...(Patents.length > 0 && {
+            createMany: {
+              data: Patents.map((patent) => ({
+                name: patent.name,
+                file: patent.file,
+              })),
+            },
+          }),
         },
         CopyRights: {
-          createMany: {
-            data: CopyRights.map((copyRight) => ({
-              name: copyRight.name,
-              file: copyRight.file,
-            })),
-          },
+          ...(CopyRights.length > 0 && {
+            createMany: {
+              data: CopyRights.map((copyRight) => ({
+                name: copyRight.name,
+                file: copyRight.file,
+              })),
+            },
+          }),
         },
         TradeMarks: {
-          createMany: {
-            data: TradeMarks.map((tradeMark) => ({
-              name: tradeMark.name,
-              file: tradeMark.file,
-            })),
-          },
+          ...(TradeMarks.length > 0 && {
+            createMany: {
+              data: TradeMarks.map((tradeMark) => ({
+                name: tradeMark.name,
+                file: tradeMark.file,
+              })),
+            },
+          }),
         },
 
         addedByUserId: user.id,
@@ -197,7 +203,6 @@ export async function PUT(req: NextRequest, res: NextResponse) {
       TradeMarks,
     }: RequestData = await req.json();
 
-
     await db.startUpData.update({
       where: {
         id,
@@ -242,30 +247,36 @@ export async function PUT(req: NextRequest, res: NextResponse) {
         DPIIT,
         Patents: {
           deleteMany: {},
-          createMany: {
-            data: Patents.map((patent) => ({
-              name: patent.name,
-              file: patent.file,
-            })),
-          },
+          ...(Patents.length > 0 && {
+            createMany: {
+              data: Patents.map((patent) => ({
+                name: patent.name,
+                file: patent.file,
+              })),
+            },
+          }),
         },
         CopyRights: {
           deleteMany: {},
-          createMany: {
-            data: CopyRights.map((copyRight) => ({
-              name: copyRight.name,
-              file: copyRight.file,
-            })),
-          },
+          ...(CopyRights.length > 0 && {
+            createMany: {
+              data: CopyRights.map((copyRight) => ({
+                name: copyRight.name,
+                file: copyRight.file,
+              })),
+            },
+          }),
         },
         TradeMarks: {
           deleteMany: {},
-          createMany: {
-            data: TradeMarks.map((tradeMark) => ({
-              name: tradeMark.name,
-              file: tradeMark.file,
-            })),
-          },
+          ...(TradeMarks.length > 0 && {
+            createMany: {
+              data: TradeMarks.map((tradeMark) => ({
+                name: tradeMark.name,
+                file: tradeMark.file,
+              })),
+            },
+          }),
         },
         addedByUserId: user.id,
       },

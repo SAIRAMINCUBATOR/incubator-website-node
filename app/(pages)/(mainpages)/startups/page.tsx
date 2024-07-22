@@ -422,60 +422,95 @@ const StartupPage = () => {
                     {startup.isSignedInvestment ? "Yes" : "No"}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.investmentFile} target="_blank">
-                      View Investment File
-                    </a>
+                    {token && startup.investmentFile ? (
+                      <a href={startup.investmentFile} target="_blank">
+                        View Investment File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.isInvestedInIncubation ? "Yes" : "No"}
                   </td>
+                
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.investedInIncubationFile} target="_blank">
-                      View Invested in Incubation File
-                    </a>
+                    {token && startup.investedInIncubationFile ? (
+                      <a
+                        href={startup.investedInIncubationFile}
+                        target="_blank"
+                      >
+                        View Invested in Incubation File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.quantumOfInvestment}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.quantumOfInvestmentFile} target="_blank">
-                      View Quantum of Investment File
-                    </a>
+                    {token && startup.quantumOfInvestmentFile ? (
+                      <a href={startup.quantumOfInvestmentFile} target="_blank">
+                        View Quantum of Investment File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.sourceOfInvestment}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.sourceOfInvestmentFile} target="_blank">
-                      View Source of Investment File
-                    </a>
+                    {token && startup.sourceOfInvestmentFile ? (
+                      <a href={startup.sourceOfInvestmentFile} target="_blank">
+                        View Source of Investment File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.hasRaisedFollowingAmount ? "Yes" : "No"}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a
-                      href={startup.hasRaisedFollowingAmountFile}
-                      target="_blank"
-                    >
-                      View Raised Following Amount File
-                    </a>
+                    {token && startup.hasRaisedFollowingAmountFile ? (
+                      <a
+                        href={startup.hasRaisedFollowingAmountFile}
+                        target="_blank"
+                      >
+                        View Raised Following Amount File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.quantumOfRaisedAmount}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.quantumOfRaisedAmountFile} target="_blank">
-                      View Quantum of Raised Amount File
-                    </a>
+                    {token && startup.quantumOfRaisedAmountFile ? (
+                      <a
+                        href={startup.quantumOfRaisedAmountFile}
+                        target="_blank"
+                      >
+                        View Quantum of Raised Amount File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.hasCrossed1CrAmount ? "Yes" : "No"}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.hasCrossed1CrAmountFile} target="_blank">
-                      View Has Crossed 1 Cr Amount File
-                    </a>
+                    {token && startup.hasCrossed1CrAmountFile ? (
+                      <a href={startup.hasCrossed1CrAmountFile} target="_blank">
+                        View Has Crossed 1 Cr Amount File
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.FinancialYear}
@@ -496,65 +531,107 @@ const StartupPage = () => {
                     {startup.sdgGoal.join(", ")}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.incorporationCertificate} target="_blank">
-                      View Incorporation Certificate
-                    </a>
+                    {token && startup.incorporationCertificate ? (
+                      <a
+                        href={startup.incorporationCertificate}
+                        target="_blank"
+                      >
+                        View Incorporation Certificate
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.udayamCertificate} target="_blank">
-                      View Udyam Certificate
-                    </a>
+                    {token && startup.udayamCertificate ? (
+                      <a href={startup.udayamCertificate} target="_blank">
+                        View Udyam Certificate
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.MOU} target="_blank">
-                      View MOU
-                    </a>
+                    {token && startup.MOU ? (
+                      <a href={startup.MOU} target="_blank">
+                        View MOU
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.ITR} target="_blank">
-                      View ITR
-                    </a>
+                    {token && startup.ITR ? (
+                      <a href={startup.ITR} target="_blank">
+                        View ITR
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    <a href={startup.DPIIT} target="_blank">
-                      View DPIIT
-                    </a>
+                    {token && startup.DPIIT ? (
+                      <a href={startup.DPIIT} target="_blank">
+                        View DPIIT
+                      </a>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
+
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.Patents.length}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    {startup.Patents.map((patent, index) => {
-                      return (
-                        <a href={patent.file} target="_blank">
-                          {`${patent.name}`}
-                        </a>
-                      );
-                    })}
+                    {token && startup.Patents.length > 0 ? (
+                      <>
+                        {startup.Patents.map((patent, index) => {
+                          return (
+                            <a href={patent.file} target="_blank">
+                              {`${patent.name}`}
+                            </a>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.CopyRights.length}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    {startup.CopyRights.map((copyright, index) => {
-                      return (
-                        <a href={copyright.file} target="_blank">
-                          {`${copyright.name}`}
-                        </a>
-                      );
-                    })}
+                    {token && startup.CopyRights.length > 0 ? (
+                      <>
+                        {startup.CopyRights.map((copyright, index) => {
+                          return (
+                            <a href={copyright.file} target="_blank">
+                              {`${copyright.name}`}
+                            </a>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
                     {startup.TradeMarks.length}
                   </td>
                   <td className="border px-2 py-2 bg-blue-200 border-blue-400 font-semibold text-blue-900 min-w-60 text-center">
-                    {startup.TradeMarks.map((tradeMark, index) => {
-                      return (
-                        <a href={tradeMark.file} target="_blank">
-                          {`${tradeMark.name}`}
-                        </a>
-                      );
-                    })}
+                    {token && startup.TradeMarks.length > 0 ? (
+                      <>
+                        {startup.TradeMarks.map((tradeMark, index) => {
+                          return (
+                            <a href={tradeMark.file} target="_blank">
+                              {`${tradeMark.name}`}
+                            </a>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      "N/A"
+                    )}
                   </td>
                 </tr>
               ))}

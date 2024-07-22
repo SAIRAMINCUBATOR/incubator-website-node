@@ -107,8 +107,11 @@ export const AddStartupData = () => {
         toast("Sesstion Expired");
         handleClose();
       }
-      console.log(values);
 
+      values.Patents = values.Patents.filter((p) => p.name != "");
+      values.CopyRights = values.CopyRights.filter((p) => p.name != "");
+      values.TradeMarks = values.TradeMarks.filter((p) => p.name != "");
+      
       await axios.post("/api/components/startupData", values, {
         headers: {
           Authorization: "Bearer " + token,
@@ -405,7 +408,6 @@ export const AddStartupData = () => {
                   )}
                 />
 
-                
                 <FormField
                   control={form.control}
                   name="isSignedInvestment"
