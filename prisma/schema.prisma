@@ -30,14 +30,14 @@ enum CategoryType {
 }
 
 model User {
-  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   email             String
   password          String
   isPasswordDefault Boolean
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
-  role              MemberRole        @default(USER)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  role              MemberRole          @default(USER)
   gender            Gender
   MainCarousel      MainCarousel[]
   Testimony         Testimony[]
@@ -57,6 +57,9 @@ model User {
   Management        Management[]
   Assesment         Assesment[]
   StartUpData       StartUpData[]
+  MOU               MOU[]
+  InternshipDetails InternshipDetails[]
+  ProjectDetails    SSTIFDetail[]
 }
 
 model MainCarousel {
@@ -299,4 +302,64 @@ model TradeMark {
   file          String?
   StartUpData   StartUpData? @relation(fields: [startUpDataId], references: [id])
   startUpDataId String?      @db.ObjectId
+}
+
+model MOU {
+  id                              String    @id @default(auto()) @map("_id") @db.ObjectId
+  department                      String?
+  name                            String?
+  fromDate                        DateTime?
+  toDate                          DateTime?
+  status                          Boolean?
+  scannedCopy                     String?
+  description                     String?
+  companyWebsite                  String?
+  aboutCompany                    String?
+  companyAddress                  String?
+  industryContactPersonDetails    String?
+  institutionContactPersonDetails String?
+  clubsAligned                    String?
+  alignedToSairamSDGGoals         String?
+  keywords                        String?
+  studentRegistrationCost         String?
+  placementOpportunity            String?
+  internshipOpportunity           String?
+  goingForRenewal                 Boolean?
+  benefittedSoFar                 Int?
+  relationshipWithCompany         Int?
+  addedByUserId                   String    @db.ObjectId
+  addedByUser                     User      @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model InternshipDetails {
+  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
+  studentName         String?
+  studentID           String?
+  year                String?
+  collegeName         String?
+  internshipStartDate DateTime?
+  internshipEndDate   DateTime?
+  numberOfDays        Int?
+  topic               String?
+  sstifMentor         String?
+  grade               String?
+  addedByUserId       String    @db.ObjectId
+  addedByUser         User      @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
+}
+
+model SSTIFDetail {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  studentID       String?
+  year            String? // Drop-down: "First Year" to "Fifth Year"
+  collegeName     String?
+  sstifStartDate  DateTime?
+  sstifEndDate    DateTime?
+  numberOfDays    Int?
+  projectTitle    String? // Drop-down for project titles
+  projectStatus   String? // Drop-down: "Underprogress", "Completed"
+  projectReport   String? // Drop-down: "Underprogress - Abstract", "Completed - Report"
+  sstifMentor     String?
+  studentCategory String? // Drop-down for student categories
+  addedByUserId   String    @db.ObjectId
+  addedByUser     User      @relation(fields: [addedByUserId], references: [id], onDelete: Cascade)
 }

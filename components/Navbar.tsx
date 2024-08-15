@@ -201,6 +201,27 @@ export const Navbar = () => {
                 >
                   START UP DATABASE
                 </Link>
+                <Link
+                  className="font-semibold"
+                  href="/sstifProjects"
+                  onClick={() => setPopOverOpen(false)}
+                >
+                  SSTIF PROJECTS
+                </Link>
+                <Link
+                  className="font-semibold"
+                  href="/internships"
+                  onClick={() => setPopOverOpen(false)}
+                >
+                  INTERHSHIPS
+                </Link>
+                <Link
+                  className="font-semibold"
+                  href="/mou"
+                  onClick={() => setPopOverOpen(false)}
+                >
+                  MOU
+                </Link>
                 {(!token || isTokenExpired()) && (
                   <Link
                     className=" font-semibold"
@@ -338,6 +359,27 @@ export const Navbar = () => {
               onClick={() => setOpen(false)}
             >
               START UP DATABASE
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              href="/sstifProjects"
+              onClick={() => setOpen(false)}
+            >
+              SSTIF PROJECTS
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              href="/mou"
+              onClick={() => setOpen(false)}
+            >
+              MOU
+            </Link>
+            <Link
+              className="nav-link font-semibold"
+              href="/internships"
+              onClick={() => setOpen(false)}
+            >
+              INTERNSHIPS
             </Link>
             {(!token || isTokenExpired()) && (
               <Link

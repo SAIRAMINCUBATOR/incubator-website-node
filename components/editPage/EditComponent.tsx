@@ -7,6 +7,7 @@ import axios from "axios";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Span } from "next/dist/trace";
 
 interface Props {
   modelName:
@@ -116,15 +117,22 @@ const EditComponent = ({
                         width={200}
                         height={105}
                       />
+                    ) : datum.file ? (
+                      <iframe
+                        src={`${datum.file}#toolbar=0`}
+                        width={400}
+                        height={300}
+                      />
                     ) : (
-                      <a
-                        href={datum.file}
-                        target="_blank"
-                        className="w-full text-center"
-                      >
-                        {datum.file ?? datum.name}
-                        
-                      </a>
+                      // <a
+                      //   href={datum.file}
+                      //   target="_blank"
+                      //   className="w-full text-center"
+                      // >
+                      //   {datum.file ?? datum.name}
+
+                      // </a>
+                      <span>{datum.name}</span>
                     )}
 
                     <div className="flex gap-5 justify-center">

@@ -92,7 +92,7 @@ export const Projects = ({ projects }: Props) => {
               projects.map((project, index) => (
                 <CarouselItem
                   key={index}
-                  className="lg:pl-0 md:basis-1/2 lg:basis-1/3 min-w-fit flex justify-center items-center "
+                  className="md:basis-1/2 lg:basis-1/3 min-w-fit flex justify-center items-center "
                 >
                   <div className="relative">
                     <Image

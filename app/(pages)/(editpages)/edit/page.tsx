@@ -16,6 +16,10 @@ import ManagementEdit from "@/components/editPage/Management";
 import IPREdit from "@/components/editPage/IPR";
 import FundingEdit from "@/components/editPage/Funding";
 import { SideBarComponets } from "@/components/SideBarComponent";
+import StartupDataEdit from "@/components/editPage/StartUpDataEdit";
+import MOUEdit from "@/components/editPage/MOU";
+import SSTIFDetailEdit from "@/components/editPage/SSTIFDetailEdit";
+import InternshipEdit from "@/components/editPage/Internships";
 
 const EditPage = () => {
   const params = useSearchParams();
@@ -144,13 +148,11 @@ const EditPage = () => {
           deleteType="deleteAssesment"
           editModelType={modelType}
         />
-         <EditComponent
-          modelName="startupData"
-          addType="addStartupData"
-          editType="editStartupData"
-          deleteType="deleteStartupData"
-          editModelType={modelType}
-        />
+        <StartupDataEdit editModelType={modelType}/>
+        <MOUEdit editModelType={modelType}/>
+        <SSTIFDetailEdit editModelType={modelType}/>
+        <InternshipEdit editModelType={modelType}/>
+         
       </div>
     </div>
   );

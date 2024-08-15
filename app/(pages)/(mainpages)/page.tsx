@@ -165,12 +165,14 @@ export default function Home() {
       </div>
       <AboutUs />
       <Establishment />
-      <Projects projects={ProjectContent} />
+      {ProjectContent && ProjectContent.length > 0 && (
+        <Projects projects={ProjectContent} />
+      )}
       <Startup
         tags1={StrtUpData && StrtUpData[0] && StrtUpData[0].list}
         tags2={StrtUpData && StrtUpData[1] && StrtUpData[1].list}
       />
-      <CompanyComponent images={Companies} />
+      {Companies.length > 0 && <CompanyComponent images={Companies} />}
       <Funds />
 
       <TeamComponent row0={LeadMembers} rowN={TeamMembers} />

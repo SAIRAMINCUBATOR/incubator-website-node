@@ -44,7 +44,7 @@ export const CompanyComponent = ({ images }: Props) => {
         {images &&
           images.map((img, index) => (
             <CarouselItem
-              className=" md:basis-1/6 basis-1/2 max-w-fit md:pl-10 flex items-center"
+              className=" max-w-fit md:pl-10 flex items-center"
               key={index}
             >
               <Image

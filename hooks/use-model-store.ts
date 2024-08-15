@@ -17,6 +17,9 @@ import {
   Funding,
   Assesment,
   StartUpData,
+  MOU,
+  SSTIFDetail,
+  InternshipDetails,
 } from "@prisma/client";
 import { create } from "zustand";
 
@@ -65,8 +68,16 @@ export type ModalType =
   | "deleteAssesment"
   | "addStartupData"
   | "editStartupData"
-  | "deleteStartupData";
-
+  | "deleteStartupData"
+  | "addMOUData"
+  | "editMOUData"
+  | "deleteMOUData"
+  | "addSSTIFData"
+  | "editSSTIFData"
+  | "deleteSSTIFData"
+  | "addInternshipData"
+  | "editInternshipData"
+  | "deleteInternshipData";
 interface ModalData {
   assesment?: Assesment;
   mainCarousel?: MainCarousel;
@@ -85,6 +96,9 @@ interface ModalData {
   iPR?: IPR;
   funding?: Funding;
   startupData?: RequestData;
+  mou?: MOU;
+  sstif?: SSTIFDetail;
+  internships?: InternshipDetails;
 }
 
 interface ModalStore {

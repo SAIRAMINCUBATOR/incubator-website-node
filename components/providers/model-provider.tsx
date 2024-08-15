@@ -45,6 +45,15 @@ import DeleteAssesment from "../models/Assesment/Delete";
 import { AddStartupData } from "../models/startupData/Add";
 import DeleteStartupData from "../models/startupData/Delete";
 import { EditStartupData } from "../models/startupData/Edit";
+import { AddMOUData } from "../models/mou/Add";
+import { EditMOUData } from "../models/mou/Edit";
+import DeleteMOUData from "../models/mou/Delete";
+import { AddSSTIFData } from "../models/sstifData/Add";
+import { EditSSTIFData } from "../models/sstifData/Edit";
+import DeleteSSTIFData from "../models/sstifData/Delete";
+import { AddInternshipData } from "../models/internships/Add";
+import { EditInternshipData } from "../models/internships/Edit";
+import DeleteInternshipData from "../models/internships/Delete";
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -102,6 +111,15 @@ export const ModalProvider = () => {
       <AddStartupData/>
       <EditStartupData/>
       <DeleteStartupData/>
+      <AddMOUData/>
+      <EditMOUData/>
+      <DeleteMOUData/>
+      <AddSSTIFData/>
+      <EditSSTIFData/>
+      <DeleteSSTIFData/>
+      <AddInternshipData/>
+      <EditInternshipData/>
+      <DeleteInternshipData/>
     </>
   );
 };

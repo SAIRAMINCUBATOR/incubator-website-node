@@ -48,6 +48,9 @@ export const SideBarComponets = ({ modelType, setModelType, setSheetOpen }) => {
           <SmoothScrollLink to="funding">Funding</SmoothScrollLink>
           <SmoothScrollLink to="assesment">Assesment</SmoothScrollLink>
           <SmoothScrollLink to="startupData">Startup Data</SmoothScrollLink>
+          <SmoothScrollLink to="mou">MOU</SmoothScrollLink>
+          <SmoothScrollLink to="sstifProject">SSTIF Project Details</SmoothScrollLink>
+          <SmoothScrollLink to="internships">Internships</SmoothScrollLink>
         </div>
         <ScrollBar color="rgb(156, 153, 175)" />
       </ScrollArea>

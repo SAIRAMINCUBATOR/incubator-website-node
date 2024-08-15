@@ -1,4 +1,4 @@
-
+"use server";
 import bcrypt from "bcrypt"
 
 export async function hashString(inputString:string) {

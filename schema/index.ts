@@ -123,3 +123,60 @@ export interface RequestData {
   CopyRights: CopyRight[];
   TradeMarks: TradeMark[];
 }
+
+export const MOUFormSchema = z.object({
+  department: z.string().default('').nullable(),
+  name: z.string().default('').nullable(),
+  fromDate: z.date().default(new Date()).nullable(),
+  toDate: z.date().default(new Date()).nullable(),
+  status: z.boolean().default(false).nullable(),
+  scannedCopy: z.string().default('').nullable(),
+  description: z.string().default('').nullable(),
+  companyWebsite: z.string().default('').nullable(),
+  aboutCompany: z.string().default('').nullable(),
+  companyAddress: z.string().default('').nullable(),
+  industryContactPersonDetails: z.string().default('').nullable(),
+  institutionContactPersonDetails: z.string().default('').nullable(),
+  clubsAligned: z.string().default('').nullable(),
+  alignedToSairamSDGGoals: z.string().default('').nullable(),
+  keywords: z.string().default('').nullable(),
+  studentRegistrationCost: z.string().default('').nullable(),
+  placementOpportunity: z.string().default('').nullable(),
+  internshipOpportunity: z.string().default('').nullable(),
+  goingForRenewal: z.boolean().default(false).nullable(),
+  benefittedSoFar: z.number().default(0).nullable(),
+  relationshipWithCompany: z.number().min(1).max(5).default(1).nullable(),
+});
+
+
+export const InternshipDetailsSchema = z.object({
+  studentName: z.string().nullable().default(''),
+  studentID: z.string().nullable().default(''),
+  year: z.string().nullable().default(null),
+  collegeName: z.string().nullable().default(''),
+  internshipStartDate: z.date().nullable().default(null),
+  internshipEndDate: z.date().nullable().default(null),
+  numberOfDays: z.number().nullable().default(null),
+  topic: z.string().nullable().default(''),
+  sstifMentor: z.string().nullable().default(''),
+  grade: z.string().nullable().default(''),
+});
+
+
+
+export const SSTIFDetailsSchema = z.object({
+  studentID: z.string().nullable().default(''),
+  year: z.string().nullable().default(''), // No enum, just a string
+  collegeName: z.string().nullable().default(''),
+  sstifStartDate: z.date().nullable().default(null),
+  sstifEndDate: z.date().nullable().default(null),
+  numberOfDays: z.number().nullable().default(null),
+  projectTitle: z.string().nullable().default(''), // No enum, just a string
+  projectStatus: z.string().nullable().default(''), // No enum, just a string
+  projectReport: z.string().nullable().default(''), // No enum, just a string
+  sstifMentor: z.string().nullable().default(''),
+  studentCategory: z.string().nullable().default(''), // No enum, just a string
+});
+
+
+

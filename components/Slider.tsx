@@ -59,6 +59,7 @@ export const Slider = ({ images, imagesize }: Props) => {
       ]}
       className="w-screen bg-blue-500 bg-opacity-5"
     >
+      {images.length > 0 && (<>
       <CarouselContent>
         {images &&
           images.map((img, index) => (
@@ -81,6 +82,7 @@ export const Slider = ({ images, imagesize }: Props) => {
       <Pagination total={images.length} current={current}/>
       <CarouselNext className="right-6"/>
       <CarouselPrevious className="left-6"/>
+      </>)}
     </Carousel>
   );
 };

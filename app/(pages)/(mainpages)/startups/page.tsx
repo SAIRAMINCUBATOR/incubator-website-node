@@ -8,6 +8,8 @@ import { Pencil } from "lucide-react";
 import { FormatDate } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { RequestData } from "@/schema";
+import { DataTable } from "@/components/ui/data-table";
+import { startUpDataColumn } from "@/components/data-table-cols/startupData-column";
 const StartupPage = () => {
   const [StartUpData, SetStartUpData] = useState<RequestData[]>([]);
 
@@ -53,7 +55,7 @@ const StartupPage = () => {
             )}
           </div>
         </div>
-        <ScrollArea className="md:w-[85vw] w-[90vw] h-[70vh] p-2">
+        {/* <ScrollArea className="md:w-[85vw] w-[90vw] h-[70vh] p-2">
           <table className="table-auto self-center">
             <thead className=" sticky top-0">
               <tr>
@@ -638,7 +640,13 @@ const StartupPage = () => {
             </tbody>
           </table>
           <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        </ScrollArea> */}
+        <DataTable
+          columns={startUpDataColumn}
+          tableType="startupData"
+          data={StartUpData}
+          title="StartUp Data"
+        />
       </div>
     </div>
   );
