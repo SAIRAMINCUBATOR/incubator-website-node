@@ -204,6 +204,7 @@ export const AddInternshipData = () => {
                           disabled={isLoading}
                           value={field.value}
                           onChange={field.onChange}
+                          noEnd
                         />
                       </FormControl>
                       <FormMessage />

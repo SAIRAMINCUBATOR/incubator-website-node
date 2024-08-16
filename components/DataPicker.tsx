@@ -33,6 +33,7 @@ interface Props {
   value: Date;
   disabled: boolean;
   onChange: (value: Date) => void;
+  noEnd?: boolean;
 }
 
 export function DatePicker(props: Props) {
@@ -52,25 +53,28 @@ export function DatePicker(props: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-          <Button
-            disabled={props.disabled}
-            variant={"outline"}
-            className={cn(
-              " pl-3 text-left font-normal w-full",
-              !props.value && "text-muted-foreground"
-            )}
-          >
-            {props.value ? format(props.value, "PPP") : <span>Pick a date</span>}
-            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-          </Button>
+        <Button
+          disabled={props.disabled}
+          variant={"outline"}
+          className={cn(
+            " pl-3 text-left font-normal w-full",
+            !props.value && "text-muted-foreground"
+          )}
+        >
+          {props.value ? format(props.value, "PPP") : <span>Pick a date</span>}
+          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
           selected={props.value}
           onSelect={props.onChange}
-          disabled={(date) =>
-            date > new Date() || date < new Date("1900-01-01")
+          disabled={(date) => {
+            if (props.noEnd) return date < new Date("1900-01-01");
+            else return date > new Date() || date < new Date("1900-01-01");
+          }
+
           }
           initialFocus
         />

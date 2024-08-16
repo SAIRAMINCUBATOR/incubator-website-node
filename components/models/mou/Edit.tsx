@@ -193,6 +193,7 @@ export const EditMOUData = () => {
                           disabled={isLoading}
                           value={field.value}
                           onChange={field.onChange}
+                          noEnd
                         />
                       </FormControl>
                       <FormMessage />
