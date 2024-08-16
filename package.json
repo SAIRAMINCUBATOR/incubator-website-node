@@ -39,6 +39,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-auto-scroll": "^8.0.0",
     "embla-carousel-react": "^8.0.0",
+    "exceljs": "^4.4.0",
     "firebase": "^10.8.1",
     "hamburger-react": "^2.5.0",
     "jsonwebtoken": "^9.0.2",

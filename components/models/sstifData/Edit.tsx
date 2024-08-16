@@ -55,6 +55,7 @@ export const EditSSTIFData = () => {
   useEffect(() => {
     if (sstif) {
       setId(sstif.id);
+      form.setValue("studentName", sstif.studentName);
         form.setValue("studentID", sstif.studentID);
         form.setValue("year", sstif.year);
         form.setValue("collegeName", sstif.collegeName);
@@ -130,6 +131,19 @@ export const EditSSTIFData = () => {
           >
             <ScrollArea className="h-[65vh]">
               <div className="space-y-8 px-6">
+              <FormField
+                  control={form.control}
+                  name="studentName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Student Name</FormLabel>
+                      <FormControl>
+                        <Input disabled={isLoading} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="studentID"

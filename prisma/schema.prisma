@@ -349,6 +349,7 @@ model InternshipDetails {
 
 model SSTIFDetail {
   id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  studentName     String?
   studentID       String?
   year            String? // Drop-down: "First Year" to "Fifth Year"
   collegeName     String?

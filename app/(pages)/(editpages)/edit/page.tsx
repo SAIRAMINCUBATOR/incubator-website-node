@@ -40,7 +40,7 @@ const EditPage = () => {
 
   return (
     <div className="flex items-start w-full gap-5">
-      <div className="hidden lg:flex sticky top-1 left-2 flex-col p-3 items-center gap-5 w-[12%] h-[98vh]">
+      <div className="hidden lg:flex sticky top-1 left-2 flex-col p-3 items-center gap-5 w-[13.5%] h-[98vh]">
         <SideBarComponets
           modelType={modelType}
           setModelType={setModelType}

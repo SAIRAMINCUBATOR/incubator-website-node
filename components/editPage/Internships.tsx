@@ -16,6 +16,7 @@ import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
 import { ScrollArea } from "../ui/scroll-area";
 import { InternshipDetails } from "@prisma/client";
+import UploadMuliple from "../UploadMuliple";
 
 const InternshipEdit = ({ editModelType }) => {
   const { onOpen, isOpen, type } = useModal();
@@ -29,6 +30,7 @@ const InternshipEdit = ({ editModelType }) => {
 
   const [internships, setInternships] = useState<InternshipDetails[]>();
   const [isLoading, setIsLoading] = useState(false);
+  const [upload, setUpload] = useState(false);
 
   const getData = async () => {
     setIsLoading(true);
@@ -54,7 +56,11 @@ const InternshipEdit = ({ editModelType }) => {
       // getData();
       setCurrentType(null);
     }
-  }, [isOpen, type]);
+    if (upload) {
+      setTimeout(getData, 500);
+      setUpload(false);
+    }
+  }, [isOpen, type, upload]);
 
  
   return (
@@ -67,6 +73,13 @@ const InternshipEdit = ({ editModelType }) => {
     >
       <div className="flex items-center justify-between gap-5 w-full">
         <span className=" font-montserrat font-bold text-xl">Internships Data</span>
+        <div className="flex items-center justify-center gap-2">
+          <UploadMuliple
+            setUpload={setUpload}
+            uploadLink="/api/components/internships/upload"
+            title="Internships Data"
+            downloadLink="https://firebasestorage.googleapis.com/v0/b/sairam-incubation-website.appspot.com/o/internships.xlsx?alt=media&token=3ad142d8-f0de-4dd7-ae42-ce9e0397363c"
+          />
         <Button
           variant="primary"
           type="button"
@@ -77,11 +90,12 @@ const InternshipEdit = ({ editModelType }) => {
           <PlusCircle className="w-5 h-5" />
           Add Data
         </Button>
+        </div>
       </div>
 
       <div className="min-h-[100px] w-full flex justify-center items-center">
-        <div className="flex flex-col items-center w-full">
-          <ScrollArea className="w-[80%] h-[88vh]">
+        <div className="flex flex-col items-center w-full p-2 m-2">
+          <ScrollArea className="w-[80%] h-[84vh]">
             <Table ref={ref} className="relative w-full">
               <TableHeader className="sticky top-0 text-xl z-10">
                 <TableRow className="bg-slate-300 rounded-2xl">

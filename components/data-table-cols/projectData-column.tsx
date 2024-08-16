@@ -32,6 +32,19 @@ export const projectDataColumn: ColumnDef<SSTIFDetail>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "studentName",
+    enableHiding: false,
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Student Name" />;
+    },
+    cell: ({ row }) => (
+      <div className="text-center font-medium">{row.getValue("studentName")}</div>
+    ),
+    filterFn: (row, id, value) => {
+      return value.includes(String(row.getValue(id)));
+    },
+  },
+  {
     accessorKey: "studentID",
     enableHiding: false,
     header: ({ column }) => {

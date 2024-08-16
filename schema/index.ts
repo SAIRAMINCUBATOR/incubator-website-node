@@ -165,6 +165,7 @@ export const InternshipDetailsSchema = z.object({
 
 
 export const SSTIFDetailsSchema = z.object({
+  studentName: z.string().nullable().default(''),
   studentID: z.string().nullable().default(''),
   year: z.string().nullable().default(''), // No enum, just a string
   collegeName: z.string().nullable().default(''),

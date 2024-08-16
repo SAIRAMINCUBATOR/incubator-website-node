@@ -103,6 +103,19 @@ export const AddSSTIFData = () => {
           >
             <ScrollArea className="h-[65vh]">
               <div className="space-y-8 px-6">
+              <FormField
+                  control={form.control}
+                  name="studentName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Student Name</FormLabel>
+                      <FormControl>
+                        <Input disabled={isLoading} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="studentID"
