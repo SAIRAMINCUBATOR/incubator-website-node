@@ -161,6 +161,7 @@ export const AddMOUData = () => {
                           disabled={isLoading}
                           value={field.value}
                           onChange={field.onChange}
+                          noEnd={true}
                         />
                       </FormControl>
                       <FormMessage />
