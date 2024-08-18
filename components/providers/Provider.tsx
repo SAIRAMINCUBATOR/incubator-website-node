@@ -16,7 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // console.log(path);
-    const regex = /^(\/api|\/edit|\/auth(?!\/signin\b)).*$/;
+    const regex = /^(\/api|\/edit|\/auth(?!\/(signin|forgotPassword)\b)).*$/;
     if (regex.test(path)){
       if (!token && isTokenExpired()){
         redirect("/", RedirectType.replace);

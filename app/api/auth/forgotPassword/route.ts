@@ -1,8 +1,9 @@
 import { db } from "@/lib/db";
-import { compareStrings, hashString } from "@/lib/encryption-server";
-import { getUser } from "@/lib/get-user";
+import { v4 as uuid } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
+const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { email } = await req.json();
@@ -14,19 +15,26 @@ export async function POST(req: NextRequest, res: NextResponse) {
         email,
       },
     });
-    if (!user){
-        return new NextResponse("User Not Found", {status: 404});
+    if (!user) {
+      return new NextResponse("User Not Found", { status: 404 });
     }
+    const id = uuid();
+    const limit = new Date();
+    limit.setDate(limit.getHours() + 6);
+    await db.user.update({
+      where: { id: user.id },
+      data: {
+        resetId: id,
+        resetValid: limit,
+      },
+    });
+    await resend.emails.send({
+      from : "Reset Password <reset-password@sairamincubation.com>",
+      to: "sec21cs016@sairamtap.edu.in",
+      subject: "Reset Password Link",
+      html: `<a href="http://localhost:3000/auth/forgotPassword/${id}">Reset Password Link</a>`,
+    })
 
-    // await db.user.update({
-    //   where:{
-    //     id:user.id
-    //   },data:{
-    //     password: newPassword,
-    //     isPasswordDefault: false
-    //   }
-    // });
-       
     return NextResponse.json("Updated");
   } catch (error) {
     console.log("SINGIN", error);

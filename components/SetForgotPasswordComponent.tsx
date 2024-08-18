@@ -46,46 +46,43 @@ const formSchema = z.object({
   confirmPassword: z.string().min(8, {
     message: "Confirm Password is required with minimum of length 8",
   }),
-  oldPassword: z.string().min(1, "Old Password is required"),
 });
 
-const SetPasswordComponent = () => {
+const SetForgotPasswordComponent = ({id}) => {
   const [isMounted, setIsMounted] = useState(false);
   const { token, isTokenExpired, isPasswordDefault, changePasswordNotDefault } =
     useSession();
   const [open, setOpen] = useState(true);
   const [alertOpen, setAlertOpen] = useState(false);
-  const [action, setAction] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
       confirmPassword: "",
-      oldPassword: "",
     },
   });
   const isLoading = form.formState.isSubmitting;
   const router = useRouter();
+  const [action, setAction] = useState(false);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       if (values.password === values.confirmPassword) {
         const response = await axios.post(
-          "/api/auth/resetPassword",
-          values,
+          "/api/auth/forgotPassword/"+id,
+          { password: values.password },
           {
             headers: {
               Authorization: "Bearer " + token,
             },
           }
         );
-        if (response.status) {
-          changePasswordNotDefault();
-          form.reset();
-          router.replace("/");
-          setOpen(false);
-        }
+        form.reset();
+        router.replace("/auth/signin");
+        toast.success("Password Reset Successfully, Login to Continue");
+        setOpen(false);
+        
       } else {
         form.setError("confirmPassword", { message: "Passwords Not Match" });
         toast(
@@ -114,6 +111,7 @@ const SetPasswordComponent = () => {
       router.push("/");
     }
   }, [action]);
+
   const handleClose = () => {
     if (Object.keys(form.formState.dirtyFields).length > 0) {
       setAlertOpen(true);
@@ -149,25 +147,7 @@ const SetPasswordComponent = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid w-full items-center gap-10 ">
-              <FormField
-                disabled={isLoading}
-                name={"oldPassword"}
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Old Password</FormLabel>
-                    <FormControl>
-                      <PasswordInput
-                        disabled={isLoading}
-                        placeholder="********"
-                        
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              
               <FormField
                 disabled={isLoading}
                 name={"password"}
@@ -236,4 +216,4 @@ const SetPasswordComponent = () => {
   );
 };
 
-export default SetPasswordComponent;
+export default SetForgotPasswordComponent;

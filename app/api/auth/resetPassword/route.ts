@@ -6,8 +6,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const { password } = await req.json();
-    if (!password) {
+    const { oldPassword, password } = await req.json();
+    if (!password || !oldPassword) {
       return new NextResponse("Password is missing", { status: 400 });
     }
     const headers = req.headers;
@@ -15,6 +15,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const user = await getUser(token);
     if (!user){
         return new NextResponse("User Not Found", {status: 404});
+    }
+    if (!await compareStrings(oldPassword, user.password)) {
+      return new NextResponse("Incorrect Password", { status: 400 });
     }
 
     const newPassword = await hashString(password);

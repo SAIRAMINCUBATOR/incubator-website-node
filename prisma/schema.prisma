@@ -35,6 +35,8 @@ model User {
   email             String
   password          String
   isPasswordDefault Boolean
+  resetId           String?
+  resetValid        DateTime?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   role              MemberRole          @default(USER)
@@ -60,6 +62,8 @@ model User {
   MOU               MOU[]
   InternshipDetails InternshipDetails[]
   ProjectDetails    SSTIFDetail[]
+
+  @@unique([resetId])
 }
 
 model MainCarousel {
