@@ -20,7 +20,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
     const id = uuid();
     const limit = new Date();
-    limit.setDate(limit.getHours() - 6);
+    limit.setDate(limit.getHours() + 6);
     await db.user.update({
       where: { id: user.id },
       data: {
