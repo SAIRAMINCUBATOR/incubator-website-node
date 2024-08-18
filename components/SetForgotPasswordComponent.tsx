@@ -94,15 +94,17 @@ const SetForgotPasswordComponent = ({id}) => {
       }
     } catch (error) {
       if (error && error.response && error.response.data) {
+       
         toast(
           <>
             <AlertCircle />
             {error.response.data}
           </>
         );
+        if (error.response.status == 404){
+          router.replace("/auth/forgotPassword");
+        }
       }
-
-      console.error(error);
     }
   };
   useEffect(() => {

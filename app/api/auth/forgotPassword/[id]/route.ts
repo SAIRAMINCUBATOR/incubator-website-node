@@ -14,7 +14,11 @@ export async function POST(req: NextRequest, {params}: {params: {id: string}}) {
       },
     });
     if (!user) {
-      return new NextResponse("User Not Found", { status: 404 });
+      return new NextResponse("Incorrect Link, Try Again", { status: 404 });
+    }
+    console.log(user.resetValid, new Date(), user.resetValid < new Date());
+    if (user.resetValid < new Date()) {
+      return new NextResponse("Link Expired", { status: 400 });
     }
 
     const newPassword = await hashString(password);

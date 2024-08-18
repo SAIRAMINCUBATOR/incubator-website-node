@@ -20,7 +20,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
     const id = uuid();
     const limit = new Date();
-    limit.setDate(limit.getHours() + 6);
+    limit.setDate(limit.getHours() - 6);
     await db.user.update({
       where: { id: user.id },
       data: {
@@ -29,11 +29,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     });
     await resend.emails.send({
-      from : "Reset Password <reset-password@sairamincubation.com>",
-      to: "sec21cs016@sairamtap.edu.in",
-      subject: "Reset Password Link",
-      html: `<a href="http://localhost:3000/auth/forgotPassword/${id}">Reset Password Link</a>`,
-    })
+      from: "noreply-sairamincubation <no-reply@sairamincubation.com>",
+      to: email,
+      subject: "Reset Password Link for Sairam Techno Incubator Portal",
+      html: `Dear ${user.name}, <br><br>You have requested to reset your password <br> Click this link to reset your password: <a href="https://sairamincubation.com/auth/forgotPassword/${id}">Reset Password Link</a><br>This link will expire in 6 hours.<br> <br> or copy paste this url: <br>https://sairamincubation.com/auth/forgotPassword/${id}`,
+    });
 
     return NextResponse.json("Updated");
   } catch (error) {
