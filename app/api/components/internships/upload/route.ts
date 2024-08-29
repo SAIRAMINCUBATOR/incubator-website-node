@@ -25,8 +25,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       if (rowNumber > 1) {
         data.push({
           studentName: row.getCell(1).value as string,
-          studentID: row.getCell(2).value as string,
-          year: row.getCell(3).value as string,
+          studentID: String(row.getCell(2).value) as string,
+          year: String(row.getCell(3).value) as string,
           collegeName: row.getCell(4).value as string,
           internshipStartDate: new Date(row.getCell(5).value as string),
           internshipEndDate: new Date(row.getCell(6).value as string),
