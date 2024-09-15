@@ -11,6 +11,17 @@ import { CopyRight, Patent, TradeMark } from "@prisma/client";
 
 export const startUpDataColumn: ColumnDef<RequestData>[] = [
   {
+    id: "#",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="S.No." />;
+    },
+    cell: ({ row }) => {
+      return <div className="text-center font-medium">{row.index + 1}</div>;
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     id: "select",
     header: ({ table }) => (
       <Checkbox

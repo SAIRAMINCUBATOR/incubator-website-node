@@ -9,6 +9,17 @@ import {  MOU,  } from "@prisma/client";
 
 export const mouDataColumn: ColumnDef<MOU>[] = [
   {
+    id: "#",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="S.No." />;
+    },
+    cell: ({ row }) => {
+      return <div className="text-center font-medium">{row.index + 1}</div>;
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
     id: "select",
     header: ({ table }) => (
       <Checkbox

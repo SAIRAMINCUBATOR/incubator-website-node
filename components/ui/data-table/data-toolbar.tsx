@@ -2,18 +2,17 @@
 
 import { Download, X } from "lucide-react";
 import { Table } from "@tanstack/react-table";
-import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
 import * as XLSX from "xlsx";
 import { Button } from "../button";
 import { Input } from "../input";
 
 import { cn } from "../../../lib/utils";
 import { DataTableViewOptions } from "./data-view-options";
+import { useSession } from "@/components/providers/context/SessionContext";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
-  type: "startupData"  | "sstifProject" | "mou" | "internships";
+  type: "startupData" | "sstifProject" | "mou" | "internships";
   title: string;
 }
 
@@ -22,9 +21,30 @@ export function DataTableToolbar<TData>({
   type,
   title,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length>0;
+  const isFiltered = table.getState().columnFilters.length > 0;
+  const { token } = useSession();
   const handleExport = () => {
-    const worksheet = XLSX.utils.json_to_sheet(table.getFilteredRowModel().rows.map((row) => row.original));
+    const filteredRows = table.getFilteredRowModel().rows;
+    const filteredData = filteredRows.map((row) => row.original);
+
+    const processedData = [];
+    filteredData.forEach((row) => {
+      // Adding book and student details
+      const processedRow = {
+        ...row,
+      };
+
+      // Remove the nested book and student objects
+      //@ts-ignore
+      delete processedRow.addedByUserId;
+      //@ts-ignore
+      delete processedRow.id;
+
+      // Append to processedData array
+      processedData.push(processedRow);
+    });
+    const worksheet = XLSX.utils.json_to_sheet(processedData);
+   
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
     XLSX.writeFile(workbook, `${title}.xlsx`);
@@ -40,10 +60,6 @@ export function DataTableToolbar<TData>({
           />
         </div>
         <div className={cn("flex flex-wrap gap-1")}>
-          {/* {type == "book" && <BooksToolBar table={table} />}
-          {type == "student" && <StudentToolBar table={table} />}
-          {type == "rental" && <RentalsToolBar table={table} />}
-          {type == "return" && <ReturnsToolBar table={table} />} */}
           {isFiltered && (
             <Button
               variant="ghost"
@@ -56,16 +72,17 @@ export function DataTableToolbar<TData>({
           )}
         </div>
       </div>
-      {/* <DataTableViewOptions table={table} /> */}
-
-      {/* <Button
-        onClick={handleExport}
-        variant="outline"
-        size="sm"
-        className="ml-auto hidden h-8 lg:flex gap-1 items-center"
-      >
-        <Download className="h-5 w-5" /> Download {title}
-      </Button> */}
+      <DataTableViewOptions table={table} />
+      {token && (
+        <Button
+          onClick={handleExport}
+          variant="outline"
+          size="sm"
+          className="ml-auto hidden h-8 lg:flex gap-1 items-center"
+        >
+          <Download className="h-5 w-5" /> Download {title}
+        </Button>
+      )}
     </div>
   );
 }
